@@ -22,3 +22,65 @@
 .accordion{display:grid;gap:12px}.acc{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}.acc button{width:100%;padding:18px 20px;background:transparent;border:0;color:var(--text);font-family:var(--display);font-size:1rem;text-align:left;cursor:pointer;display:flex;justify-content:space-between;gap:12px}.acc button span{color:var(--brand);font-family:var(--mono)}.acc .inside{display:none;padding:0 20px 20px;color:var(--muted)}.acc.open .inside{display:block}
 .tool-list{display:grid;gap:14px}.tool-row{display:grid;grid-template-columns:1fr 1.4fr auto;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}.badge{display:inline-flex;padding:5px 10px;border-radius:999px;background:var(--soft);color:var(--brand);font-family:var(--mono);font-size:.72rem;margin-top:8px}.small{font-size:.9rem;color:var(--faint)}
 @media(max-width:900px){.recipe{grid-template-columns:1fr 1fr}.tool-row{grid-template-columns:1fr}}@media(max-width:560px){.mini,.recipe{grid-template-columns:1fr}}
+
+/* ============================================================
+   V2: КИТ ocean style restore — единый стиль, аккуратная типографика
+   ============================================================ */
+:root{
+  --bg:#07212B; --bg2:#0A2A36; --card:#103642; --card2:#16414E;
+  --line:rgba(150,200,210,.13); --line2:rgba(150,200,210,.24);
+  --text:#EAF4F5; --muted:#93B0B8; --faint:#5E7C85;
+  --brand:#1EC9C2; --brand2:#2E8FC4; --warm:#FF7A45;
+  --soft:rgba(30,201,194,.14); --warmsoft:rgba(255,122,69,.14);
+  --radius:18px; --max:1120px;
+}
+html{scroll-padding-top:86px;}
+body{
+  line-height:1.58;
+  letter-spacing:-.005em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.bg{
+  background:
+    radial-gradient(circle at -10% -10%,rgba(30,201,194,.28),transparent 34%),
+    radial-gradient(circle at 105% 18%,rgba(46,143,196,.24),transparent 32%),
+    radial-gradient(circle at 45% 115%,rgba(255,122,69,.14),transparent 36%),
+    linear-gradient(180deg,#07212B 0%,#061B24 100%);
+}
+.bg:before{
+  content:""; position:absolute; inset:-20%; pointer-events:none;
+  background:
+    radial-gradient(circle,rgba(30,201,194,.08),transparent 34%) 0 0/520px 520px,
+    radial-gradient(circle,rgba(255,122,69,.055),transparent 36%) 240px 160px/680px 680px;
+  filter:blur(24px); animation:kitDrift 26s ease-in-out infinite alternate;
+}
+@keyframes kitDrift{to{transform:translate3d(70px,-35px,0) scale(1.04)}}
+.wrap{max-width:var(--max);}
+.nav{position:sticky;top:0;background:rgba(7,33,43,.76);border-bottom:1px solid var(--line);}
+.navin{padding:15px 28px;}
+.logo{border-radius:13px;box-shadow:0 12px 40px -18px var(--brand);font-weight:900;}
+.links{gap:20px}.links a{font-size:.87rem;font-weight:600;letter-spacing:-.01em}.links a.active{color:var(--brand)}
+.hero{padding:104px 0 74px;position:relative;}
+.eyebrow{margin-bottom:24px;line-height:1.2;}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.025em;line-height:1.08;}
+h1{font-size:clamp(2.45rem,6.2vw,4.85rem);max-width:15ch;}
+.lead{font-size:clamp(1.03rem,1.7vw,1.22rem);line-height:1.62;max-width:760px;margin:24px 0 34px;color:var(--muted);}
+.btn{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease;line-height:1.15;}
+.btn:hover{box-shadow:0 14px 38px -24px var(--brand)}
+.section{padding:82px 0;}
+.section.alt{background:linear-gradient(180deg,rgba(10,42,54,.62),rgba(10,42,54,.38));border-block:1px solid var(--line);}
+.head{margin-bottom:36px;max-width:790px}.head h2{font-size:clamp(1.75rem,3.7vw,2.85rem);margin-bottom:14px}.head p{line-height:1.62;color:var(--muted);font-size:1.04rem}
+.grid{gap:20px}.card{border-radius:var(--radius);padding:26px;min-height:0;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);}
+.card p{line-height:1.58;color:var(--muted);font-size:.96rem}.card h3{line-height:1.2;margin-bottom:11px}.card:hover{box-shadow:0 22px 62px -42px rgba(30,201,194,.95)}
+.icon{margin-bottom:18px;border-radius:14px;background:linear-gradient(135deg,var(--soft),rgba(46,143,196,.12));}
+.subnav{margin-top:26px;gap:9px}.subnav a{padding:9px 14px;line-height:1.15;border-color:var(--line2);background:rgba(255,255,255,.025)}
+.path{gap:14px}.step{border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--card);}.step span{line-height:1.5}.step b{line-height:1.18}
+.read{max-width:900px}.read h2{margin:38px 0 16px}.read h3{line-height:1.2}.read p,.read li{line-height:1.66;color:var(--muted);font-size:1.02rem}.read li+li{margin-top:6px}.quote{line-height:1.58;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--card)}
+.prompt{line-height:1.58;border-radius:16px;}
+.recipe div{border-radius:16px}.recipe span{line-height:1.5}.tool-row{line-height:1.45}.small{line-height:1.45}.badge{line-height:1.2}
+.tile{display:block;color:inherit}.tile:after{transition:transform .18s ease}.tag{line-height:1.2}
+.acc button{line-height:1.2}.acc .inside{line-height:1.6}.acc .inside p{line-height:1.62}
+.footer{line-height:1.45}
+@media(max-width:900px){.hero{padding:72px 0 58px}.section{padding:62px 0}.navin{padding-inline:20px}.grid,.grid.two,.grid.four,.path,.kpis{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid,.grid.two,.grid.four,.path,.kpis{grid-template-columns:1fr}.hero{padding:58px 0 46px}h1{font-size:2.35rem}.lead{font-size:1rem;line-height:1.58}.section{padding:50px 0}.card{padding:22px}.subnav a{font-size:.82rem}}
