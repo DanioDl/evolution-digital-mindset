@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КИТ · Тренажёр промт-инжиниринга</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===================== ТОКЕНЫ ===================== */
+:root{
+  --bg:#07212B; --bg-2:#0A2A36; --surface:#103642; --surface-2:#16414E;
+  --line:rgba(150,200,210,.12); --line-2:rgba(150,200,210,.20);
+  --text:#EAF4F5; --muted:#93B0B8; --faint:#5E7C85;
+  --brand:#1EC9C2; --brand-2:#2E8FC4; --brand-soft:rgba(30,201,194,.14);
+  --warm:#FF7A45; --warm-soft:rgba(255,122,69,.14);
+  --green:#22C55E; --green-soft:rgba(34,197,94,.14);
+  --radius:18px; --radius-sm:12px; --maxw:860px;
+  --font-display:'Unbounded',sans-serif;
+  --font-body:'Manrope',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+/* ===================== БАЗА ===================== */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--brand);color:var(--bg);}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+h1,h2,h3{font-family:var(--font-display);line-height:1.1;letter-spacing:-.01em;}
+.mono{font-family:var(--font-mono);}
+/* ===================== ФОНОВЫЕ БЛОБЫ ===================== */
+.blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.blobs span{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:drift 28s ease-in-out infinite;}
+.blobs .b1{width:500px;height:500px;background:radial-gradient(circle,var(--brand),transparent 70%);top:-180px;left:-160px;}
+.blobs .b2{width:400px;height:400px;background:radial-gradient(circle,var(--brand-2),transparent 70%);bottom:-120px;right:-120px;animation-delay:-12s;}
+.blobs .b3{width:300px;height:300px;background:radial-gradient(circle,var(--warm),transparent 70%);top:40%;left:60%;opacity:.18;animation-delay:-20s;}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}40%{transform:translate(50px,30px) scale(1.07);}70%{transform:translate(-30px,20px) scale(.95);}}
+/* ===================== НАВ ===================== */
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(7,33,43,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:.95rem;}
+.brand svg{width:26px;height:26px;color:var(--brand);}
+.back-link{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:6px;transition:color .2s;}
+.back-link:hover{color:var(--brand);}
+/* ===================== ПРОГРЕСС-БАР ===================== */
+.progress-wrap{position:sticky;top:53px;z-index:40;background:rgba(7,33,43,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 24px;}
+.progress-inner{max-width:var(--maxw);margin:0 auto;display:flex;flex-direction:column;gap:8px;}
+.progress-labels{display:flex;justify-content:space-between;align-items:center;}
+.progress-labels span{font-family:var(--font-mono);font-size:.72rem;color:var(--faint);letter-spacing:.06em;}
+.progress-labels b{font-family:var(--font-mono);font-size:.82rem;color:var(--brand);}
+.progress-track{height:5px;background:var(--surface-2);border-radius:999px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));border-radius:999px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.steps-dots{display:flex;gap:8px;flex-wrap:wrap;}
+.step-dot{width:28px;height:6px;border-radius:999px;background:var(--surface-2);transition:background .3s ease,width .3s ease;cursor:default;}
+.step-dot.done{background:var(--brand);}
+.step-dot.active{background:var(--warm);width:36px;}
+/* ===================== ШАГИ ===================== */
+.step{display:none;padding:48px 0 80px;position:relative;z-index:2;}
+.step.active{display:block;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.step-badge{display:inline-flex;align-items:center;gap:8px;background:var(--warm-soft);border:1px solid rgba(255,122,69,.3);border-radius:999px;padding:6px 14px;margin-bottom:20px;}
+.step-badge .num{font-family:var(--font-mono);font-size:.72rem;color:var(--warm);letter-spacing:.08em;text-transform:uppercase;}
+.step h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:12px;}
+.step .lead{color:var(--muted);font-size:1.05rem;margin-bottom:36px;max-width:60ch;}
+/* ===================== КАРТОЧКИ ===================== */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;}
+.card+.card{margin-top:16px;}
+.card h3{font-size:1.1rem;margin-bottom:10px;}
+.card p{color:var(--muted);font-size:.96rem;}
+/* ===================== ШАГ 1: ДО / ПОСЛЕ ===================== */
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.ba-panel{border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--line);}
+.ba-head{padding:10px 16px;display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;}
+.ba-head.bad{background:var(--warm-soft);color:var(--warm);}
+.ba-head.good{background:var(--green-soft);color:var(--green);}
+.ba-body{padding:16px;font-size:.94rem;line-height:1.65;background:#0A2932;color:var(--text);}
+.ba-why{font-size:.84rem;color:var(--faint);padding:10px 16px;background:#0A2932;border-top:1px dashed var(--line);}
+.answer-block{background:#0A2932;border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;margin-top:12px;display:none;}
+.answer-block.show{display:block;animation:fadeIn .35s ease;}
+.answer-block .lbl{font-family:var(--font-mono);font-size:.7rem;color:var(--brand);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.answer-block p{font-size:.93rem;color:#CFE8EA;line-height:1.7;}
+/* ===================== ШАГ 2: КВИЗ ===================== */
+.quiz-q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;margin-bottom:24px;}
+.quiz-q .prompt-text{background:#0A2932;border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px;font-family:var(--font-mono);font-size:.9rem;line-height:1.65;color:#CFE8EA;margin-bottom:20px;}
+.options{display:flex;flex-direction:column;gap:10px;}
+.opt{display:flex;align-items:flex-start;gap:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s;font-size:.95rem;text-align:left;width:100%;color:var(--text);}
+.opt:hover:not(:disabled){border-color:var(--line-2);}
+.opt .oi{width:22px;height:22px;border-radius:7px;border:2px solid var(--faint);flex:none;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;transition:.2s;}
+.opt.correct{border-color:var(--green);background:var(--green-soft);}
+.opt.correct .oi{border-color:var(--green);background:var(--green);color:var(--bg);}
+.opt.wrong{border-color:var(--warm);background:var(--warm-soft);}
+.opt.wrong .oi{border-color:var(--warm);background:var(--warm);color:var(--bg);}
+.opt.reveal{opacity:.5;}
+.quiz-fb{margin-top:14px;padding:14px 16px;border-radius:var(--radius-sm);font-size:.93rem;display:none;}
+.quiz-fb.show{display:block;animation:fadeIn .3s ease;}
+.quiz-fb.ok{background:var(--green-soft);border:1px solid rgba(34,197,94,.3);color:#B6F5C8;}
+.quiz-fb.no{background:var(--warm-soft);border:1px solid rgba(255,122,69,.3);color:#FFD9C7;}
+.quiz-score{text-align:center;padding:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);display:none;}
+.quiz-score.show{display:block;animation:fadeIn .4s ease;}
+.quiz-score .big{font-family:var(--font-display);font-size:3rem;color:var(--brand);display:block;margin-bottom:8px;}
+/* ===================== ШАГ 3: ПРОКАЧАЙ ПРОМТ ===================== */
+.blocks-check{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.bc{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;}
+.bc .bi{width:28px;height:28px;border-radius:8px;border:2px solid var(--faint);flex:none;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:.25s;}
+.bc.found .bi{border-color:var(--green);background:var(--green);color:var(--bg);}
+.bc.missing .bi{border-color:var(--warm);background:var(--warm-soft);color:var(--warm);}
+.bc span{font-size:.95rem;}
+.bc .hint{font-size:.82rem;color:var(--faint);margin-left:auto;font-family:var(--font-mono);}
+.pump-score{font-family:var(--font-display);font-size:2.2rem;color:var(--brand);margin:12px 0 4px;}
+.pump-comment{font-size:.96rem;color:var(--muted);margin-bottom:20px;}
+textarea.prompt-ta{width:100%;min-height:130px;resize:vertical;background:#0A2932;color:var(--text);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:14px 16px;font-family:var(--font-mono);font-size:.88rem;line-height:1.65;transition:border-color .2s;}
+textarea.prompt-ta:focus{border-color:var(--brand);outline:none;}
+.pump-tasks{display:flex;flex-direction:column;gap:20px;}
+.pump-task{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+.pump-task h3{font-size:1.05rem;margin-bottom:8px;}
+.pump-task .ctx{color:var(--muted);font-size:.9rem;margin-bottom:14px;}
+/* ===================== ШАГ 4: ФИНИШ ===================== */
+.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.finish-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;}
+.finish-card .ico{font-size:2rem;margin-bottom:10px;}
+.finish-card h3{font-size:1rem;margin-bottom:6px;}
+.finish-card p{font-size:.88rem;color:var(--muted);}
+.finish-big{text-align:center;padding:40px 24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:24px;}
+.finish-big .whale-big{font-size:4rem;display:block;margin-bottom:12px;}
+.finish-big h2{font-size:clamp(1.6rem,4vw,2.2rem);margin-bottom:12px;}
+.finish-big p{color:var(--muted);max-width:44ch;margin:0 auto 24px;}
+/* ===================== КНОПКИ ===================== */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,background .2s ease;will-change:transform;}
+.btn-primary{background:var(--warm);color:#1a0a02;box-shadow:0 8px 24px -8px var(--warm);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px -10px var(--warm);}
+.btn-brand{background:var(--brand);color:var(--bg);}
+.btn-brand:hover{transform:translateY(-3px);}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--line-2);}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand);}
+.btn-sm{padding:9px 16px;font-size:.85rem;}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none !important;box-shadow:none !important;}
+.nav-btns{display:flex;gap:12px;align-items:center;margin-top:32px;flex-wrap:wrap;}
+/* ===================== УТИЛИТЫ ===================== */
+.tag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;}
+.mt8{margin-top:8px;} .mt16{margin-top:16px;} .mt24{margin-top:24px;}
+@media(max-width:640px){
+  .before-after{grid-template-columns:1fr;}
+  .finish-grid{grid-template-columns:1fr;}
+  .step h2{font-size:1.6rem;}
+}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px;}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+</style>
+</head>
+<body>
+
+<!-- фоновые блобы -->
+<div class="blobs"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<!-- НАВ -->
+<nav class="nav">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 17c0-5 4-9 9-9 6 0 8 4 13 4 2 0 3-1 4-2-1 6-5 10-11 10H9c-3 0-6-1-6-3z"/>
+      <path d="M19 8c1-3 4-4 6-3-2 1-2 3-1 5"/>
+      <circle cx="10" cy="15" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+    КИТ · Тренажёр
+  </div>
+  <a href="index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Назад к гайду
+  </a>
+</nav>
+
+<!-- ПРОГРЕСС -->
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-labels">
+      <span id="stepLabel">Шаг 1 из 4</span>
+      <b id="scoreLabel">0 очков</b>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="steps-dots" id="stepDots"></div>
+  </div>
+</div>
+
+<main>
+<div class="wrap">
+
+<!-- ═══════════════════════════════════════════
+     ШАГ 1: ДО / ПОСЛЕ
+═══════════════════════════════════════════ -->
+<section class="step active" id="step-1">
+  <div class="step-badge"><span class="num">Шаг 1 · Разбор</span></div>
+  <h2>До / После: видим разницу</h2>
+  <p class="lead">Сначала просто смотрим. Два промта на одну задачу — плохой и хороший. Разберём, почему один работает, а другой нет.</p>
+
+  <!-- КЕЙС 1 -->
+  <div class="card mt16">
+    <span class="tag" style="color:var(--brand)">Задача · Письмо клиенту</span>
+    <div class="before-after mt16">
+      <div class="ba-panel">
+        <div class="ba-head bad">✗ Слабый промт</div>
+        <div class="ba-body">Напиши письмо клиенту про задержку.</div>
+        <div class="ba-why">Нет роли, нет контекста, нет формата — нейросеть будет угадывать.</div>
+      </div>
+      <div class="ba-panel">
+        <div class="ba-head good">✓ Сильный промт</div>
+        <div class="ba-body">Ты — менеджер по работе с клиентами транспортной компании. Клиент важный, его груз задержан на 2 дня из-за погоды. Напиши письмо: извинись, объясни причину, предложи решение. Тон — спокойный. До 120 слов.</div>
+        <div class="ba-why">Роль ✓ · Контекст ✓ · Задача ✓ · Формат ✓ · Тон ✓</div>
+      </div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="toggleAnswer('ans1')">Показать пример ответа на сильный промт</button>
+    <div class="answer-block" id="ans1">
+      <div class="lbl">Пример ответа нейросети</div>
+      <p>Уважаемый Иван Александрович,<br><br>Приносим свои извинения за задержку доставки вашего груза. Из-за неблагоприятных погодных условий на маршруте мы вынуждены скорректировать сроки на 2 дня. Новая плановая дата прибытия — 20 июня.<br><br>Мы держим ситуацию под контролем и обеспечим оперативное уведомление о статусе. Если потребуется дополнительная информация — готовы ответить в любое время.<br><br>С уважением,<br>Служба клиентского сервиса КИТ</p>
+    </div>
+  </div>
+
+  <!-- КЕЙС 2 -->
+  <div class="card mt16">
+    <span class="tag" style="color:var(--brand)">Задача · Вакансия</span>
+    <div class="before-after mt16">
+      <div class="ba-panel">
+        <div class="ba-head bad">✗ Слабый промт</div>
+        <div class="ba-body">Напиши вакансию водителя.</div>
+        <div class="ba-why">Слишком абстрактно — получишь шаблонный текст «ни о чём».</div>
+      </div>
+      <div class="ba-panel">
+        <div class="ba-head good">✓ Сильный промт</div>
+        <div class="ba-body">Ты — HR-специалист транспортной компании. Напиши вакансию «Водитель-экспедитор, категория Е» для Екатеринбурга. Структура: 2–3 строки о компании, обязанности (5 пунктов), требования, что предлагаем. Пиши на «ты», живым языком. До 200 слов.</div>
+        <div class="ba-why">Роль ✓ · Контекст ✓ · Задача ✓ · Формат ✓ · Тон ✓</div>
+      </div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="toggleAnswer('ans2')">Показать пример ответа на сильный промт</button>
+    <div class="answer-block" id="ans2">
+      <div class="lbl">Пример ответа нейросети</div>
+      <p><strong>Водитель-экспедитор (кат. Е) — Екатеринбург</strong><br><br>КИТ — транспортная компания с 10+ лет опыта на рынке грузоперевозок. Работаем чётко, ценим людей и платим вовремя.<br><br><strong>Что делать:</strong> перевозить грузы по маршрутам Урала · сопровождать и сдавать груз получателю · вести путевую документацию · следить за состоянием ТС · взаимодействовать с клиентами на точках.<br><br><strong>Нам важно:</strong> права кат. Е, опыт от 2 лет, ответственность и аккуратность.<br><br><strong>Тебе предлагаем:</strong> стабильный оклад + KPI, официальное оформление, новые ТС, корпоративная связь, дружная команда.</p>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-primary" onclick="goStep(2)">Понял — к практике →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ШАГ 2: КВИЗ — НАЙДИ СЛАБОЕ МЕСТО
+═══════════════════════════════════════════ -->
+<section class="step" id="step-2">
+  <div class="step-badge"><span class="num">Шаг 2 · Квиз</span></div>
+  <h2>Найди слабое место</h2>
+  <p class="lead">Три промта с разными ошибками. Выбери, чего не хватает — и получи объяснение. За каждый правильный ответ +10 очков.</p>
+
+  <!-- ВОПРОС 1 -->
+  <div class="quiz-q" id="qq1">
+    <p class="tag mt8" style="color:var(--faint);margin-bottom:12px">Промт #1</p>
+    <div class="prompt-text">Помоги написать отчёт по итогам месяца.</div>
+    <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">Чего здесь не хватает больше всего?</p>
+    <div class="options" id="opts1">
+      <button class="opt" onclick="checkQuiz(1,0,2)"><span class="oi"></span>Нет роли</button>
+      <button class="opt" onclick="checkQuiz(1,1,2)"><span class="oi"></span>Нет тона</button>
+      <button class="opt" onclick="checkQuiz(1,2,2)"><span class="oi"></span>Нет контекста и задачи — непонятно по чему отчёт, для кого и в каком формате</button>
+      <button class="opt" onclick="checkQuiz(1,3,2)"><span class="oi"></span>Промт слишком короткий</button>
+    </div>
+    <div class="quiz-fb" id="fb1"></div>
+  </div>
+
+  <!-- ВОПРОС 2 -->
+  <div class="quiz-q" id="qq2">
+    <p class="tag mt8" style="color:var(--faint);margin-bottom:12px">Промт #2</p>
+    <div class="prompt-text">Ты — опытный копирайтер. Напиши продающий текст о нашей компании. Сделай его интересным, красивым, убедительным, кратким и подробным одновременно.</div>
+    <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">В чём главная проблема?</p>
+    <div class="options" id="opts2">
+      <button class="opt" onclick="checkQuiz(2,0,1)"><span class="oi"></span>Нет роли</button>
+      <button class="opt" onclick="checkQuiz(2,1,1)"><span class="oi"></span>Противоречивые требования: «краткий и подробный» — нейросеть не может выполнить оба</button>
+      <button class="opt" onclick="checkQuiz(2,2,1)"><span class="oi"></span>Слишком много прилагательных</button>
+      <button class="opt" onclick="checkQuiz(2,3,1)"><span class="oi"></span>Не указан формат</button>
+    </div>
+    <div class="quiz-fb" id="fb2"></div>
+  </div>
+
+  <!-- ВОПРОС 3 -->
+  <div class="quiz-q" id="qq3">
+    <p class="tag mt8" style="color:var(--faint);margin-bottom:12px">Промт #3</p>
+    <div class="prompt-text">Ты — менеджер по логистике. Напиши сообщение водителю о переносе рейса.</div>
+    <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">Что здесь упущено и сделает ответ значительно лучше?</p>
+    <div class="options" id="opts3">
+      <button class="opt" onclick="checkQuiz(3,0,0)"><span class="oi"></span>Нет роли — нейросеть не знает, кто пишет</button>
+      <button class="opt" onclick="checkQuiz(3,1,0)"><span class="oi"></span>Нет конкретики: на сколько переносится рейс, причина, новое время. Без этого ответ будет пустым шаблоном</button>
+      <button class="opt" onclick="checkQuiz(3,2,0)"><span class="oi"></span>Не указан тон общения с водителем</button>
+      <button class="opt" onclick="checkQuiz(3,3,0)"><span class="oi"></span>Промт слишком технический</button>
+    </div>
+    <div class="quiz-fb" id="fb3"></div>
+  </div>
+
+  <div class="quiz-score" id="quizScore">
+    <span class="big" id="quizScoreVal">0/3</span>
+    <p id="quizScoreMsg"></p>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goStep(1)">← Назад</button>
+    <button class="btn btn-primary" id="step2next" onclick="goStep(3)" disabled>Дальше →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ШАГ 3: ПРОКАЧАЙ ПРОМТ
+═══════════════════════════════════════════ -->
+<section class="step" id="step-3">
+  <div class="step-badge"><span class="num">Шаг 3 · Практика</span></div>
+  <h2>Прокачай промт</h2>
+  <p class="lead">Твоя очередь писать. Получаешь задачу — составляешь промт — видишь, сколько из 5 блоков попало. За каждую задачу до +20 очков.</p>
+
+  <div class="pump-tasks">
+
+    <!-- ЗАДАНИЕ 1 -->
+    <div class="pump-task">
+      <h3>Задание 1 · Ответ на претензию</h3>
+      <p class="ctx">Клиент написал претензию: груз пришёл с вмятиной на коробе. Напиши промт, чтобы нейросеть составила грамотный ответ от имени менеджера КИТ.</p>
+      <textarea class="prompt-ta mt16" id="ta1" placeholder="Напиши свой промт здесь…"></textarea>
+      <div class="nav-btns" style="margin-top:14px">
+        <button class="btn btn-brand btn-sm" onclick="checkPump(1)">Проверить →</button>
+        <button class="btn btn-ghost btn-sm" onclick="showHint(1)">Подсказка</button>
+      </div>
+      <div class="answer-block" id="hint1">
+        <div class="lbl">Подсказка</div>
+        <p>Попробуй включить: кто ты (роль менеджера) → что случилось (вмятина, претензия клиента) → что сделать (ответить: признать, извиниться, предложить решение) → как написать (тон, длина).</p>
+      </div>
+      <div class="blocks-check mt16" id="bc1" style="display:none"></div>
+      <div id="pump1-result" style="display:none">
+        <div class="pump-score" id="pump1-score"></div>
+        <p class="pump-comment" id="pump1-comment"></p>
+      </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 -->
+    <div class="pump-task">
+      <h3>Задание 2 · Инструкция для нового сотрудника</h3>
+      <p class="ctx">Нужно объяснить новому диспетчеру, как принимать входящий звонок от клиента. Напиши промт, чтобы нейросеть составила пошаговую инструкцию.</p>
+      <textarea class="prompt-ta mt16" id="ta2" placeholder="Напиши свой промт здесь…"></textarea>
+      <div class="nav-btns" style="margin-top:14px">
+        <button class="btn btn-brand btn-sm" onclick="checkPump(2)">Проверить →</button>
+        <button class="btn btn-ghost btn-sm" onclick="showHint(2)">Подсказка</button>
+      </div>
+      <div class="answer-block" id="hint2">
+        <div class="lbl">Подсказка</div>
+        <p>Кто пишет (роль) → для кого инструкция (новый диспетчер) → что описать (порядок действий при входящем звонке) → в каком виде (нумерованный список, простым языком).</p>
+      </div>
+      <div class="blocks-check mt16" id="bc2" style="display:none"></div>
+      <div id="pump2-result" style="display:none">
+        <div class="pump-score" id="pump2-score"></div>
+        <p class="pump-comment" id="pump2-comment"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goStep(2)">← Назад</button>
+    <button class="btn btn-primary" id="step3next" onclick="goStep(4)">К результатам →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ШАГ 4: ФИНИШ
+═══════════════════════════════════════════ -->
+<section class="step" id="step-4">
+  <div class="step-badge"><span class="num">Шаг 4 · Результат</span></div>
+
+  <div class="finish-big">
+    <span class="whale-big">🐳</span>
+    <h2>Тренировка завершена!</h2>
+    <p>Ты прошёл весь путь: разобрал контрасты, нашёл ошибки и написал свои промты. Теперь ты знаешь формулу.</p>
+    <div style="font-family:var(--font-display);font-size:2.8rem;color:var(--brand);margin:16px 0 8px" id="finalScore">0 очков</div>
+    <p id="finalMsg" style="color:var(--muted);font-size:1rem;max-width:40ch;margin:0 auto 24px"></p>
+    <button class="btn btn-ghost btn-sm" onclick="restart()">Пройти ещё раз</button>
+  </div>
+
+  <div class="finish-grid">
+    <div class="finish-card">
+      <div class="ico">🎯</div>
+      <h3>Формула промта</h3>
+      <p>Роль · Контекст · Задача · Формат · Тон — 5 блоков, которые делают запрос точным</p>
+    </div>
+    <div class="finish-card">
+      <div class="ico">⚡</div>
+      <h3>Чем конкретнее — тем лучше</h3>
+      <p>Добавь детали: кому, зачем, в каком формате — и ответ станет в разы полезнее</p>
+    </div>
+    <div class="finish-card">
+      <div class="ico">🔄</div>
+      <h3>Можно переспросить</h3>
+      <p>Не понравился ответ — уточни: «сделай короче», «измени тон», «добавь пункт про…»</p>
+    </div>
+    <div class="finish-card">
+      <div class="ico">🛡️</div>
+      <h3>Данные компании — не туда</h3>
+      <p>Публичные нейросети — внешний сервис. Клиентские данные и договоры — не загружаем</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:16px">
+    <a href="index.html" class="btn btn-primary" style="font-size:1.05rem;padding:15px 28px">
+      К инструментам в витрине →
+    </a>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+</main>
+
+<script>
+/* ========== СОСТОЯНИЕ ========== */
+const STEPS = 4;
+let currentStep = 1;
+let totalScore = 0;
+let quizAnswered = [false,false,false];
+let quizCorrect = 0;
+let pumpDone = [false,false];
+
+/* ========== ПРОГРЕСС ========== */
+function renderProgress(){
+  document.getElementById('stepLabel').textContent = `Шаг ${currentStep} из ${STEPS}`;
+  document.getElementById('scoreLabel').textContent = `${totalScore} очков`;
+  document.getElementById('progressFill').style.width = ((currentStep-1)/(STEPS-1)*100)+'%';
+  const dotsEl = document.getElementById('stepDots');
+  dotsEl.innerHTML = '';
+  for(let i=1;i<=STEPS;i++){
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i<currentStep?' done':i===currentStep?' active':'');
+    dotsEl.appendChild(d);
+  }
+}
+
+/* ========== НАВИГАЦИЯ ========== */
+function goStep(n){
+  document.getElementById('step-'+currentStep).classList.remove('active');
+  currentStep = n;
+  document.getElementById('step-'+currentStep).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  renderProgress();
+  if(n===4) renderFinish();
+}
+
+/* ========== ДО/ПОСЛЕ: раскрыть ответ ========== */
+function toggleAnswer(id){
+  const el = document.getElementById(id);
+  el.classList.toggle('show');
+  const btn = el.previousElementSibling;
+  btn.textContent = el.classList.contains('show') ? 'Скрыть ответ' : 'Показать пример ответа на сильный промт';
+}
+
+/* ========== КВИЗ ========== */
+const quizData = {
+  1: { correct: 2, fb_ok: '✓ Верно! Без контекста нейросеть не знает, по чему писать отчёт, для кого и в каком виде. Это сразу три пропущенных блока.', fb_no: 'Почти, но главная беда — отсутствие контекста и задачи: нейросеть не знает по чему отчёт, для кого и в каком виде.' },
+  2: { correct: 1, fb_ok: '✓ Точно! «Краткий и подробный» — взаимоисключающие требования. Нейросеть попытается угодить обоим и в итоге не угодит ни одному. Всегда выбирай одно.', fb_no: 'Главная ловушка здесь — взаимоисключающие требования: «краткий и подробный» одновременно. Модель не сможет их выполнить.' },
+  3: { correct: 1, fb_ok: '✓ Правильно! Роль есть, а вот деталей нет вообще: когда перенос, на сколько, причина. Без этого получится шаблон «рейс перенесён» и больше ничего.', fb_no: 'Роль есть — это плюс. Но ключевое упущение — нет деталей: когда, на сколько, почему. Без этого ответ будет пустым шаблоном.' }
+};
+
+function checkQuiz(qNum, chosen, correct){
+  if(quizAnswered[qNum-1]) return;
+  quizAnswered[qNum-1] = true;
+  const opts = document.querySelectorAll('#opts'+qNum+' .opt');
+  opts.forEach((o,i)=>{
+    o.disabled = true;
+    if(i===correct) o.classList.add('correct');
+    else if(i===chosen && chosen!==correct) o.classList.add('wrong');
+    else o.classList.add('reveal');
+    o.querySelector('.oi').textContent = i===correct ? '✓' : (i===chosen && chosen!==correct ? '✗' : '');
+  });
+  const isOk = chosen === correct;
+  if(isOk){ totalScore += 10; quizCorrect++; }
+  const fb = document.getElementById('fb'+qNum);
+  fb.textContent = isOk ? quizData[qNum].fb_ok : quizData[qNum].fb_no;
+  fb.className = 'quiz-fb show ' + (isOk ? 'ok' : 'no');
+  renderProgress();
+
+  // проверяем, все ли ответили
+  if(quizAnswered.every(Boolean)){
+    const sc = document.getElementById('quizScore');
+    sc.classList.add('show');
+    document.getElementById('quizScoreVal').textContent = quizCorrect+'/3';
+    const msgs = ['Хорошее начало! Перечитай разборы и попробуй ещё.','Неплохо! Ещё чуть-чуть — и всё.','Отлично! Ты уже видишь ошибки в промтах как профи. 🎯'];
+    document.getElementById('quizScoreMsg').textContent = msgs[Math.min(quizCorrect,2)];
+    document.getElementById('step2next').disabled = false;
+  }
+}
+
+/* ========== ПРОКАЧКА ПРОМТА ========== */
+const blockPatterns = {
+  role:  [/ты\s*[—-]/i,/вы\s*[—-]/i,/как\s+\w+(ер|ист|ор|ент|ник|щик)\b/i,/(менеджер|специалист|эксперт|hr|логист|диспетчер|руководитель|сотрудник)/i],
+  ctx:   [/клиент/i,/груз/i,/компани/i,/ситуаци/i,/контекст/i,/задержк/i,/претензи/i,/вмятин/i,/звонок|входящ/i,/сотрудник|диспетчер/i,/новый/i],
+  task:  [/(напиши|составь|подготовь|сделай|создай|объясни|опиши)/i],
+  fmt:   [/(пункт|список|структур|формат|слов|строк|абзац|шаг|нумеро)/i,/до\s+\d+/i,/\d+\s*(слов|пункт|шаг)/i],
+  tone:  [/(тон|стиль|вежлив|деловой|дружелюбн|официальн|спокойн|прост|коротко|кратко|живо)/i]
+};
+const blockNames = { role:'Роль', ctx:'Контекст', task:'Задача', fmt:'Формат', tone:'Тон' };
+const blockOrder = ['role','ctx','task','fmt','tone'];
+const pumpComments = [
+  '1/5 — есть с чего начать. Попробуй добавить контекст, задачу и формат.',
+  '2/5 — уже лучше! Ещё пара блоков — и промт станет по-настоящему точным.',
+  '3/5 — хорошая база. Остался тон и один из ключевых блоков.',
+  '4/5 — почти идеально! Один маленький штрих — и готово.',
+  '5/5 — отличный промт! Все блоки на месте. 🎯'
+];
+
+function checkPump(n){
+  const text = document.getElementById('ta'+n).value.trim();
+  if(!text){ alert('Напиши промт — поле пустое!'); return; }
+  const results = {};
+  let found = 0;
+  blockOrder.forEach(k=>{
+    results[k] = blockPatterns[k].some(re=>re.test(text));
+    if(results[k]) found++;
+  });
+  const pts = found * 4;
+  totalScore += pts;
+  pumpDone[n-1] = true;
+  renderProgress();
+
+  const bc = document.getElementById('bc'+n);
+  bc.style.display = 'flex';
+  bc.innerHTML = blockOrder.map(k=>`
+    <div class="bc ${results[k]?'found':'missing'}">
+      <span class="bi">${results[k]?'✓':'?'}</span>
+      <span>${blockNames[k]}</span>
+      ${!results[k]?`<span class="hint">добавь →</span>`:''}
+    </div>`).join('');
+
+  const res = document.getElementById('pump'+n+'-result');
+  res.style.display = 'block';
+  document.getElementById('pump'+n+'-score').textContent = found+'/5 блоков · +'+pts+' очков';
+  document.getElementById('pump'+n+'-comment').textContent = pumpComments[found];
+}
+
+function showHint(n){
+  const h = document.getElementById('hint'+n);
+  h.classList.toggle('show');
+}
+
+/* ========== ФИНИШ ========== */
+function renderFinish(){
+  document.getElementById('finalScore').textContent = totalScore + ' очков';
+  const msgs = [
+    'Отличный старт! Знание формулы — уже половина дела.',
+    'Хороший результат! Ещё пара практических промтов — и выработается привычка.',
+    'Сильный результат! Ты уже мыслишь промтами.',
+    'Превосходно! Можешь учить других. 🐳'
+  ];
+  const idx = totalScore < 20 ? 0 : totalScore < 40 ? 1 : totalScore < 60 ? 2 : 3;
+  document.getElementById('finalMsg').textContent = msgs[idx];
+}
+
+function restart(){
+  totalScore = 0; quizAnswered=[false,false,false]; quizCorrect=0; pumpDone=[false,false];
+  // сброс квиза
+  [1,2,3].forEach(q=>{
+    document.querySelectorAll('#opts'+q+' .opt').forEach(o=>{ o.disabled=false; o.className='opt'; o.querySelector('.oi').textContent=''; });
+    const fb=document.getElementById('fb'+q); fb.className='quiz-fb'; fb.textContent='';
+  });
+  document.getElementById('quizScore').classList.remove('show');
+  document.getElementById('step2next').disabled = true;
+  // сброс прокачки
+  [1,2].forEach(n=>{
+    document.getElementById('ta'+n).value='';
+    document.getElementById('bc'+n).style.display='none';
+    document.getElementById('bc'+n).innerHTML='';
+    document.getElementById('pump'+n+'-result').style.display='none';
+    document.getElementById('hint'+n).classList.remove('show');
+  });
+  // сброс до/после
+  ['ans1','ans2'].forEach(id=>{ document.getElementById(id).classList.remove('show'); });
+  goStep(1);
+}
+
+/* ========== СТАРТ ========== */
+renderProgress();
+</script>
+</body>
+</html>
