@@ -168,3 +168,47 @@ html[data-theme="light"] .radar-node,
 html[data-theme="light"] .compass-item{background:rgba(255,255,255,.74)}
 html[data-theme="light"] .links.open{background:var(--card)}
 @media(max-width:900px){.theme-toggle{padding:8px 10px}.theme-toggle .theme-label{display:none}}
+
+/* ============================================================
+   RELEASE FIX · layout polish + reliable theme switcher
+   ============================================================ */
+html{transition:background-color .25s ease,color .25s ease;}
+body{min-height:100vh;}
+.navin{position:relative;}
+.brand{flex:0 0 auto;}
+.links{min-width:0;}
+.theme-toggle{flex:0 0 auto;order:2;margin-left:auto;}
+.links{order:3;}
+.burger{order:4;}
+.brand{order:1;}
+.card,.step,.kpi,.acc,.tool-row,.template-row,.map-card,.flow-step,.bpmn-task,.compass-item,.radar-node,.quote,.prompt,.bpmn-board{transition:background .25s ease,border-color .25s ease,box-shadow .25s ease,color .25s ease,transform .25s ease;}
+.btn{transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease,color .22s ease;}
+.theme-toggle{min-height:38px;}
+.theme-toggle:focus-visible,.burger:focus-visible,.btn:focus-visible,.links a:focus-visible{outline:2px solid var(--brand);outline-offset:3px;}
+html[data-theme="light"] .subnav a{background:rgba(255,255,255,.66)}
+html[data-theme="light"] .icon{background:var(--soft)}
+html[data-theme="light"] .hero-panel,
+html[data-theme="light"] .showcase-card,
+html[data-theme="light"] .route-card,
+html[data-theme="light"] .popular-card,
+html[data-theme="light"] .before-after-card{box-shadow:0 24px 70px rgba(16,42,67,.07)}
+html[data-theme="light"] .orbit-card,
+html[data-theme="light"] .panel-top,
+html[data-theme="light"] .showcase-tags span{background:rgba(255,255,255,.72);border-color:var(--line)}
+html[data-theme="light"] .pulse-core{color:#fff;box-shadow:0 0 0 16px rgba(8,145,178,.10)}
+html[data-theme="light"] .footer{background:rgba(255,255,255,.35)}
+html[data-theme="light"] .bpmn-end{color:var(--text)}
+html[data-theme="light"] .flow-decision span{color:var(--muted)}
+html[data-theme="light"] .lane em{background:linear-gradient(90deg,var(--brand),rgba(8,145,178,.10))}
+html[data-theme="light"] .copy{background:var(--soft)}
+@media(max-width:900px){
+  .navin{gap:10px;}
+  .theme-toggle{margin-left:auto;}
+  .links{order:5;}
+  .links.open{z-index:50;}
+}
+@media(max-width:560px){
+  .brand{font-size:.9rem;}
+  .logo{width:32px;height:32px;border-radius:11px;}
+  .theme-toggle{min-width:38px;justify-content:center;}
+}

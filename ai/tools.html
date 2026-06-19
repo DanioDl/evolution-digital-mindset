@@ -7,6 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script>
+(function(){
+  var saved=localStorage.getItem('edm-theme')||'dark';
+  document.documentElement.setAttribute('data-theme', saved==='light'?'light':'dark');
+})();
+</script>
 <style>
 /* ===== ТОКЕНЫ ===== */
 :root{
@@ -159,6 +166,22 @@ footer p{font-family:var(--font-mono);font-size:.75rem;color:var(--faint);}
 }
 :focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px;}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+/* ===== THEME SWITCHER · Ocean / Light ===== */
+.theme-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--text);border-radius:999px;padding:8px 12px;font-family:var(--font-mono);font-size:.76rem;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;margin-left:auto;}
+.theme-toggle:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-1px)}
+.theme-toggle .theme-dot{width:18px;height:18px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:inline-block;box-shadow:0 0 0 4px var(--brand-soft)}
+html[data-theme="light"]{--bg:#F5F8FA;--bg-2:#EAF2F5;--surface:#FFFFFF;--surface-2:#F1F7F8;--line:rgba(15,42,55,.10);--line-2:rgba(15,42,55,.18);--text:#102A43;--muted:#526B7A;--faint:#7B91A0;--brand:#0891B2;--brand-2:#14B8A6;--brand-soft:rgba(8,145,178,.10);--warm:#F97316;--warm-soft:rgba(249,115,22,.10);}
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] .current .c1{opacity:.16}html[data-theme="light"] .current .c2{opacity:.14}html[data-theme="light"] .current .c3{opacity:.10}
+html[data-theme="light"] .nav,html[data-theme="light"] .filters-wrap{background:rgba(245,248,250,.82);border-color:var(--line);box-shadow:0 12px 34px rgba(16,42,67,.05)}
+html[data-theme="light"] .card,html[data-theme="light"] .legend,html[data-theme="light"] .note,html[data-theme="light"] .ex-body{box-shadow:0 18px 50px rgba(16,42,67,.06)}
+html[data-theme="light"] .card,html[data-theme="light"] .legend,html[data-theme="light"] .note{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.74)),var(--surface)}
+html[data-theme="light"] .prompt,html[data-theme="light"] .ex-body{background:#F8FCFD;color:#244456}
+html[data-theme="light"] .theme-toggle{background:rgba(255,255,255,.72);box-shadow:0 10px 24px rgba(16,42,67,.06)}
+html[data-theme="light"] .theme-toggle .theme-dot{background:linear-gradient(135deg,#FBBF24,#F97316)}
+@media(max-width:860px){.theme-toggle{margin-left:0}.theme-toggle .theme-label{display:none}.nav{gap:10px}.nav-links{margin-left:auto}}
+
 </style>
 </head>
 <body>
@@ -174,6 +197,7 @@ footer p{font-family:var(--font-mono);font-size:.75rem;color:var(--faint);}
     </svg>
     КИТ · ИИ-инструменты
   </a>
+  <button class="theme-toggle" type="button" aria-label="Переключить тему сайта"><span class="theme-dot"></span><span class="theme-label">Ocean</span></button>
   <div class="nav-links">
     <a href="index.html">Гайд</a>
     <a href="trainer.html">Тренажёр</a>
@@ -364,6 +388,28 @@ function plural(n){
 }
 
 render();
+</script>
+
+<script>
+(function(){
+  function apply(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('edm-theme', theme);
+    document.querySelectorAll('.theme-toggle').forEach(function(btn){
+      var label=btn.querySelector('.theme-label');
+      if(label) label.textContent=theme==='light'?'Light':'Ocean';
+      btn.setAttribute('aria-pressed', theme==='light'?'true':'false');
+    });
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    apply(document.documentElement.getAttribute('data-theme')||'dark');
+    document.querySelectorAll('.theme-toggle').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        apply((document.documentElement.getAttribute('data-theme')||'dark')==='light'?'dark':'light');
+      });
+    });
+  });
+})();
 </script>
 </body>
 </html>
