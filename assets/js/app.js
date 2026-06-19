@@ -9,21 +9,54 @@
   }
 
   function applyTheme(theme){
-    root.setAttribute('data-theme', theme);
-    localStorage.setItem(STORAGE_KEY, theme);
+    const next = theme === 'light' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(STORAGE_KEY, next);
     document.querySelectorAll('.theme-toggle').forEach(btn => {
       const label = btn.querySelector('.theme-label');
       const dot = btn.querySelector('.theme-dot');
-      if(label) label.textContent = theme === 'light' ? 'Light' : 'Ocean';
+      if(label) label.textContent = next === 'light' ? 'Light' : 'Ocean';
       if(dot) dot.setAttribute('aria-hidden','true');
-      btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
-      btn.title = theme === 'light' ? 'Переключить на Ocean' : 'Переключить на Light';
+      btn.setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
+      btn.title = next === 'light' ? 'Переключить на Ocean' : 'Переключить на Light';
+    });
+  }
+
+  function ensureThemeToggle(){
+    const navs = document.querySelectorAll('.navin, nav.nav');
+    navs.forEach(nav => {
+      if(nav.querySelector('.theme-toggle')) return;
+      const btn = document.createElement('button');
+      btn.className = 'theme-toggle';
+      btn.type = 'button';
+      btn.setAttribute('aria-label','Переключить тему сайта');
+      btn.innerHTML = '<span class="theme-dot"></span><span class="theme-label">Ocean</span>';
+      const burger = nav.querySelector('.burger');
+      const links = nav.querySelector('.links');
+      const back = nav.querySelector('.back-link');
+      if(links){
+        links.insertAdjacentElement('afterend', btn);
+      }else{
+        nav.insertBefore(btn, back || burger || null);
+      }
     });
   }
 
   root.setAttribute('data-theme', getInitialTheme());
 
   document.addEventListener('DOMContentLoaded',()=>{
+    ensureThemeToggle();
+
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+      if(btn.dataset.themeReady === '1') return;
+      btn.dataset.themeReady = '1';
+      btn.addEventListener('click',()=>{
+        const current = root.getAttribute('data-theme') || 'dark';
+        applyTheme(current === 'light' ? 'dark' : 'light');
+      });
+    });
+    applyTheme(root.getAttribute('data-theme') || 'dark');
+
     const burger = document.querySelector('.burger');
     const links = document.querySelector('.links');
     if(burger && links){
@@ -32,25 +65,6 @@
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     }
-
-    document.querySelectorAll('.navin').forEach(navin => {
-      if(navin.querySelector('.theme-toggle')) return;
-      const btn = document.createElement('button');
-      btn.className = 'theme-toggle';
-      btn.type = 'button';
-      btn.setAttribute('aria-label','Переключить тему сайта');
-      btn.innerHTML = '<span class="theme-dot"></span><span class="theme-label">Ocean</span>';
-      const burgerEl = navin.querySelector('.burger');
-      navin.insertBefore(btn, burgerEl || navin.querySelector('.links') || null);
-    });
-
-    document.querySelectorAll('.theme-toggle').forEach(btn => {
-      btn.addEventListener('click',()=>{
-        const current = root.getAttribute('data-theme') || 'dark';
-        applyTheme(current === 'light' ? 'dark' : 'light');
-      });
-    });
-    applyTheme(root.getAttribute('data-theme') || 'dark');
 
     const io=[...document.querySelectorAll('.io')];
     if('IntersectionObserver' in window){

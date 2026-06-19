@@ -146,6 +146,20 @@ textarea.prompt-ta:focus{border-color:var(--brand);outline:none;}
 }
 :focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px;}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+
+/* Theme switcher + light theme for trainer */
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:8px 12px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.035);color:var(--text);font-family:var(--font-mono);font-size:.75rem;font-weight:800;cursor:pointer;margin-left:auto;white-space:nowrap;}
+.theme-toggle:hover{border-color:var(--brand);color:var(--brand);}
+.theme-toggle .theme-dot{width:18px;height:18px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 0 0 4px var(--brand-soft);display:inline-block;}
+html[data-theme="light"]{--bg:#F5F8FA;--bg-2:#EAF2F5;--surface:#FFFFFF;--surface-2:#F1F7F8;--line:rgba(15,42,55,.10);--line-2:rgba(15,42,55,.18);--text:#102A43;--muted:#526B7A;--faint:#7B91A0;--brand:#0891B2;--brand-2:#14B8A6;--brand-soft:rgba(8,145,178,.10);--warm:#F97316;--warm-soft:rgba(249,115,22,.10);--green:#16A34A;--green-soft:rgba(22,163,74,.10);}
+html[data-theme="light"] body{background:var(--bg);color:var(--text);}
+html[data-theme="light"] .nav,html[data-theme="light"] .progress-wrap{background:rgba(245,248,250,.84);border-bottom-color:var(--line);box-shadow:0 12px 34px rgba(16,42,67,.05);}
+html[data-theme="light"] .card,html[data-theme="light"] .quiz-q,html[data-theme="light"] .finish-card,html[data-theme="light"] .finish-big{box-shadow:0 18px 50px rgba(16,42,67,.055);}
+html[data-theme="light"] .ba-body,html[data-theme="light"] .answer-block,html[data-theme="light"] textarea.prompt-ta,html[data-theme="light"] .prompt-text{background:#F8FCFD;color:#244456;}
+html[data-theme="light"] .theme-toggle{background:rgba(255,255,255,.72);box-shadow:0 10px 24px rgba(16,42,67,.06);}
+html[data-theme="light"] .theme-toggle .theme-dot{background:linear-gradient(135deg,#FBBF24,#F97316);box-shadow:0 0 0 4px rgba(249,115,22,.10);}
+@media(max-width:640px){.theme-toggle{min-width:38px;padding:8px 10px}.theme-toggle .theme-label{display:none}}
+
 </style>
 
 <script>
@@ -582,5 +596,6 @@ function restart(){
 /* ========== СТАРТ ========== */
 renderProgress();
 </script>
+<script src="../assets/js/app.js"></script>
 </body>
 </html>
