@@ -1,22 +1,596 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Evolution · Цифровые заплатки</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<script>(function(){var saved=localStorage.getItem('edm-theme')||'dark';document.documentElement.setAttribute('data-theme', saved==='light'?'light':'dark');})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Цифровые заплатки · Evolution Digital Mindset</title>
+<meta name="description" content="Цифровые заплатки: как переходить от проблемы процесса к быстрому улучшению с помощью фреймов Digital Mindset."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script>
+(function(){
+  var saved=localStorage.getItem('edm-theme')||'dark';
+  document.documentElement.setAttribute('data-theme', saved==='light'?'light':'dark');
+})();
+</script>
 <link href="../assets/css/style.css" rel="stylesheet"/>
+<style>
+.patches-hero{
+  padding: 98px 0 74px;
+  overflow:hidden;
+}
+.patches-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) .98fr;
+  gap:54px;
+  align-items:center;
+}
+.patches-hero h1{
+  max-width:12ch;
+  font-size:clamp(2.8rem,6.8vw,5.9rem);
+  line-height:1.01;
+  letter-spacing:-.05em;
+}
+.patches-hero h1 span{color:var(--brand)}
+.patches-hero .lead{
+  max-width:760px;
+  margin-top:26px;
+}
+.patch-visual{
+  position:relative;
+  min-height:430px;
+  border:1px solid var(--line2);
+  border-radius:34px;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);
+  box-shadow:0 34px 90px -62px rgba(30,201,194,.9);
+  overflow:hidden;
+  padding:28px;
+}
+.patch-visual:before{
+  content:"";
+  position:absolute;
+  inset:46px;
+  border:1px dashed rgba(30,201,194,.22);
+  border-radius:50%;
+}
+.patch-flow{
+  position:relative;
+  z-index:2;
+  display:grid;
+  gap:14px;
+  height:100%;
+  align-content:center;
+}
+.patch-flow-card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(7,33,43,.64);
+  padding:18px;
+}
+.patch-flow-card small{
+  display:block;
+  font-family:var(--mono);
+  color:var(--warm);
+  margin-bottom:6px;
+}
+.patch-flow-card b{
+  display:block;
+  font-family:var(--display);
+  font-size:1.02rem;
+}
+.patch-flow-card span{
+  display:block;
+  color:var(--muted);
+  margin-top:6px;
+  line-height:1.45;
+}
+.patch-flow-card.final{
+  background:linear-gradient(135deg,rgba(30,201,194,.18),rgba(46,143,196,.12));
+  border-color:rgba(30,201,194,.34);
+}
+.patch-flow-card.final b{color:var(--brand)}
+.flow-arrow{
+  text-align:center;
+  color:var(--brand);
+  font-family:var(--mono);
+  font-size:1.4rem;
+  line-height:1;
+}
+.definition-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.definition-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:26px;
+}
+.definition-card h3{
+  font-size:1.2rem;
+  margin-bottom:12px;
+}
+.definition-card p{
+  color:var(--muted);
+  line-height:1.68;
+}
+.steps-timeline{
+  display:grid;
+  gap:18px;
+}
+.patch-step{
+  display:grid;
+  grid-template-columns:110px minmax(0,1fr) 320px;
+  gap:18px;
+  align-items:stretch;
+}
+.step-number{
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:var(--card);
+  padding:20px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  font-family:var(--display);
+  color:var(--brand);
+  font-size:1.35rem;
+}
+.step-main,.step-result{
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);
+  padding:24px;
+}
+.step-main small{
+  display:block;
+  font-family:var(--mono);
+  color:var(--warm);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-size:.68rem;
+  margin-bottom:12px;
+}
+.step-main h3{
+  font-size:1.35rem;
+  margin-bottom:14px;
+}
+.step-main p,.step-main li,.step-result p{
+  color:var(--muted);
+  line-height:1.62;
+}
+.step-main ul{
+  list-style:none;
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+.step-main li{
+  position:relative;
+  padding-left:22px;
+}
+.step-main li:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.72em;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--brand);
+  box-shadow:0 0 0 4px var(--soft);
+}
+.step-result b{
+  display:block;
+  font-family:var(--display);
+  margin-bottom:10px;
+  color:var(--brand);
+}
+.frame-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.frame-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:24px;
+  overflow:hidden;
+}
+.frame-card h3{
+  font-size:1.2rem;
+  margin-bottom:10px;
+}
+.frame-card p{
+  color:var(--muted);
+  line-height:1.58;
+  margin-bottom:18px;
+}
+.frame-preview{
+  display:block;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  background:#fff;
+  margin-bottom:18px;
+}
+.frame-preview img{
+  width:100%;
+  display:block;
+}
+.frame-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.ai-role-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.ai-role-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px;
+  min-height:150px;
+}
+.ai-role-card .icon{
+  width:42px;
+  height:42px;
+  margin-bottom:14px;
+}
+.ai-role-card b{
+  display:block;
+  font-family:var(--display);
+  font-size:.98rem;
+  line-height:1.2;
+  margin-bottom:8px;
+}
+.ai-role-card span{
+  display:block;
+  color:var(--muted);
+  font-size:.92rem;
+  line-height:1.5;
+}
+.rule-panel{
+  border:1px solid rgba(30,201,194,.28);
+  border-radius:30px;
+  background:linear-gradient(135deg,var(--soft),rgba(255,255,255,.016));
+  padding:34px;
+}
+.rule-panel h2{
+  font-size:clamp(1.8rem,4vw,3rem);
+  margin-bottom:22px;
+}
+.rule-chain{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.rule-item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px;
+}
+.rule-item small{
+  display:block;
+  font-family:var(--mono);
+  color:var(--warm);
+  margin-bottom:10px;
+}
+.rule-item b{
+  display:block;
+  font-family:var(--display);
+  font-size:1rem;
+  line-height:1.2;
+}
+html[data-theme="light"] .patch-visual,
+html[data-theme="light"] .definition-card,
+html[data-theme="light"] .step-number,
+html[data-theme="light"] .step-main,
+html[data-theme="light"] .step-result,
+html[data-theme="light"] .frame-card,
+html[data-theme="light"] .ai-role-card,
+html[data-theme="light"] .rule-item{
+  background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.78)),var(--card);
+  box-shadow:0 18px 50px rgba(16,42,67,.055);
+}
+html[data-theme="light"] .patch-flow-card{
+  background:rgba(255,255,255,.78);
+}
+@media(max-width:1050px){
+  .patches-hero-grid,.definition-grid,.frame-grid{
+    grid-template-columns:1fr;
+  }
+  .patch-visual{
+    max-width:520px;
+  }
+  .patch-step{
+    grid-template-columns:86px 1fr;
+  }
+  .step-result{
+    grid-column:2;
+  }
+  .ai-role-grid,.rule-chain{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media(max-width:640px){
+  .patches-hero{
+    padding:64px 0 52px;
+  }
+  .patches-hero h1{
+    font-size:clamp(2.4rem,14vw,3.8rem);
+  }
+  .patch-visual{
+    min-height:auto;
+    padding:20px;
+  }
+  .patch-step{
+    grid-template-columns:1fr;
+  }
+  .step-result{
+    grid-column:auto;
+  }
+  .ai-role-grid,.rule-chain{
+    grid-template-columns:1fr;
+  }
+  .frame-actions .btn{
+    width:100%;
+    justify-content:center;
+  }
+}
+</style>
 </head>
 <body>
 <div class="bg"></div>
-<nav class="nav"><div class="navin"><a class="brand" href="../index.html"><span class="logo">◈</span><span>Evolution<br/><small>Digital Mindset</small></span></a><button aria-label="Открыть меню" class="burger">☰</button><div class="links"><a href="../index.html">Главная</a><a href="../ai/index.html">ИИ</a><a href="../ba/index.html">БА</a><a class="active" href="../practices/index.html">Цифровые заплатки</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a></div></div></nav>
-<header class="hero"><div class="wrap"><div class="eyebrow io">раздел 03 · скоро</div><h1 class="io">Цифровые <span>заплатки</span></h1><p class="lead io">Здесь появится главная дорожная карта действий: фреймы, практики и результаты в виде понятных графиков.</p></div></header>
-<section class="section alt"><div class="wrap"><div class="head io"><h2>Что здесь будет</h2><p>Пока это заглушка. Раздел объединяет всё, что помогает быстро закрывать рабочие пробелы и превращать идеи в действия.</p></div><div class="grid three"><div class="card io"><div class="icon">🗺️</div><h3>Дорожная карта</h3><p>Последовательность шагов: что делаем сначала, что проверяем, где фиксируем результат и как двигаемся дальше.</p></div><div class="card io"><div class="icon">🧩</div><h3>Фреймы практик</h3><p>Готовые шаблоны и рамки для работы: от постановки задачи до описания процесса и эффекта.</p></div><div class="card io"><div class="icon">📈</div><h3>Графики результатов</h3><p>Динамика вовлечения, активность по направлениям и измеримые результаты практик.</p></div></div></div></section><section class="section"><div class="wrap"><div class="head io"><h2>Алгоритм работы с ИИ</h2><p>ИИ даёт пищу для размышлений извне: помогает увидеть варианты, сформулировать черновик и проверить идею, но решение всё равно остаётся за человеком.</p></div><div class="path"><div class="step io"><div class="num">01</div><b>Сформулировал</b><span>Что надо получить и зачем.</span></div><div class="step io"><div class="num">02</div><b>Дал контекст</b><span>Роль, вводные, ограничения.</span></div><div class="step io"><div class="num">03</div><b>Получил черновик</b><span>Не финал, а материал.</span></div><div class="step io"><div class="num">04</div><b>Проверил</b><span>Факты, тон, риски.</span></div><div class="step io"><div class="num">05</div><b>Применил</b><span>В письме, встрече, документе.</span></div></div></div></section>
-<section class="section"><div class="wrap"><div class="path"><div class="step io"><div class="num">01</div><b>Нашли проблему</b><span>Где тормозит работа или теряется время.</span></div><div class="step io"><div class="num">02</div><b>Выбрали фрейм</b><span>Шаблон, практика или короткий алгоритм.</span></div><div class="step io"><div class="num">03</div><b>Проверили эффект</b><span>Что изменилось и как это видно в графиках.</span></div></div></div></section>
-<footer class="footer"><div class="wrap"><span>Evolution Digital Mindset · Цифровые заплатки</span><span>КИТ · портал развития цифрового мышления</span></div></footer>
+<nav class="nav">
+  <div class="navin">
+    <a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a>
+    <button class="burger" data-burger="" aria-label="Открыть меню">☰</button>
+    <div class="links" data-links="">
+      <a href="../index.html">Главная</a>
+      <a href="../ai/index.html">ИИ</a>
+      <a href="../ba/index.html">БА</a>
+      <a class="active" href="index.html">Цифровые заплатки</a>
+      <a href="../community/index.html">Сообщество</a>
+      <a class="cta" href="../library/index.html">Библиотека</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="patches-hero">
+  <div class="wrap patches-hero-grid">
+    <div class="io">
+      <div class="eyebrow">от проблемы к улучшению процесса</div>
+      <h1>Цифровые <span>заплатки</span></h1>
+      <p class="lead">Локальные изменения процесса, которые помогают снизить потери времени, уменьшить количество ошибок, повысить прозрачность или сократить ручной труд без полной перестройки процесса.</p>
+      <div class="actions">
+        <a class="btn primary" href="#frames">Скачать фреймы</a>
+        <a class="btn" href="#steps">Как искать</a>
+        <a class="btn" href="#ai-algorithm">Алгоритм с ИИ</a>
+      </div>
+    </div>
+    <div class="patch-visual io" aria-hidden="true">
+      <div class="patch-flow">
+        <div class="patch-flow-card"><small>01</small><b>Понять процесс</b><span>цель, участники, результат, ограничения</span></div>
+        <div class="flow-arrow">↓</div>
+        <div class="patch-flow-card"><small>02</small><b>Найти проблему</b><span>потери, ручной труд, ошибки, риски</span></div>
+        <div class="flow-arrow">↓</div>
+        <div class="patch-flow-card final"><small>03</small><b>Собрать заплатку</b><span>быстрое улучшение с понятным эффектом</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="definition-grid io">
+      <div class="definition-card">
+        <h3>Что такое цифровая заплатка</h3>
+        <p>Цифровая заплатка — это локальное изменение процесса, которое позволяет быстро получить эффект без полной перестройки процесса.</p>
+      </div>
+      <div class="definition-card">
+        <h3>Какой может быть заплатка</h3>
+        <p>Это может быть изменение логики работы, дополнительный контроль, аналитика, уведомление, автоматизация отдельного действия, использование ИИ или другое решение с быстрым эффектом и минимальными затратами.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="steps">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Как мы ищем цифровые заплатки</h2>
+      <p>Поиск начинается не с решения, а с понимания процесса и выявления проблем. Для этого используется последовательность практических шагов и фреймов Digital Mindset.</p>
+    </div>
+
+    <div class="steps-timeline">
+      <article class="patch-step io">
+        <div class="step-number">01</div>
+        <div class="step-main">
+          <small>Фрейм 1 · Паспорт процесса</small>
+          <h3>Понять процесс</h3>
+          <p>Определяем:</p>
+          <ul>
+            <li>цель процесса;</li>
+            <li>участников;</li>
+            <li>результат процесса;</li>
+            <li>основные показатели;</li>
+            <li>проблемы и ограничения.</li>
+          </ul>
+        </div>
+        <div class="step-result"><b>Результат</b><p>Единое понимание процесса и его текущего состояния.</p></div>
+      </article>
+
+      <article class="patch-step io">
+        <div class="step-number">02</div>
+        <div class="step-main">
+          <small>Фрейм 2 · Диагностика процесса</small>
+          <h3>Разобрать процесс</h3>
+          <p>Анализируем:</p>
+          <ul>
+            <li>действия;</li>
+            <li>системы и инструменты;</li>
+            <li>данные и информацию;</li>
+            <li>взаимодействия участников.</li>
+          </ul>
+        </div>
+        <div class="step-result"><b>Результат</b><p>Карта процесса с выявленными проблемами, потерями и зонами риска.</p></div>
+      </article>
+
+      <article class="patch-step io">
+        <div class="step-number">03</div>
+        <div class="step-main">
+          <small>Фрейм 2 · Блок «Идеи улучшений»</small>
+          <h3>Сформировать идеи улучшений</h3>
+          <p>Для каждой проблемы формируются:</p>
+          <ul>
+            <li>организационные решения;</li>
+            <li>цифровые решения;</li>
+            <li>аналитические решения;</li>
+            <li>решения с использованием ИИ.</li>
+          </ul>
+        </div>
+        <div class="step-result"><b>Результат</b><p>Реестр возможных улучшений процесса.</p></div>
+      </article>
+
+      <article class="patch-step io">
+        <div class="step-number">04</div>
+        <div class="step-main">
+          <small>От идеи к быстрой реализации</small>
+          <h3>Определить цифровые заплатки</h3>
+          <p>Из общего перечня идей выделяются решения, которые:</p>
+          <ul>
+            <li>дают быстрый эффект;</li>
+            <li>устраняют конкретную проблему;</li>
+            <li>не требуют полной перестройки процесса;</li>
+            <li>имеют понятный ожидаемый результат.</li>
+          </ul>
+        </div>
+        <div class="step-result"><b>Результат</b><p>Перечень цифровых заплаток для дальнейшей реализации.</p></div>
+      </article>
+
+      <article class="patch-step io">
+        <div class="step-number">05</div>
+        <div class="step-main">
+          <small>Минимум ресурсов · максимум эффекта</small>
+          <h3>Реализовать решение</h3>
+          <p>Для каждой цифровой заплатки определяется наиболее быстрый способ реализации:</p>
+          <ul>
+            <li>собственная настройка или изменение процесса;</li>
+            <li>использование существующих корпоративных систем;</li>
+            <li>low-code/no-code решения;</li>
+            <li>использование ИИ;</li>
+            <li>вайб-кодинг и быстрое прототипирование;</li>
+            <li>покупка недорогого готового решения;</li>
+            <li>минимальное привлечение IT-команды.</li>
+          </ul>
+        </div>
+        <div class="step-result"><b>Результат</b><p>Реализованное улучшение процесса или подготовленный план внедрения.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<section class="section alt" id="ai-algorithm">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Алгоритм работы с ИИ</h2>
+      <p>ИИ даёт пищу для размышлений извне: помогает увидеть варианты, сформулировать черновик и проверить идею, но решение всё равно остаётся за человеком.</p>
+    </div>
+    <div class="path">
+      <div class="step io"><div class="num">01</div><b>Сформулировал</b><span>Что надо получить и зачем.</span></div>
+      <div class="step io"><div class="num">02</div><b>Дал контекст</b><span>Роль, вводные, ограничения.</span></div>
+      <div class="step io"><div class="num">03</div><b>Получил черновик</b><span>Не финал, а материал для размышлений.</span></div>
+      <div class="step io"><div class="num">04</div><b>Проверил</b><span>Факты, тон, риски и применимость.</span></div>
+      <div class="step io"><div class="num">05</div><b>Применил</b><span>В процессе, встрече, документе или прототипе.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="frames">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Фреймы Digital Mindset</h2>
+      <p>Два рабочих шаблона для очного разбора процесса: сначала единое понимание, затем диагностика текущего состояния.</p>
+    </div>
+
+    <div class="frame-grid io">
+      <article class="frame-card">
+        <h3>Фрейм 1. Паспорт процесса</h3>
+        <p>Помогает зафиксировать цель процесса, границы, участников, результат и основные вопросы перед детальным анализом.</p>
+        <a class="frame-preview" href="../assets/frames/frame-1-process-passport.png" target="_blank" rel="noopener">
+          <img src="../assets/frames/frame-1-process-passport.png" alt="Фрейм 1. Паспорт процесса"/>
+        </a>
+        <div class="frame-actions">
+          <a class="btn primary" href="../assets/frames/frame-1-process-passport.png" download>Скачать PNG</a>
+          <a class="btn" href="../assets/frames/frame-1-process-passport.png" target="_blank" rel="noopener">Открыть</a>
+        </div>
+      </article>
+
+      <article class="frame-card">
+        <h3>Фрейм 2. Диагностика процесса</h3>
+        <p>Помогает найти проблемные зоны, потери, ручные операции и возможности для цифровых улучшений.</p>
+        <a class="frame-preview" href="../assets/frames/frame-2-process-diagnostics.png" target="_blank" rel="noopener">
+          <img src="../assets/frames/frame-2-process-diagnostics.png" alt="Фрейм 2. Диагностика процесса"/>
+        </a>
+        <div class="frame-actions">
+          <a class="btn primary" href="../assets/frames/frame-2-process-diagnostics.png" download>Скачать PNG</a>
+          <a class="btn" href="../assets/frames/frame-2-process-diagnostics.png" target="_blank" rel="noopener">Открыть</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Роль ИИ в поиске цифровых заплаток</h2>
+      <p>ИИ помогает команде быстрее анализировать процессы, находить решения и готовить первые варианты улучшений.</p>
+    </div>
+
+    <div class="ai-role-grid io">
+      <div class="ai-role-card"><div class="icon">🔎</div><b>Поиск проблем</b><span>Найти проблемные зоны, подготовить вопросы и выявить риски.</span></div>
+      <div class="ai-role-card"><div class="icon">💡</div><b>Идеи улучшений</b><span>Провести мозговой штурм, найти альтернативы и гипотезы.</span></div>
+      <div class="ai-role-card"><div class="icon">🧪</div><b>Проверка гипотез</b><span>Посмотреть на решение с разных сторон и найти слабые места.</span></div>
+      <div class="ai-role-card"><div class="icon">🌍</div><b>Бенчмарк</b><span>Найти аналоги решений, лучшие практики и примеры из других отраслей.</span></div>
+      <div class="ai-role-card"><div class="icon">🩹</div><b>Генерация заплаток</b><span>Предложить локальные цифровые улучшения с быстрым эффектом.</span></div>
+      <div class="ai-role-card"><div class="icon">⚡</div><b>Быстрое создание</b><span>Помочь с вайб-кодингом, прототипами и решениями без тяжелой разработки.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="rule-panel io">
+      <h2>Главное правило</h2>
+      <div class="rule-chain">
+        <div class="rule-item"><small>01</small><b>Не начинайте с решения</b></div>
+        <div class="rule-item"><small>02</small><b>Сначала поймите процесс</b></div>
+        <div class="rule-item"><small>03</small><b>Потом найдите проблему</b></div>
+        <div class="rule-item"><small>04</small><b>Затем выбирайте заплатку</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>Evolution Digital Mindset · Digital patches</span>
+    <span>КИТ · портал развития цифрового мышления</span>
+  </div>
+</footer>
+
 <script src="../assets/js/app.js"></script>
-</body></html>
+</body>
+</html>
