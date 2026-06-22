@@ -345,6 +345,30 @@ html[data-theme="light"] .patch-flow-card{
     justify-content:center;
   }
 }
+
+/* DIGITAL PATCHES FINAL FIX · clean hero, new intro cards, no AI algorithm block */
+.patches-hero{padding:96px 0 84px!important;}
+.patches-hero-grid{display:block!important;max-width:960px;}
+.patches-hero .io:first-child{max-width:900px;}
+.patches-hero .actions,.patch-visual{display:none!important;}
+.patch-definition-modern{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch;}
+.patch-definition-modern .definition-card{position:relative;overflow:hidden;padding:32px!important;border-radius:30px!important;background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018)),var(--card)!important;min-height:250px;}
+.patch-definition-modern .definition-card:before{content:"";position:absolute;right:-90px;top:-90px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(30,201,194,.20),transparent 66%);filter:blur(4px);}
+.patch-definition-modern .definition-card:nth-child(2):before{background:radial-gradient(circle,rgba(255,122,69,.16),transparent 66%);}
+.def-num{position:relative;z-index:1;font-family:var(--mono);font-size:.78rem;color:var(--warm);margin-bottom:30px;letter-spacing:.14em;}
+.patch-definition-modern .definition-card h3,.patch-definition-modern .definition-card p{position:relative;z-index:1;}
+.patch-definition-modern .definition-card h3{font-size:1.55rem!important;margin-bottom:18px!important;}
+.patch-definition-modern .definition-card p{font-size:1.02rem!important;line-height:1.68!important;}
+.frame-grid{align-items:start!important;}
+.frame-card{display:flex;flex-direction:column;}
+.frame-preview{height:320px;display:grid!important;place-items:center;background:#fff!important;}
+.frame-preview img{width:100%;height:100%;object-fit:contain;}
+.frame-actions{margin-top:auto;}
+#ai-algorithm{display:none!important;}
+html[data-theme="light"] .patch-definition-modern .definition-card{background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.82)),var(--card)!important;}
+@media(max-width:1050px){.patch-definition-modern{grid-template-columns:1fr;}.frame-preview{height:300px;}}
+@media(max-width:640px){.patches-hero{padding:64px 0 54px!important;}.frame-preview{height:220px;}.patch-definition-modern .definition-card{min-height:auto;padding:24px!important;}}
+
 </style>
 </head>
 <body>
@@ -371,32 +395,19 @@ html[data-theme="light"] .patch-flow-card{
       <div class="eyebrow">от проблемы к улучшению процесса</div>
       <h1>Цифровые <span>заплатки</span></h1>
       <p class="lead">Локальные изменения процесса, которые помогают снизить потери времени, уменьшить количество ошибок, повысить прозрачность или сократить ручной труд без полной перестройки процесса.</p>
-      <div class="actions">
-        <a class="btn primary" href="#frames">Скачать фреймы</a>
-        <a class="btn" href="#steps">Как искать</a>
-        <a class="btn" href="#ai-algorithm">Алгоритм с ИИ</a>
-      </div>
-    </div>
-    <div class="patch-visual io" aria-hidden="true">
-      <div class="patch-flow">
-        <div class="patch-flow-card"><small>01</small><b>Понять процесс</b><span>цель, участники, результат, ограничения</span></div>
-        <div class="flow-arrow">↓</div>
-        <div class="patch-flow-card"><small>02</small><b>Найти проблему</b><span>потери, ручной труд, ошибки, риски</span></div>
-        <div class="flow-arrow">↓</div>
-        <div class="patch-flow-card final"><small>03</small><b>Собрать заплатку</b><span>быстрое улучшение с понятным эффектом</span></div>
-      </div>
-    </div>
-  </div>
+    </div></div>
 </section>
 
 <section class="section alt">
   <div class="wrap">
-    <div class="definition-grid io">
+    <div class="definition-grid patch-definition-modern io">
       <div class="definition-card">
+        <div class="def-num">01</div>
         <h3>Что такое цифровая заплатка</h3>
         <p>Цифровая заплатка — это локальное изменение процесса, которое позволяет быстро получить эффект без полной перестройки процесса.</p>
       </div>
       <div class="definition-card">
+        <div class="def-num">02</div>
         <h3>Какой может быть заплатка</h3>
         <p>Это может быть изменение логики работы, дополнительный контроль, аналитика, уведомление, автоматизация отдельного действия, использование ИИ или другое решение с быстрым эффектом и минимальными затратами.</p>
       </div>
@@ -499,22 +510,6 @@ html[data-theme="light"] .patch-flow-card{
   </div>
 </section>
 
-
-<section class="section alt" id="ai-algorithm">
-  <div class="wrap">
-    <div class="head io">
-      <h2>Алгоритм работы с ИИ</h2>
-      <p>ИИ даёт пищу для размышлений извне: помогает увидеть варианты, сформулировать черновик и проверить идею, но решение всё равно остаётся за человеком.</p>
-    </div>
-    <div class="path">
-      <div class="step io"><div class="num">01</div><b>Сформулировал</b><span>Что надо получить и зачем.</span></div>
-      <div class="step io"><div class="num">02</div><b>Дал контекст</b><span>Роль, вводные, ограничения.</span></div>
-      <div class="step io"><div class="num">03</div><b>Получил черновик</b><span>Не финал, а материал для размышлений.</span></div>
-      <div class="step io"><div class="num">04</div><b>Проверил</b><span>Факты, тон, риски и применимость.</span></div>
-      <div class="step io"><div class="num">05</div><b>Применил</b><span>В процессе, встрече, документе или прототипе.</span></div>
-    </div>
-  </div>
-</section>
 
 <section class="section alt" id="frames">
   <div class="wrap">

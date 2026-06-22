@@ -527,6 +527,18 @@ html[data-theme="light"] .workbench .wb-block{
   }
 }
 
+
+/* PROMPTS FINAL FIX · no hero CTA, compact brainstorm */
+.prompt-hero .actions{display:none!important;}
+.prompt-hero-grid{display:block!important;max-width:980px;}
+.prompt-hero .io:first-child{max-width:920px;}
+.prompt-hero{padding:96px 0 82px;}
+.prompt-visual,.workbench,.prompt-ring,.prompt-core,.prompt-chip{display:none!important;}
+.brainstorm-grid{align-items:start!important;}
+.brainstorm-card:first-child{align-self:start;min-height:auto!important;}
+.brainstorm-card:first-child .clean-list{gap:14px;}
+@media(max-width:620px){.prompt-hero{padding:64px 0 54px;}}
+
 </style>
 </head>
 <body>
@@ -553,10 +565,6 @@ html[data-theme="light"] .workbench .wb-block{
       <div class="eyebrow">промт-инжиниринг</div>
       <h1>Хороший запрос — это не <span>заклинание</span></h1>
       <p class="lead">Это нормально поставленная задача. Если ждать результат в один клик, ИИ угадывает. Если дать контекст, задачу и ожидаемый результат — он помогает значительно точнее.</p>
-      <div class="actions">
-        <a class="btn primary" href="#brainstorm">Мозговой штурм</a>
-        <a class="btn" href="#examples">Примеры промтов</a>
-      </div>
       <div class="subnav" aria-label="Навигация по разделу ИИ">
         <a href="guide.html">Старт с ИИ</a>
         <a class="active" href="prompts.html">Промты</a>
