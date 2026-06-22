@@ -1,21 +1,493 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Промты · Evolution Digital Mindset</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Промт-инжиниринг · Evolution Digital Mindset</title>
+<meta name="description" content="Как ставить задачи ИИ: контекст, роль, формат ответа и использование ИИ в мозговом штурме."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <script>
 (function(){
   var saved=localStorage.getItem('edm-theme')||'dark';
   document.documentElement.setAttribute('data-theme', saved==='light'?'light':'dark');
 })();
 </script>
-<link href="../assets/css/style.css" rel="stylesheet"/></head><body><div class="bg"></div><nav class="nav"><div class="navin"><a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a><button class="burger" data-burger="">☰</button><div class="links" data-links=""><a href="../index.html">Главная</a><a class="active" href="index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a href="../library/index.html">Библиотека</a><a class="cta" href="tools.html">Витрина</a></div></div></nav><main><section class="hero"><div class="wrap read"><div class="eyebrow">промт-инжиниринг</div><h1>Хороший запрос — это не заклинание, а нормальная постановка задачи</h1><p class="lead">Если ждать результат в один клик, ИИ угадывает. Если дать роль, контекст и формат — он работает заметно точнее.</p><div class="subnav"><a href="guide.html">Старт с ИИ</a><a class="active" href="prompts.html">Промты</a><a href="trainer.html">Тренажёр</a></div></div></section><section class="section alt"><div class="wrap read"><h2>Формула рабочего промта</h2><div class="recipe"><div><b>Роль</b><span>Кем должен быть ИИ: аналитик, редактор, руководитель.</span></div><div><b>Контекст</b><span>Что происходит, для кого задача, какие вводные.</span></div><div><b>Задача</b><span>Что именно надо сделать: сократить, сравнить, написать.</span></div><div><b>Формат</b><span>Таблица, список, письмо, план, чек-лист.</span></div><div><b>Ограничения</b><span>Тон, объём, что не использовать, что проверить.</span></div></div><div class="promptbox"><div class="copyline"><b class="mono">Промт для письма</b><button class="copy">Скопировать</button></div><pre class="prompt">Ты — специалист по деловой коммуникации. Помоги подготовить ответ клиенту.
-Контекст: срок выполнения задачи сдвигается на 2 рабочих дня, важно сохранить доверительный тон.
-Задача: напиши письмо до 120 слов.
-Формат: приветствие, короткое объяснение, новый срок, готовность ответить на вопросы.
-Ограничения: без оправданий, без канцелярита, спокойно и профессионально.</pre></div><div class="promptbox"><div class="copyline"><b class="mono">Промт для анализа процесса</b><button class="copy">Скопировать</button></div><pre class="prompt">Ты — бизнес-аналитик. Посмотри на описание процесса и найди слабые места.
-Контекст: процесс выполняется вручную, участвуют несколько подразделений.
-Задача: выдели этапы, риски, лишние согласования и вопросы для уточнения.
-Формат: таблица «этап — проблема — что уточнить — идея улучшения».
-Ограничения: не придумывай факты, если данных не хватает — пометь это как вопрос.</pre></div><div class="promptbox"><div class="copyline"><b class="mono">Промт для встречи</b><button class="copy">Скопировать</button></div><pre class="prompt">Ты — фасилитатор рабочей встречи. На основе темы подготовь структуру обсуждения.
-Тема: [вставь тему].
-Цель встречи: [вставь цель].
-Участники: [роли участников].
-Сделай: повестку на 45 минут, вопросы для обсуждения, ожидаемый результат и список решений, которые нужно зафиксировать.</pre></div></div></section></main><footer class="footer"><div class="wrap"><span>Evolution Digital Mindset · AI</span><span>КИТ · портал развития цифрового мышления</span></div></footer><script src="../assets/js/app.js"></script><script>document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{navigator.clipboard.writeText(b.closest('.promptbox')?.querySelector('pre')?.innerText||b.dataset.copy||'');b.textContent='Скопировано';b.classList.add('done');setTimeout(()=>{b.textContent='Скопировать';b.classList.remove('done')},1600)}));document.querySelectorAll('.acc button').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));</script></body></html>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<style>
+.prompt-hero{
+  padding: 92px 0 70px;
+  overflow: hidden;
+}
+.prompt-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) 390px;
+  gap:56px;
+  align-items:center;
+}
+.prompt-hero h1{
+  max-width:14ch;
+  font-size:clamp(2.7rem,6.4vw,5.7rem);
+  line-height:1.02;
+  letter-spacing:-.045em;
+}
+.prompt-hero h1 span{color:var(--brand)}
+.prompt-hero .lead{
+  max-width:820px;
+  margin-top:26px;
+}
+.prompt-visual{
+  position:relative;
+  min-height:420px;
+  border:1px solid var(--line2);
+  border-radius:34px;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);
+  box-shadow:0 34px 90px -62px rgba(30,201,194,.9);
+  overflow:hidden;
+}
+.prompt-visual:before{
+  content:"";
+  position:absolute;
+  inset:42px;
+  border:1px dashed rgba(30,201,194,.24);
+  border-radius:50%;
+}
+.prompt-visual:after{
+  content:"";
+  position:absolute;
+  inset:104px;
+  border:1px dashed rgba(255,122,69,.18);
+  border-radius:50%;
+}
+.prompt-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:118px;
+  height:118px;
+  border-radius:34px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#05232d;
+  font-family:var(--display);
+  font-weight:900;
+  box-shadow:0 0 0 16px rgba(30,201,194,.09),0 0 70px rgba(30,201,194,.26);
+  z-index:2;
+}
+.prompt-chip{
+  position:absolute;
+  z-index:3;
+  display:inline-flex;
+  padding:10px 15px;
+  border-radius:999px;
+  border:1px solid var(--line2);
+  background:rgba(7,33,43,.78);
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:.76rem;
+  backdrop-filter:blur(12px);
+}
+.prompt-chip.c1{left:28px;top:86px}
+.prompt-chip.c2{right:28px;top:148px}
+.prompt-chip.c3{left:42px;bottom:82px}
+.prompt-chip.c4{right:38px;bottom:64px}
+
+.prompt-formula{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+}
+.formula-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:22px;
+  min-height:180px;
+}
+.formula-card small{
+  display:block;
+  font-family:var(--mono);
+  color:var(--warm);
+  margin-bottom:16px;
+}
+.formula-card b{
+  display:block;
+  font-family:var(--display);
+  font-size:1rem;
+  margin-bottom:10px;
+}
+.formula-card p{
+  color:var(--muted);
+  line-height:1.55;
+  font-size:.94rem;
+}
+
+.brainstorm-grid{
+  display:grid;
+  grid-template-columns:.88fr 1.12fr;
+  gap:20px;
+  align-items:stretch;
+}
+.brainstorm-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:28px;
+}
+.brainstorm-card h3{
+  font-size:1.35rem;
+  margin-bottom:16px;
+}
+.brainstorm-list{
+  list-style:none;
+  display:grid;
+  gap:12px;
+}
+.brainstorm-list li{
+  color:var(--muted);
+  line-height:1.5;
+  padding-left:24px;
+  position:relative;
+}
+.brainstorm-list li:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.62em;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--brand);
+  box-shadow:0 0 0 4px var(--soft);
+}
+.prompt-example{
+  background:#082832;
+  border:1px solid var(--line2);
+  border-left:4px solid var(--brand);
+  border-radius:22px;
+  padding:24px;
+  color:#CFE8EA;
+  font-family:var(--mono);
+  font-size:.88rem;
+  line-height:1.65;
+  white-space:pre-wrap;
+}
+.copy-row{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+  margin-bottom:14px;
+}
+.copy-row h3{margin:0}
+.copy-btn{
+  border:1px solid var(--line2);
+  background:var(--soft);
+  color:var(--brand);
+  border-radius:999px;
+  padding:8px 12px;
+  font-family:var(--mono);
+  font-size:.75rem;
+  cursor:pointer;
+}
+.copy-btn.done{
+  background:var(--brand);
+  color:var(--bg);
+}
+
+.memory-note{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.note-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+}
+.note-card b{
+  display:block;
+  font-family:var(--display);
+  font-size:1.05rem;
+  margin-bottom:12px;
+}
+.note-card p,.note-card li{
+  color:var(--muted);
+  line-height:1.58;
+}
+.note-card ul{
+  list-style:none;
+  display:grid;
+  gap:8px;
+}
+.note-card li{
+  position:relative;
+  padding-left:22px;
+}
+.note-card li:before{
+  content:"→";
+  position:absolute;
+  left:0;
+  color:var(--brand);
+  font-family:var(--mono);
+}
+.improve-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.improve-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+  min-height:170px;
+}
+.improve-card .icon{
+  width:42px;
+  height:42px;
+  margin-bottom:16px;
+}
+.improve-card b{
+  display:block;
+  font-family:var(--display);
+  margin-bottom:10px;
+}
+.improve-card p{
+  color:var(--muted);
+  line-height:1.58;
+}
+html[data-theme="light"] .prompt-visual,
+html[data-theme="light"] .formula-card,
+html[data-theme="light"] .brainstorm-card,
+html[data-theme="light"] .note-card,
+html[data-theme="light"] .improve-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.78)),var(--card);
+  box-shadow:0 18px 50px rgba(16,42,67,.055);
+}
+html[data-theme="light"] .prompt-chip{
+  background:rgba(255,255,255,.82);
+}
+html[data-theme="light"] .prompt-core{
+  color:#fff;
+}
+html[data-theme="light"] .prompt-example{
+  background:#F8FCFD;
+  color:#244456;
+}
+@media(max-width:980px){
+  .prompt-hero-grid,.brainstorm-grid,.memory-note{
+    grid-template-columns:1fr;
+  }
+  .prompt-visual{
+    max-width:430px;
+  }
+  .prompt-formula,.improve-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media(max-width:620px){
+  .prompt-hero{padding:64px 0 52px}
+  .prompt-hero h1{font-size:clamp(2.45rem,14vw,3.7rem)}
+  .prompt-visual{min-height:330px}
+  .prompt-core{width:86px;height:86px;border-radius:26px;font-size:.88rem}
+  .prompt-chip{font-size:.66rem;padding:8px 10px}
+  .prompt-chip.c1{left:14px;top:66px}
+  .prompt-chip.c2{right:10px;top:126px}
+  .prompt-chip.c3{left:18px;bottom:68px}
+  .prompt-chip.c4{right:12px;bottom:48px}
+  .prompt-formula,.improve-grid{grid-template-columns:1fr}
+  .copy-row{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav class="nav">
+  <div class="navin">
+    <a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a>
+    <button class="burger" data-burger="" aria-label="Открыть меню">☰</button>
+    <div class="links" data-links="">
+      <a href="../index.html">Главная</a>
+      <a class="active" href="index.html">ИИ</a>
+      <a href="../ba/index.html">БА</a>
+      <a href="../practices/index.html">Цифровые заплатки</a>
+      <a href="../library/index.html">Библиотека</a>
+      <a class="cta" href="tools.html">Витрина</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="prompt-hero">
+  <div class="wrap prompt-hero-grid">
+    <div class="io">
+      <div class="eyebrow">промт-инжиниринг</div>
+      <h1>Хороший запрос — это не <span>заклинание</span></h1>
+      <p class="lead">Это нормально поставленная задача. Если ждать результат в один клик, ИИ угадывает. Если дать контекст, задачу и ожидаемый результат — он помогает значительно точнее.</p>
+      <div class="actions">
+        <a class="btn primary" href="#brainstorm">Мозговой штурм</a>
+        <a class="btn" href="#improve">Улучшить ответ</a>
+      </div>
+      <div class="subnav" aria-label="Навигация по разделу ИИ">
+        <a href="guide.html">Старт с ИИ</a>
+        <a class="active" href="prompts.html">Промты</a>
+        <a href="assistants.html">Ассистенты</a>
+        <a href="usecases.html">Кейсы</a>
+        <a href="safety.html">Безопасность</a>
+        <a href="trainer.html">Тренажёр</a>
+      </div>
+    </div>
+
+    <div class="prompt-visual io" aria-hidden="true">
+      <div class="prompt-core">задача</div>
+      <span class="prompt-chip c1">роль</span>
+      <span class="prompt-chip c2">контекст</span>
+      <span class="prompt-chip c3">формат</span>
+      <span class="prompt-chip c4">критерии</span>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Из чего состоит сильный запрос</h2>
+      <p>ИИ лучше помогает, когда понимает не только что нужно сделать, но и зачем, в каком контексте и в каком виде нужен результат.</p>
+    </div>
+    <div class="prompt-formula io">
+      <div class="formula-card"><small>01</small><b>Роль</b><p>Кем должен быть ИИ в задаче: аналитиком, участником рабочей группы, редактором или помощником руководителя.</p></div>
+      <div class="formula-card"><small>02</small><b>Контекст</b><p>Что происходит, какой процесс разбираем, какие вводные уже есть и какие ограничения важно учитывать.</p></div>
+      <div class="formula-card"><small>03</small><b>Задача</b><p>Что нужно получить: идеи, риски, вопросы, план, черновик, структуру документа или варианты решений.</p></div>
+      <div class="formula-card"><small>04</small><b>Формат</b><p>В каком виде нужен ответ: список, таблица, блоки, вопросы, гипотезы, цифровые заплатки.</p></div>
+      <div class="formula-card"><small>05</small><b>Критерии</b><p>Что важно: не придумывать факты, использовать контекст, быть практичным и учитывать специфику компании.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="brainstorm">
+  <div class="wrap">
+    <div class="head io">
+      <h2>ИИ как участник мозгового штурма</h2>
+      <p>ИИ полезен не только для готовых текстов. Его можно подключать к рабочему обсуждению, чтобы расширить варианты, найти риски и не потерять важные вводные.</p>
+    </div>
+
+    <div class="brainstorm-grid">
+      <div class="brainstorm-card io">
+        <h3>Когда использовать</h3>
+        <ul class="brainstorm-list">
+          <li>рабочие встречи;</li>
+          <li>Digital Mindset;</li>
+          <li>поиск цифровых заплаток;</li>
+          <li>разбор процессов;</li>
+          <li>проектные сессии.</li>
+        </ul>
+      </div>
+
+      <div class="brainstorm-card io">
+        <div class="copy-row">
+          <h3>Пример рабочего промта</h3>
+          <button class="copy-btn" data-copy="#brainstormPrompt">Скопировать</button>
+        </div>
+        <pre class="prompt-example" id="brainstormPrompt">Ты являешься участником рабочей группы по анализу бизнес-процесса.
+
+Контекст: мы разбираем процесс [название процесса]. Цель — найти проблемы, сформировать идеи улучшений и определить возможные цифровые заплатки.
+
+Текущий этап: [описание этапа].
+
+Что нужно сделать:
+— задавать уточняющие вопросы;
+— предлагать дополнительные идеи;
+— искать риски;
+— предлагать альтернативные решения;
+— находить возможные цифровые улучшения.
+
+Формат ответа:
+— вопросы;
+— идеи;
+— риски;
+— цифровые заплатки.
+
+Важно:
+— не придумывать факты;
+— использовать только предоставленный контекст;
+— сохранять результаты каждого этапа обсуждения;
+— использовать результаты предыдущих этапов при дальнейшей работе.</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Важно при работе с ИИ на мозговом штурме</h2>
+      <p>ИИ должен оставаться в контексте всего разбора процесса, а не отвечать на каждый вопрос отдельно.</p>
+    </div>
+
+    <div class="memory-note io">
+      <div class="note-card">
+        <b>После каждого этапа передавайте ИИ</b>
+        <ul>
+          <li>результаты этапа;</li>
+          <li>принятые решения;</li>
+          <li>выявленные проблемы;</li>
+          <li>новые вводные данные.</li>
+        </ul>
+      </div>
+      <div class="note-card">
+        <b>Зачем это нужно</b>
+        <p>Если не передавать итоги этапов, ИИ будет отвечать как будто обсуждение началось заново. А для разбора процесса важно, чтобы он учитывал предыдущие выводы, ограничения и решения команды.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="improve">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Как улучшить ответ ИИ</h2>
+      <p>Если ответ получился слишком общим, не начинайте заново. Уточните задачу и добавьте недостающие вводные.</p>
+    </div>
+
+    <div class="improve-grid io">
+      <div class="improve-card"><div class="icon">🧭</div><b>Добавьте контекст</b><p>Опишите процесс, ситуацию, ограничения и цель обсуждения.</p></div>
+      <div class="improve-card"><div class="icon">🎭</div><b>Укажите роль ИИ</b><p>Например: участник рабочей группы, аналитик, редактор или критик решения.</p></div>
+      <div class="improve-card"><div class="icon">📦</div><b>Уточните формат</b><p>Попросите ответ в виде вопросов, идей, рисков, таблицы или плана.</p></div>
+      <div class="improve-card"><div class="icon">🔎</div><b>Попросите примеры</b><p>Так ответ станет прикладным, а не абстрактным.</p></div>
+      <div class="improve-card"><div class="icon">🏢</div><b>Добавьте специфику</b><p>Попросите учитывать компанию, процесс, роль участника или ограничения.</p></div>
+      <div class="improve-card"><div class="icon">🛠️</div><b>Сделайте практичнее</b><p>Попросите убрать общие слова и предложить действия, которые можно проверить.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>Evolution Digital Mindset · Prompts</span>
+    <span>КИТ · портал развития цифрового мышления</span>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js"></script>
+<script>
+document.querySelectorAll('[data-copy]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var target = document.querySelector(btn.getAttribute('data-copy'));
+    if(!target) return;
+    navigator.clipboard.writeText(target.innerText).then(function(){
+      var old = btn.textContent;
+      btn.textContent = 'Скопировано';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
