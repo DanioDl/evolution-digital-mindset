@@ -325,3 +325,25 @@ html[data-theme="light"] .subnav a{background:rgba(255,255,255,.66);}
 .navin .theme-toggle{margin-left:0;order:initial;}
 nav.nav > .theme-toggle{margin-left:auto;}
 @media(max-width:900px){.navin .theme-toggle{margin-left:auto;order:2}.navin .burger{order:3}.navin .links{order:4;width:100%}}
+
+/* ============================================================
+   RELEASE: home/AI copyfix + layout polish
+   ============================================================ */
+.home-hero-grid{grid-template-columns:.92fr 1.08fr;gap:56px;}
+.home-hero .hero-panel{justify-self:end;width:min(100%,460px);}
+.home-hero h1{max-width:12ch;}
+#whats-next .head{max-width:900px;}
+.popular-grid{align-items:stretch;}
+.popular{min-height:225px;}
+.ai .hero .actions{margin-bottom:14px;}
+.hero .actions:empty{display:none;}
+.subnav{margin-top:20px;}
+.subnav a:first-child{margin-left:0;}
+@media(max-width:980px){
+  .home-hero-grid{grid-template-columns:1fr;gap:34px;}
+  .home-hero .hero-panel{justify-self:start;width:100%;}
+}
+@media(max-width:720px){
+  .popular-grid{grid-template-columns:1fr!important;}
+  .home-hero h1{max-width:13ch;}
+}
