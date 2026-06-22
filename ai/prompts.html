@@ -376,16 +376,19 @@ html[data-theme="light"] .example-prompt{
 
 /* PROMPTS V5 · рабочий стол анализа вместо карты */
 .prompt-hero-grid{
-  grid-template-columns:minmax(0,1.04fr) 460px;
-  gap:58px;
+  grid-template-columns:minmax(0,1fr) 520px;
+  gap:80px;
 }
 
 .prompt-visual{
   min-height:460px;
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:28px;
+  justify-content:flex-end;
+  padding:0;
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
 }
 
 .prompt-ring,
@@ -396,7 +399,8 @@ html[data-theme="light"] .example-prompt{
 
 .workbench{
   width:100%;
-  max-width:390px;
+  max-width:420px;
+  margin-left:auto;
   display:flex;
   flex-direction:column;
   gap:13px;
@@ -415,7 +419,8 @@ html[data-theme="light"] .example-prompt{
   padding:19px 20px;
   border-radius:21px;
   border:1px solid var(--line);
-  background:rgba(255,255,255,.035);
+  background:transparent;
+  backdrop-filter:none;
 }
 
 .wb-block b{
