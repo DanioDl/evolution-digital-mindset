@@ -373,6 +373,123 @@ html[data-theme="light"] .example-prompt{
   .prompt-formula,.examples-grid,.improve-list{grid-template-columns:1fr}
   .copy-row{align-items:flex-start;flex-direction:column}
 }
+
+/* PROMPTS V5 · рабочий стол анализа вместо карты */
+.prompt-hero-grid{
+  grid-template-columns:minmax(0,1.04fr) 460px;
+  gap:58px;
+}
+
+.prompt-visual{
+  min-height:460px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+
+.prompt-ring,
+.prompt-core,
+.prompt-chip{
+  display:none !important;
+}
+
+.workbench{
+  width:100%;
+  max-width:390px;
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+}
+
+.wb-title{
+  text-align:center;
+  font-family:var(--display);
+  color:var(--brand);
+  font-size:1.25rem;
+  line-height:1.15;
+  margin-bottom:4px;
+}
+
+.wb-block{
+  padding:19px 20px;
+  border-radius:21px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+}
+
+.wb-block b{
+  display:block;
+  margin-bottom:9px;
+  font-family:var(--display);
+  font-size:1rem;
+  line-height:1.2;
+}
+
+.wb-block span{
+  display:block;
+  color:var(--muted);
+  font-size:.9rem;
+  line-height:1.45;
+  margin-top:5px;
+}
+
+.wb-problem{
+  border-left:4px solid var(--warm);
+}
+
+.wb-ideas{
+  border-left:4px solid var(--brand);
+}
+
+.wb-patch{
+  border-left:4px solid var(--green);
+  background:linear-gradient(135deg,rgba(30,201,194,.14),rgba(46,143,196,.08));
+}
+
+.wb-patch b{
+  color:var(--brand);
+}
+
+.wb-arrow{
+  text-align:center;
+  font-size:24px;
+  line-height:1;
+  color:var(--brand);
+  font-family:var(--mono);
+  opacity:.85;
+}
+
+html[data-theme="light"] .workbench .wb-block{
+  background:rgba(255,255,255,.78);
+  box-shadow:0 12px 34px rgba(16,42,67,.055);
+}
+
+@media(max-width:980px){
+  .prompt-hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .prompt-visual{
+    max-width:460px;
+    min-height:auto;
+  }
+}
+
+@media(max-width:620px){
+  .prompt-visual{
+    padding:20px;
+  }
+
+  .workbench{
+    max-width:none;
+  }
+
+  .wb-block{
+    padding:17px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -414,31 +531,36 @@ html[data-theme="light"] .example-prompt{
     </div>
 
     <div class="prompt-visual io" aria-hidden="true">
-      <div class="prompt-ring"></div>
-      <div class="prompt-core">задача</div>
-      <span class="prompt-chip c1">роль</span>
-      <span class="prompt-chip c2">контекст</span>
-      <span class="prompt-chip c3">формат</span>
-      <span class="prompt-chip c4">критерии</span>
+      <div class="workbench">
+        <div class="wb-title">ИИ в рабочем анализе</div>
+
+        <div class="wb-block wb-problem">
+          <b>Проблема</b>
+          <span>задержки согласования</span>
+          <span>ручные операции</span>
+          <span>потеря информации</span>
+        </div>
+
+        <div class="wb-arrow">↓</div>
+
+        <div class="wb-block wb-ideas">
+          <b>Идеи</b>
+          <span>гипотезы улучшений</span>
+          <span>альтернативные решения</span>
+          <span>вопросы к процессу</span>
+        </div>
+
+        <div class="wb-arrow">↓</div>
+
+        <div class="wb-block wb-patch">
+          <b>Цифровая заплатка</b>
+          <span>готовое улучшение, которое можно проверить</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section alt">
-  <div class="wrap">
-    <div class="head io">
-      <h2>Формула рабочего запроса</h2>
-      <p>Эта схема нужна не ради красивой методологии. Она помогает ИИ понять задачу так же, как её понял бы новый участник команды.</p>
-    </div>
-    <div class="prompt-formula io">
-      <div class="formula-card"><small>01</small><b>Роль</b><p>Кем должен быть ИИ: аналитиком, участником рабочей группы, редактором или помощником руководителя.</p></div>
-      <div class="formula-card"><small>02</small><b>Контекст</b><p>Что происходит, какой процесс разбираем, какие вводные уже есть и какие ограничения важны.</p></div>
-      <div class="formula-card"><small>03</small><b>Задача</b><p>Что нужно получить: идеи, риски, вопросы, план, черновик, структуру или варианты решений.</p></div>
-      <div class="formula-card"><small>04</small><b>Формат</b><p>Как должен выглядеть ответ: список, таблица, блоки, вопросы, гипотезы или цифровые заплатки.</p></div>
-      <div class="formula-card"><small>05</small><b>Критерии</b><p>Что важно: не выдумывать факты, учитывать контекст, быть практичным и понятным.</p></div>
-    </div>
-  </div>
-</section>
 
 <section class="section" id="examples">
   <div class="wrap">
