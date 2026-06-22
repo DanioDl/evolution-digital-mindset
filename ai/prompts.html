@@ -490,6 +490,43 @@ html[data-theme="light"] .workbench .wb-block{
   }
 }
 
+
+/* PROMPTS V6 · hero без правой схемы */
+.prompt-hero{
+  padding: 96px 0 82px;
+}
+
+.prompt-hero-grid{
+  display:block !important;
+  max-width: 980px;
+}
+
+.prompt-hero .io:first-child{
+  max-width: 920px;
+}
+
+.prompt-hero h1{
+  max-width: 13ch;
+}
+
+.prompt-hero .lead{
+  max-width: 840px;
+}
+
+.prompt-visual,
+.workbench,
+.prompt-ring,
+.prompt-core,
+.prompt-chip{
+  display:none !important;
+}
+
+@media(max-width:620px){
+  .prompt-hero{
+    padding:64px 0 54px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -527,35 +564,6 @@ html[data-theme="light"] .workbench .wb-block{
         <a href="usecases.html">Кейсы</a>
         <a href="safety.html">Безопасность</a>
         <a href="trainer.html">Тренажёр</a>
-      </div>
-    </div>
-
-    <div class="prompt-visual io" aria-hidden="true">
-      <div class="workbench">
-        <div class="wb-title">ИИ в рабочем анализе</div>
-
-        <div class="wb-block wb-problem">
-          <b>Проблема</b>
-          <span>задержки согласования</span>
-          <span>ручные операции</span>
-          <span>потеря информации</span>
-        </div>
-
-        <div class="wb-arrow">↓</div>
-
-        <div class="wb-block wb-ideas">
-          <b>Идеи</b>
-          <span>гипотезы улучшений</span>
-          <span>альтернативные решения</span>
-          <span>вопросы к процессу</span>
-        </div>
-
-        <div class="wb-arrow">↓</div>
-
-        <div class="wb-block wb-patch">
-          <b>Цифровая заплатка</b>
-          <span>готовое улучшение, которое можно проверить</span>
-        </div>
       </div>
     </div>
   </div>

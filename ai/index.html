@@ -1,9 +1,382 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>ИИ · Evolution Digital Mindset</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ИИ · Evolution Digital Mindset</title>
+<meta name="description" content="ИИ-раздел портала Evolution Digital Mindset: выберите рабочую задачу и переходите к нужному материалу."/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <script>
 (function(){
   var saved=localStorage.getItem('edm-theme')||'dark';
   document.documentElement.setAttribute('data-theme', saved==='light'?'light':'dark');
 })();
 </script>
-<link href="../assets/css/style.css" rel="stylesheet"/></head><body><div class="bg"></div><nav class="nav"><div class="navin"><a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a><button class="burger" data-burger="">☰</button><div class="links" data-links=""><a href="../index.html">Главная</a><a class="active" href="index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a href="../library/index.html">Библиотека</a><a class="cta" href="tools.html">Витрина</a></div></div></nav><main><section class="hero"><div class="wrap"><div class="eyebrow">раздел ии</div><h1>ИИ без хайпа, страха и корпоративного тумана</h1><p class="lead">Показываем, где нейросети реально помогают в рабочем дне: написать понятнее, разобраться быстрее, найти слабое место в процессе и не утонуть в рутине.</p><div class="actions"><a class="btn primary" href="tools.html">Витрина</a></div><div class="subnav"><a href="guide.html">Старт с ИИ</a><a href="prompts.html">Промты</a><a href="assistants.html">Ассистенты</a><a href="usecases.html">Кейсы</a><a href="safety.html">Безопасность</a><a href="trainer.html">Тренажёр</a><a href="tools.html">Витрина</a></div></div></section><section class="section alt"><div class="wrap"><div class="head"><h2>Что вас ждёт?</h2><p>Быстрые входы в материалы раздела. Выберите карточку — и переходите к практике.</p></div><div class="grid two"><a class="card tile" href="guide.html"><div class="icon">🧭</div><h3>Старт с ИИ</h3><p>Что такое нейросеть, почему она отвечает не как калькулятор и как понять, где ей можно доверять.</p><span class="tag">для первого знакомства</span></a><a class="card tile" href="prompts.html"><div class="icon">✍️</div><h3>Промт-инжиниринг</h3><p>Детальная постановка задачи вместо ожидания получить результат в один клик: роль, контекст, формат, ограничения и критерии.</p><span class="tag">с готовыми шаблонами</span></a><a class="card tile" href="assistants.html"><div class="icon">🤝</div><h3>AI-ассистенты по ролям</h3><p>Подборки сценариев для аналитика, руководителя, специалиста, автора презентаций и эффективных сотрудников.</p><span class="tag">под рабочие роли</span></a><a class="card tile" href="usecases.html"><div class="icon">🧩</div><h3>Абстрактные истории</h3><p>Абстрактные истории превращаем в конкретные ситуации: письмо, регламент, встреча, таблица, идея.</p><span class="tag">было → стало</span></a><a class="card tile" href="safety.html"><div class="icon">🛡️</div><h3>Безопасность</h3><p>Как пользоваться ИИ и не отправить наружу то, что должно остаться внутри компании.</p><span class="tag">короткие правила</span></a><a class="card tile" href="trainer.html"><div class="icon">🎯</div><h3>Тренажёр</h3><p>Мини-практика: отличить слабый запрос от сильного, улучшить промт и забрать работающие формулировки.</p><span class="tag">интерактив</span></a></div></div></section></main><footer class="footer"><div class="wrap"><span>Evolution Digital Mindset · AI</span><span>КИТ · портал развития цифрового мышления</span></div></footer><script src="../assets/js/app.js"></script><script>document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{navigator.clipboard.writeText(b.closest('.promptbox')?.querySelector('pre')?.innerText||b.dataset.copy||'');b.textContent='Скопировано';b.classList.add('done');setTimeout(()=>{b.textContent='Скопировать';b.classList.remove('done')},1600)}));document.querySelectorAll('.acc button').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));</script></body></html>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+
+<style>
+/* AI landing page hotfix: компактная карта справа и чистый hero */
+.ai-landing-hero.clean-ai-hero{
+  padding: 98px 0 78px;
+  overflow: hidden;
+}
+
+.ai-landing-grid{
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) 360px;
+  gap: 64px;
+  align-items: center;
+}
+
+.ai-landing-copy h1{
+  max-width: 10ch;
+  font-size: clamp(3.2rem, 7.2vw, 6.4rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+}
+
+.ai-landing-copy .lead{
+  max-width: 780px;
+  margin-top: 28px;
+  margin-bottom: 32px;
+}
+
+.ai-landing-visual{
+  justify-self: end;
+  width: 300px;
+  height: 420px;
+  border: 1px solid var(--line2);
+  border-radius: 34px;
+  background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.014)), var(--card);
+  box-shadow: 0 34px 90px -62px rgba(30,201,194,.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-orbit{
+  position: absolute;
+  inset: 36px;
+  border: 1px dashed rgba(30,201,194,.22);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.ai-orbit::after{
+  content: "";
+  position: absolute;
+  inset: 54px;
+  border: 1px dashed rgba(255,122,69,.18);
+  border-radius: 50%;
+}
+
+.ai-orbit b{
+  width: 118px;
+  height: 118px;
+  border-radius: 34px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  color: #05232d;
+  font-family: var(--display);
+  font-size: 2.15rem;
+  font-weight: 900;
+  box-shadow: 0 0 0 16px rgba(30,201,194,.09), 0 0 70px rgba(30,201,194,.26);
+  z-index: 2;
+}
+
+.ai-orbit span{
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(7,33,43,.78);
+  border: 1px solid var(--line2);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: .76rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+}
+
+.ai-orbit .o1{ top: 56px; right: 18px; }
+.ai-orbit .o2{ left: 12px; top: 150px; }
+.ai-orbit .o3{ right: -2px; bottom: 74px; }
+
+.ai-tabs a[href="tools.html"],
+.subnav a[href="tools.html"]{
+  display: none !important;
+}
+
+.ai-task-section{
+  padding-top: 74px;
+}
+
+.ai-task-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.ai-task-card{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  min-height: 230px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.014)), var(--card);
+  transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+}
+
+.ai-task-card:hover{
+  transform: translateY(-4px);
+  border-color: var(--brand);
+  box-shadow: 0 24px 70px -48px rgba(30,201,194,.9);
+}
+
+.ai-task-card small{
+  display: block;
+  color: var(--brand);
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.ai-task-card h3{
+  font-size: 1.18rem;
+  margin-bottom: 8px;
+}
+
+.ai-task-card b{
+  display: block;
+  margin-bottom: 10px;
+}
+
+.ai-task-card p{
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.ai-task-card em{
+  color: var(--brand);
+  font-family: var(--mono);
+  font-size: .78rem;
+  font-style: normal;
+}
+
+.task-dot{
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  margin-top: 6px;
+  box-shadow: 0 0 0 5px var(--soft);
+}
+
+.task-dot.blue{ background: #3b82f6; }
+.task-dot.orange{ background: #fb923c; }
+.task-dot.green{ background: #22c55e; }
+.task-dot.coral{ background: #ff7a45; }
+.task-dot.pink{ background: #db2777; }
+.task-dot.violet{ background: #a78bfa; }
+
+html[data-theme="light"] .ai-landing-visual,
+html[data-theme="light"] .ai-task-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.78)), var(--card);
+  box-shadow: 0 18px 50px rgba(16,42,67,.055);
+}
+
+html[data-theme="light"] .ai-orbit span{
+  background: rgba(255,255,255,.82);
+  color: var(--muted);
+}
+
+html[data-theme="light"] .ai-orbit b{
+  color: #fff;
+}
+
+@media(max-width: 980px){
+  .ai-landing-grid{
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .ai-landing-visual{
+    justify-self: start;
+    width: min(100%, 360px);
+    height: 360px;
+  }
+
+  .ai-landing-copy h1{
+    max-width: 12ch;
+  }
+}
+
+@media(max-width: 720px){
+  .ai-task-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width: 560px){
+  .ai-landing-hero.clean-ai-hero{
+    padding: 64px 0 54px;
+  }
+
+  .ai-landing-copy h1{
+    font-size: clamp(2.7rem, 15vw, 4rem);
+  }
+
+  .ai-landing-visual{
+    height: 320px;
+  }
+
+  .ai-orbit{
+    inset: 28px;
+  }
+
+  .ai-orbit b{
+    width: 88px;
+    height: 88px;
+    border-radius: 27px;
+    font-size: 1.6rem;
+  }
+
+  .ai-orbit span{
+    font-size: .66rem;
+    padding: 8px 11px;
+  }
+
+  .ai-orbit .o1{ top: 48px; right: 8px; }
+  .ai-orbit .o2{ left: 0; top: 134px; }
+  .ai-orbit .o3{ right: -6px; bottom: 58px; }
+}
+</style>
+
+</head>
+<body>
+<div class="bg"></div>
+<nav class="nav">
+  <div class="navin">
+    <a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a>
+    <button class="burger" data-burger="" aria-label="Открыть меню">☰</button>
+    <div class="links" data-links="">
+      <a href="../index.html">Главная</a>
+      <a class="active" href="index.html">ИИ</a>
+      <a href="../ba/index.html">БА</a>
+      <a href="../practices/index.html">Цифровые заплатки</a>
+      <a href="../library/index.html">Библиотека</a>
+      <a class="cta" href="tools.html">Витрина</a>
+    </div>
+  </div>
+</nav>
+<main>
+<section class="ai-landing-hero clean-ai-hero">
+  <div class="wrap ai-landing-grid">
+    <div class="ai-landing-copy io">
+      <h1>ИИ без хайпа</h1>
+      <p class="lead">Показываем, где нейросети реально помогают в рабочем дне: написать понятнее, разобраться быстрее, найти слабое место в процессе и не утонуть в рутине.</p>
+      <div class="actions"><a class="btn primary" href="tools.html">Витрина</a></div>
+      <div class="subnav ai-tabs" aria-label="Навигация по разделу ИИ">
+        <a href="guide.html">Старт с ИИ</a>
+        <a href="prompts.html">Промты</a>
+        <a href="assistants.html">Ассистенты</a>
+        <a href="usecases.html">Кейсы</a>
+        <a href="safety.html">Безопасность</a>
+        <a href="trainer.html">Тренажёр</a>
+      </div>
+    </div>
+    <div class="ai-landing-visual io" aria-hidden="true">
+      <div class="ai-orbit">
+        <span class="o1">черновик</span>
+        <span class="o2">гипотезы</span>
+        <span class="o3">процесс</span>
+        <b>ИИ</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt ai-task-section">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Выберите задачу, которую хотите решить</h2>
+      <p>Не нужно проходить весь раздел подряд. Выберите рабочую ситуацию — и сразу переходите к материалу, который поможет быстрее.</p>
+    </div>
+    <div class="ai-task-grid io">
+      <a class="ai-task-card" href="guide.html">
+        <span class="task-dot blue"></span>
+        <div>
+          <small>01 · первый шаг</small>
+          <h3>Я только начинаю</h3>
+          <b>Старт с ИИ</b>
+          <p>Что такое ИИ, где он действительно помогает в работе и как использовать его без завышенных ожиданий.</p>
+          <em>Открыть старт →</em>
+        </div>
+      </a>
+      <a class="ai-task-card" href="prompts.html">
+        <span class="task-dot orange"></span>
+        <div>
+          <small>02 · лучший результат</small>
+          <h3>Мне нужно поставить задачу</h3>
+          <b>Промты</b>
+          <p>Как формулировать запросы так, чтобы ИИ выдавал полезный результат вместо общих ответов.</p>
+          <em>Шаблоны и примеры →</em>
+        </div>
+      </a>
+      <a class="ai-task-card" href="assistants.html">
+        <span class="task-dot green"></span>
+        <div>
+          <small>03 · рабочие сценарии</small>
+          <h3>Мне нужно решить задачу</h3>
+          <b>Ассистенты по ролям</b>
+          <p>Готовые сценарии для руководителей, аналитиков, специалистов и сотрудников клиентского сервиса.</p>
+          <em>Подобрать роль →</em>
+        </div>
+      </a>
+      <a class="ai-task-card" href="usecases.html">
+        <span class="task-dot coral"></span>
+        <div>
+          <small>04 · реальные примеры</small>
+          <h3>Мне нужны кейсы</h3>
+          <b>Абстрактные истории</b>
+          <p>Примеры использования ИИ в рабочих задачах: письмо, регламент, встреча, таблица, идея.</p>
+          <em>Было → стало →</em>
+        </div>
+      </a>
+      <a class="ai-task-card" href="trainer.html">
+        <span class="task-dot pink"></span>
+        <div>
+          <small>05 · практика</small>
+          <h3>Я хочу улучшить процесс</h3>
+          <b>Тренажёр</b>
+          <p>Практика поиска проблем, формирования гипотез и поиска цифровых заплаток.</p>
+          <em>Перейти к практике →</em>
+        </div>
+      </a>
+      <a class="ai-task-card" href="safety.html">
+        <span class="task-dot violet"></span>
+        <div>
+          <small>06 · безопасная работа</small>
+          <h3>Я хочу не рисковать данными</h3>
+          <b>Безопасность</b>
+          <p>Простые правила работы с ИИ и защиты внутренней информации компании.</p>
+          <em>Короткие правила →</em>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer"><div class="wrap"><span>Evolution Digital Mindset · AI</span><span>КИТ · портал развития цифрового мышления</span></div></footer>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
