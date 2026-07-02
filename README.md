@@ -1,6 +1,6 @@
 # Evolution Digital Mindset
 
-Актуальный релиз для GitHub Pages.
+Актуальный обезличенный релиз для GitHub Pages.
 
 ## Что внутри
 - Главная страница с исправленными CTA и блоками
@@ -13,3 +13,6 @@
 
 ## Выкладка на GitHub Pages
 Загрузить содержимое архива в корень репозитория и включить Pages: `Settings → Pages → Deploy from branch → main → /(root)`.
+
+
+Design refresh: Grey ocean logistics theme.
