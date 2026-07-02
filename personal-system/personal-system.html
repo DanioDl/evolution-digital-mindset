@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Личная цифровая система · Evolution Digital Mindset</title>
+<meta name="description" content="Как организовать знания, идеи, задачи и проекты в личную цифровую систему."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script>
+(function(){
+  var saved=localStorage.getItem('edm-theme')||'dark';
+  document.documentElement.setAttribute('data-theme', saved==='light'?'light':'dark');
+})();
+</script>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<style>
+.personal-hero{padding:96px 0 76px;overflow:hidden}
+.personal-grid{display:grid;grid-template-columns:minmax(0,1.02fr) .98fr;gap:54px;align-items:center}
+.personal-hero h1{max-width:12ch;font-size:clamp(2.7rem,6.7vw,5.8rem);line-height:1.01;letter-spacing:-.05em}
+.personal-hero h1 span{color:var(--brand)}
+.personal-hero .lead{max-width:760px;margin-top:26px}
+.system-visual{position:relative;min-height:450px;border:1px solid var(--line2);border-radius:34px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);box-shadow:0 34px 90px -62px rgba(30,201,194,.9);overflow:hidden;padding:28px}
+.system-visual:before{content:"";position:absolute;inset:50px;border:1px dashed rgba(30,201,194,.22);border-radius:50%}
+.system-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:136px;height:136px;border-radius:42px;display:grid;place-items:center;text-align:center;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#05232d;font-family:var(--display);font-weight:900;line-height:1.12;box-shadow:0 0 0 16px rgba(30,201,194,.09),0 0 70px rgba(30,201,194,.26);z-index:2}
+.system-node{position:absolute;z-index:3;width:170px;padding:14px 15px;border:1px solid var(--line2);border-radius:18px;background:rgba(7,33,43,.74);backdrop-filter:blur(14px)}
+.system-node b{display:block;font-family:var(--display);font-size:.9rem;line-height:1.15;margin-bottom:6px}
+.system-node span{display:block;color:var(--muted);font-size:.78rem;line-height:1.36}
+.system-node.n1{left:30px;top:78px}.system-node.n2{right:30px;top:94px}.system-node.n3{left:42px;bottom:76px}.system-node.n4{right:42px;bottom:72px}.system-node.n5{left:50%;bottom:28px;transform:translateX(-50%);width:180px}
+.problem-grid,.tools-grid,.habits-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.problem-card,.system-part,.habit-card,.tool-card,.flow-item,.pipe-step{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
+.problem-card b,.system-part b,.habit-card b,.tool-card b,.flow-item b,.pipe-step b{display:block;font-family:var(--display);line-height:1.2;margin-bottom:10px}
+.problem-card span,.system-part span,.habit-card span,.tool-card span,.flow-item span{color:var(--muted);line-height:1.55;font-size:.94rem}
+.definition-panel,.second-brain{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:stretch}
+.definition-main,.brain-card,.final-panel{border:1px solid rgba(30,201,194,.26);border-radius:28px;padding:30px;background:linear-gradient(135deg,var(--soft),rgba(255,255,255,.016))}
+.definition-main h2,.brain-card h2{font-size:clamp(1.7rem,3.5vw,2.7rem);margin-bottom:14px}
+.definition-main p,.brain-card p,.final-panel p{color:var(--muted);line-height:1.65}
+.parts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.system-part .icon,.habit-card .icon,.tool-card .icon{width:44px;height:44px;border-radius:14px;background:var(--soft);display:grid;place-items:center;margin-bottom:16px;font-size:1.2rem}
+.flow-line{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.flow-item small,.pipe-step small{display:block;font-family:var(--mono);color:var(--warm);margin-bottom:12px}
+.ai-pipeline{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.pipe-step{position:relative;min-height:128px}
+.pipe-step:after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--brand);font-family:var(--mono)}
+.pipe-step:last-child:after{display:none}
+.final-thought{text-align:center}.final-thought .wrap{max-width:900px}.final-panel h2{font-size:clamp(1.8rem,4vw,3rem);margin-bottom:16px}
+html[data-theme="light"] .system-visual,html[data-theme="light"] .problem-card,html[data-theme="light"] .system-part,html[data-theme="light"] .flow-item,html[data-theme="light"] .pipe-step,html[data-theme="light"] .habit-card,html[data-theme="light"] .tool-card{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.78)),var(--card);box-shadow:0 18px 50px rgba(16,42,67,.055)}
+html[data-theme="light"] .system-node{background:rgba(255,255,255,.82)}html[data-theme="light"] .system-core{color:#fff}
+@media(max-width:1050px){.personal-grid,.definition-panel,.second-brain{grid-template-columns:1fr}.system-visual{max-width:540px}.problem-grid,.tools-grid,.habits-grid{grid-template-columns:repeat(2,1fr)}.ai-pipeline{grid-template-columns:1fr}.pipe-step:after{content:"↓";right:auto;left:50%;top:auto;bottom:-18px;transform:translateX(-50%)}}
+@media(max-width:720px){.flow-line{grid-template-columns:1fr}}
+@media(max-width:620px){.personal-hero{padding:64px 0 52px}.personal-hero h1{font-size:clamp(2.35rem,14vw,3.7rem)}.system-visual{min-height:390px;padding:20px}.system-core{width:90px;height:90px;border-radius:28px;font-size:.78rem}.system-node{width:138px;padding:10px 11px}.system-node b{font-size:.72rem}.system-node span{font-size:.64rem}.system-node.n1{left:12px;top:70px}.system-node.n2{right:12px;top:82px}.system-node.n3{left:14px;bottom:86px}.system-node.n4{right:12px;bottom:82px}.system-node.n5{bottom:22px;width:150px}.problem-grid,.parts-grid,.tools-grid,.habits-grid{grid-template-columns:1fr}.final-panel{padding:28px}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav class="nav"><div class="navin"><a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a><button class="burger" data-burger="" aria-label="Открыть меню">☰</button><div class="links" data-links=""><a href="../index.html">Главная</a><a href="../ai/index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a class="active" href="index.html">Личная система</a><a class="cta" href="../library/index.html">Библиотека</a></div></div></nav>
+<main>
+<section class="personal-hero"><div class="wrap personal-grid"><div class="io"><div class="eyebrow">личная цифровая система</div><h1>Голова нужна не для <span>хранения</span></h1><p class="lead">Она нужна для принятия решений. Организуйте знания, проекты, идеи и задачи в единую систему, которая помогает работать спокойнее, быстрее и не терять важное.</p><div class="actions"><a class="btn primary" href="#start">С чего начать</a><a class="btn" href="#tools">Инструменты</a></div></div><div class="system-visual io" aria-hidden="true"><div class="system-core">Личная<br/>система</div><div class="system-node n1"><b>Знания</b><span>что вы уже поняли</span></div><div class="system-node n2"><b>Идеи</b><span>что пришло в голову</span></div><div class="system-node n3"><b>Проекты</b><span>над чем работаете</span></div><div class="system-node n4"><b>Задачи</b><span>что нужно сделать</span></div><div class="system-node n5"><b>ИИ</b><span>помогает развивать мысли</span></div></div></div></section>
+
+<section class="section alt"><div class="wrap"><div class="head io"><h2>Почему это важно</h2><p>Чаще всего проблема не в отсутствии информации. Проблема в том, что она разрознена, забывается и не превращается в понятные действия.</p></div><div class="problem-grid io"><div class="problem-card"><b>Идеи теряются</b><span>Пришли на встрече, в дороге или в переписке — и исчезли.</span></div><div class="problem-card"><b>Документы разбросаны</b><span>Часть в почте, часть в чатах, часть в папках и таблицах.</span></div><div class="problem-card"><b>Решения забываются</b><span>Через месяц сложно вспомнить, почему выбрали именно такой вариант.</span></div><div class="problem-card"><b>Информация ищется заново</b><span>Мы тратим время на повторный поиск того, что уже находили.</span></div><div class="problem-card"><b>Знания живут в голове</b><span>И становятся недоступны, когда человек занят или ушёл в отпуск.</span></div></div></div></section>
+
+<section class="section" id="start"><div class="wrap"><div class="definition-panel io"><div class="definition-main"><h2>Что такое личная цифровая система</h2><p>Это единое рабочее пространство, где хранятся знания, идеи, проекты, заметки и задачи. Не просто папка с файлами, а понятная система, в которую можно быстро положить информацию и потом легко её найти, связать и использовать.</p></div><div class="parts-grid"><div class="system-part"><div class="icon">🧠</div><b>Знания</b><span>То, что вы поняли, изучили или хотите использовать повторно.</span></div><div class="system-part"><div class="icon">💡</div><b>Идеи</b><span>Сырые мысли, гипотезы и наблюдения, которые могут вырасти в решение.</span></div><div class="system-part"><div class="icon">📁</div><b>Проекты</b><span>Контекст, материалы, решения и следующие шаги по текущей работе.</span></div><div class="system-part"><div class="icon">✅</div><b>Задачи</b><span>Конкретные действия, сроки и обязательства, которые нельзя потерять.</span></div></div></div></div></section>
+
+<section class="section alt"><div class="wrap"><div class="second-brain io"><div class="brain-card"><h2>Второй мозг</h2><p>Идея простая: голова не должна хранить всё подряд. Её задача — думать, анализировать и принимать решения. А хранить, связывать и напоминать должна система.</p></div><div class="flow-line"><div class="flow-item"><small>01</small><b>Идея</b><span>Поймали мысль или наблюдение.</span></div><div class="flow-item"><small>02</small><b>Записал</b><span>Быстро зафиксировали в системе.</span></div><div class="flow-item"><small>03</small><b>Связал</b><span>Привязали к теме, проекту или процессу.</span></div><div class="flow-item"><small>04</small><b>Развил</b><span>Доработали с помощью ИИ или коллег.</span></div><div class="flow-item"><small>05</small><b>Использовал</b><span>Превратили в решение, задачу или материал.</span></div></div></div></div></section>
+
+<section class="section"><div class="wrap"><div class="head io"><h2>Как ИИ становится частью системы</h2><p>ИИ не должен жить отдельно в отдельном чате. Он полезнее, когда подключается к вашим заметкам, проектам и рабочему контексту.</p></div><div class="ai-pipeline io"><div class="pipe-step"><small>01</small><b>Идея</b></div><div class="pipe-step"><small>02</small><b>Заметка</b></div><div class="pipe-step"><small>03</small><b>ИИ</b></div><div class="pipe-step"><small>04</small><b>Новые варианты</b></div><div class="pipe-step"><small>05</small><b>Связь с проектом</b></div><div class="pipe-step"><small>06</small><b>Задача</b></div><div class="pipe-step"><small>07</small><b>Результат</b></div></div></div></section>
+
+<section class="section alt" id="tools"><div class="wrap"><div class="head io"><h2>Инструменты — это только способ реализации</h2><p>Главное не конкретный сервис, а привычка хранить знания в системе. Obsidian, Notion и другие инструменты — просто разные способы собрать эту систему под себя.</p></div><div class="tools-grid io"><div class="tool-card"><div class="icon">🗂️</div><b>Obsidian</b><span>Личная база знаний, заметки, связи между идеями, второй мозг.</span></div><div class="tool-card"><div class="icon">📚</div><b>Notion</b><span>Документация, командные базы знаний, проекты и чек-листы.</span></div><div class="tool-card"><div class="icon">✏️</div><b>Excalidraw</b><span>Быстрые схемы, наброски процессов и визуализация мыслей.</span></div><div class="tool-card"><div class="icon">✅</div><b>Todo / Планировщик</b><span>Задачи, сроки, напоминания и контроль личной нагрузки.</span></div><div class="tool-card"><div class="icon">🤖</div><b>ChatGPT</b><span>Развитие идей, структурирование заметок и подготовка черновиков.</span></div></div></div></section>
+
+<section class="section"><div class="wrap"><div class="head io"><h2>5 привычек цифрового сотрудника</h2><p>Личная цифровая система работает не из-за инструмента, а из-за регулярных простых действий.</p></div><div class="habits-grid io"><div class="habit-card"><div class="icon">✍️</div><b>Всё записывать</b><span>Не держать идеи и договорённости только в голове.</span></div><div class="habit-card"><div class="icon">🔗</div><b>Связывать знания</b><span>Привязывать заметки к темам, проектам и процессам.</span></div><div class="habit-card"><div class="icon">🔎</div><b>Не искать дважды</b><span>Сохранять найденное так, чтобы вернуться за минуту.</span></div><div class="habit-card"><div class="icon">🤖</div><b>Использовать ИИ</b><span>Просить структурировать, расширять и проверять мысли.</span></div><div class="habit-card"><div class="icon">🔄</div><b>Обновлять систему</b><span>Регулярно чистить, дополнять и связывать материалы.</span></div></div></div></section>
+
+<section class="section alt final-thought"><div class="wrap"><div class="final-panel io"><h2>Главная мысль</h2><p>Хорошая цифровая система не делает работу за человека. Она освобождает голову для анализа, творчества и принятия решений.</p></div></div></section>
+</main>
+<footer class="footer"><div class="wrap"><span>Evolution Digital Mindset · Personal digital system</span><span>КИТ · портал развития цифрового мышления</span></div></footer>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
