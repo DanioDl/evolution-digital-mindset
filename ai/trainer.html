@@ -1,207 +1,744 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evolution · Тренажёр промт-инжиниринга</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* ===================== ТОКЕНЫ ===================== */
-:root{
-  --bg:#07212B; --bg-2:#0A2A36; --surface:#103642; --surface-2:#16414E;
-  --line:rgba(150,200,210,.12); --line-2:rgba(150,200,210,.20);
-  --text:#EAF4F5; --muted:#93B0B8; --faint:#5E7C85;
-  --brand:#1EC9C2; --brand-2:#2E8FC4; --brand-soft:rgba(30,201,194,.14);
-  --warm:#FF7A45; --warm-soft:rgba(255,122,69,.14);
-  --green:#22C55E; --green-soft:rgba(34,197,94,.14);
-  --radius:18px; --radius-sm:12px; --maxw:860px;
-  --font-display:'Unbounded',sans-serif;
-  --font-body:'Manrope',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
-}
-/* ===================== БАЗА ===================== */
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-a{color:inherit;text-decoration:none;}
-::selection{background:var(--brand);color:var(--bg);}
-.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
-h1,h2,h3{font-family:var(--font-display);line-height:1.1;letter-spacing:-.01em;}
-.mono{font-family:var(--font-mono);}
-/* ===================== ФОНОВЫЕ БЛОБЫ ===================== */
-.blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-.blobs span{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:drift 28s ease-in-out infinite;}
-.blobs .b1{width:500px;height:500px;background:radial-gradient(circle,var(--brand),transparent 70%);top:-180px;left:-160px;}
-.blobs .b2{width:400px;height:400px;background:radial-gradient(circle,var(--brand-2),transparent 70%);bottom:-120px;right:-120px;animation-delay:-12s;}
-.blobs .b3{width:300px;height:300px;background:radial-gradient(circle,var(--warm),transparent 70%);top:40%;left:60%;opacity:.18;animation-delay:-20s;}
-@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}40%{transform:translate(50px,30px) scale(1.07);}70%{transform:translate(-30px,20px) scale(.95);}}
-/* ===================== НАВ ===================== */
-.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(7,33,43,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:.95rem;}
-.brand svg{width:26px;height:26px;color:var(--brand);}
-.back-link{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:6px;transition:color .2s;}
-.back-link:hover{color:var(--brand);}
-/* ===================== ПРОГРЕСС-БАР ===================== */
-.progress-wrap{position:sticky;top:53px;z-index:40;background:rgba(7,33,43,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 24px;}
-.progress-inner{max-width:var(--maxw);margin:0 auto;display:flex;flex-direction:column;gap:8px;}
-.progress-labels{display:flex;justify-content:space-between;align-items:center;}
-.progress-labels span{font-family:var(--font-mono);font-size:.72rem;color:var(--faint);letter-spacing:.06em;}
-.progress-labels b{font-family:var(--font-mono);font-size:.82rem;color:var(--brand);}
-.progress-track{height:5px;background:var(--surface-2);border-radius:999px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));border-radius:999px;transition:width .5s cubic-bezier(.4,0,.2,1);}
-.steps-dots{display:flex;gap:8px;flex-wrap:wrap;}
-.step-dot{width:28px;height:6px;border-radius:999px;background:var(--surface-2);transition:background .3s ease,width .3s ease;cursor:default;}
-.step-dot.done{background:var(--brand);}
-.step-dot.active{background:var(--warm);width:36px;}
-/* ===================== ШАГИ ===================== */
-.step{display:none;padding:48px 0 80px;position:relative;z-index:2;}
-.step.active{display:block;animation:fadeIn .4s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-.step-badge{display:inline-flex;align-items:center;gap:8px;background:var(--warm-soft);border:1px solid rgba(255,122,69,.3);border-radius:999px;padding:6px 14px;margin-bottom:20px;}
-.step-badge .num{font-family:var(--font-mono);font-size:.72rem;color:var(--warm);letter-spacing:.08em;text-transform:uppercase;}
-.step h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:12px;}
-.step .lead{color:var(--muted);font-size:1.05rem;margin-bottom:36px;max-width:60ch;}
-/* ===================== КАРТОЧКИ ===================== */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;}
-.card+.card{margin-top:16px;}
-.card h3{font-size:1.1rem;margin-bottom:10px;}
-.card p{color:var(--muted);font-size:.96rem;}
-/* ===================== ШАГ 1: ДО / ПОСЛЕ ===================== */
-.before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-.ba-panel{border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--line);}
-.ba-head{padding:10px 16px;display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;}
-.ba-head.bad{background:var(--warm-soft);color:var(--warm);}
-.ba-head.good{background:var(--green-soft);color:var(--green);}
-.ba-body{padding:16px;font-size:.94rem;line-height:1.65;background:#0A2932;color:var(--text);}
-.ba-why{font-size:.84rem;color:var(--faint);padding:10px 16px;background:#0A2932;border-top:1px dashed var(--line);}
-.answer-block{background:#0A2932;border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;margin-top:12px;display:none;}
-.answer-block.show{display:block;animation:fadeIn .35s ease;}
-.answer-block .lbl{font-family:var(--font-mono);font-size:.7rem;color:var(--brand);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.answer-block p{font-size:.93rem;color:#CFE8EA;line-height:1.7;}
-/* ===================== ШАГ 2: КВИЗ ===================== */
-.quiz-q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;margin-bottom:24px;}
-.quiz-q .prompt-text{background:#0A2932;border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px;font-family:var(--font-mono);font-size:.9rem;line-height:1.65;color:#CFE8EA;margin-bottom:20px;}
-.options{display:flex;flex-direction:column;gap:10px;}
-.opt{display:flex;align-items:flex-start;gap:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s;font-size:.95rem;text-align:left;width:100%;color:var(--text);}
-.opt:hover:not(:disabled){border-color:var(--line-2);}
-.opt .oi{width:22px;height:22px;border-radius:7px;border:2px solid var(--faint);flex:none;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;transition:.2s;}
-.opt.correct{border-color:var(--green);background:var(--green-soft);}
-.opt.correct .oi{border-color:var(--green);background:var(--green);color:var(--bg);}
-.opt.wrong{border-color:var(--warm);background:var(--warm-soft);}
-.opt.wrong .oi{border-color:var(--warm);background:var(--warm);color:var(--bg);}
-.opt.reveal{opacity:.5;}
-.quiz-fb{margin-top:14px;padding:14px 16px;border-radius:var(--radius-sm);font-size:.93rem;display:none;}
-.quiz-fb.show{display:block;animation:fadeIn .3s ease;}
-.quiz-fb.ok{background:var(--green-soft);border:1px solid rgba(34,197,94,.3);color:#B6F5C8;}
-.quiz-fb.no{background:var(--warm-soft);border:1px solid rgba(255,122,69,.3);color:#FFD9C7;}
-.quiz-score{text-align:center;padding:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);display:none;}
-.quiz-score.show{display:block;animation:fadeIn .4s ease;}
-.quiz-score .big{font-family:var(--font-display);font-size:3rem;color:var(--brand);display:block;margin-bottom:8px;}
-/* ===================== ШАГ 3: ПРОКАЧАЙ ПРОМТ ===================== */
-.blocks-check{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.bc{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;}
-.bc .bi{width:28px;height:28px;border-radius:8px;border:2px solid var(--faint);flex:none;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:.25s;}
-.bc.found .bi{border-color:var(--green);background:var(--green);color:var(--bg);}
-.bc.missing .bi{border-color:var(--warm);background:var(--warm-soft);color:var(--warm);}
-.bc span{font-size:.95rem;}
-.bc .hint{font-size:.82rem;color:var(--faint);margin-left:auto;font-family:var(--font-mono);}
-.pump-score{font-family:var(--font-display);font-size:2.2rem;color:var(--brand);margin:12px 0 4px;}
-.pump-comment{font-size:.96rem;color:var(--muted);margin-bottom:20px;}
-textarea.prompt-ta{width:100%;min-height:130px;resize:vertical;background:#0A2932;color:var(--text);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:14px 16px;font-family:var(--font-mono);font-size:.88rem;line-height:1.65;transition:border-color .2s;}
-textarea.prompt-ta:focus{border-color:var(--brand);outline:none;}
-.pump-tasks{display:flex;flex-direction:column;gap:20px;}
-.pump-task{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
-.pump-task h3{font-size:1.05rem;margin-bottom:8px;}
-.pump-task .ctx{color:var(--muted);font-size:.9rem;margin-bottom:14px;}
-/* ===================== ШАГ 4: ФИНИШ ===================== */
-.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
-.finish-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;}
-.finish-card .ico{font-size:2rem;margin-bottom:10px;}
-.finish-card h3{font-size:1rem;margin-bottom:6px;}
-.finish-card p{font-size:.88rem;color:var(--muted);}
-.finish-big{text-align:center;padding:40px 24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:24px;}
-.finish-big .whale-big{font-size:4rem;display:block;margin-bottom:12px;}
-.finish-big h2{font-size:clamp(1.6rem,4vw,2.2rem);margin-bottom:12px;}
-.finish-big p{color:var(--muted);max-width:44ch;margin:0 auto 24px;}
-/* ===================== КНОПКИ ===================== */
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,background .2s ease;will-change:transform;}
-.btn-primary{background:var(--warm);color:#1a0a02;box-shadow:0 8px 24px -8px var(--warm);}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px -10px var(--warm);}
-.btn-brand{background:var(--brand);color:var(--bg);}
-.btn-brand:hover{transform:translateY(-3px);}
-.btn-ghost{background:transparent;color:var(--text);border-color:var(--line-2);}
-.btn-ghost:hover{border-color:var(--brand);color:var(--brand);}
-.btn-sm{padding:9px 16px;font-size:.85rem;}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none !important;box-shadow:none !important;}
-.nav-btns{display:flex;gap:12px;align-items:center;margin-top:32px;flex-wrap:wrap;}
-/* ===================== УТИЛИТЫ ===================== */
-.tag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;}
-.mt8{margin-top:8px;} .mt16{margin-top:16px;} .mt24{margin-top:24px;}
-@media(max-width:640px){
-  .before-after{grid-template-columns:1fr;}
-  .finish-grid{grid-template-columns:1fr;}
-  .step h2{font-size:1.6rem;}
-}
-:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px;}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
-
-/* Theme switcher + light theme for trainer */
-.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:8px 12px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.035);color:var(--text);font-family:var(--font-mono);font-size:.75rem;font-weight:800;cursor:pointer;margin-left:auto;white-space:nowrap;}
-.theme-toggle:hover{border-color:var(--brand);color:var(--brand);}
-.theme-toggle .theme-dot{width:18px;height:18px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 0 0 4px var(--brand-soft);display:inline-block;}
-html[data-theme="light"]{--bg:#F5F8FA;--bg-2:#EAF2F5;--surface:#FFFFFF;--surface-2:#F1F7F8;--line:rgba(15,42,55,.10);--line-2:rgba(15,42,55,.18);--text:#102A43;--muted:#526B7A;--faint:#7B91A0;--brand:#0891B2;--brand-2:#14B8A6;--brand-soft:rgba(8,145,178,.10);--warm:#F97316;--warm-soft:rgba(249,115,22,.10);--green:#16A34A;--green-soft:rgba(22,163,74,.10);}
-html[data-theme="light"] body{background:var(--bg);color:var(--text);}
-html[data-theme="light"] .nav,html[data-theme="light"] .progress-wrap{background:rgba(245,248,250,.84);border-bottom-color:var(--line);box-shadow:0 12px 34px rgba(16,42,67,.05);}
-html[data-theme="light"] .card,html[data-theme="light"] .quiz-q,html[data-theme="light"] .finish-card,html[data-theme="light"] .finish-big{box-shadow:0 18px 50px rgba(16,42,67,.055);}
-html[data-theme="light"] .ba-body,html[data-theme="light"] .answer-block,html[data-theme="light"] textarea.prompt-ta,html[data-theme="light"] .prompt-text{background:#F8FCFD;color:#244456;}
-html[data-theme="light"] .theme-toggle{background:rgba(255,255,255,.72);box-shadow:0 10px 24px rgba(16,42,67,.06);}
-html[data-theme="light"] .theme-toggle .theme-dot{background:linear-gradient(135deg,#FBBF24,#F97316);box-shadow:0 0 0 4px rgba(249,115,22,.10);}
-@media(max-width:640px){.theme-toggle{min-width:38px;padding:8px 10px}.theme-toggle .theme-label{display:none}}
-
-</style>
-
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Тренажёр промтов · Evolution Digital Mindset</title>
+<meta name="description" content="Интерактивный тренажёр промтов: разберите слабые запросы, найдите ошибки и соберите сильный промт."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <script>
 (function(){
   var saved=localStorage.getItem('edm-theme')||'dark';
   document.documentElement.setAttribute('data-theme', saved==='light'?'light':'dark');
 })();
 </script>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+
+<style>
+/* ============================================================
+   TRAINER v0.2 · unified grey-ocean design
+   ============================================================ */
+:root{
+  --font-display:var(--display);
+  --font-body:var(--body);
+  --font-mono:var(--mono);
+}
+
+.trainer-page{
+  padding:52px 0 88px;
+}
+
+.trainer-page .wrap,
+.trainer-progress-inner{
+  max-width:1040px;
+}
+
+.trainer-hero{
+  padding:76px 0 22px;
+}
+
+.trainer-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 320px;
+  gap:42px;
+  align-items:center;
+}
+
+.trainer-hero h1{
+  max-width:13ch;
+  font-size:clamp(2.45rem,5.8vw,4.85rem);
+  line-height:1.04;
+  letter-spacing:-.045em;
+}
+
+.trainer-hero h1 span{
+  color:var(--brand);
+}
+
+.trainer-hero-card{
+  position:relative;
+  min-height:300px;
+  border:1px solid var(--line2);
+  border-radius:32px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.068),rgba(255,255,255,.020)),
+    linear-gradient(135deg,rgba(42,178,203,.070),transparent 44%),
+    var(--card);
+  box-shadow:0 34px 92px -64px rgba(42,178,203,.70);
+  overflow:hidden;
+}
+
+.trainer-hero-card:before{
+  content:"";
+  position:absolute;
+  inset:42px;
+  border:1px dashed rgba(42,178,203,.22);
+  border-radius:50%;
+}
+
+.trainer-hero-card:after{
+  content:"";
+  position:absolute;
+  left:14%;
+  right:14%;
+  top:50%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(42,178,203,.32),transparent);
+}
+
+.trainer-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:104px;
+  height:104px;
+  border-radius:32px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#08242A;
+  font-family:var(--display);
+  font-weight:900;
+  font-size:1.05rem;
+  box-shadow:0 0 0 16px var(--soft);
+  z-index:2;
+}
+
+.trainer-chip{
+  position:absolute;
+  z-index:3;
+  padding:9px 13px;
+  border:1px solid var(--line2);
+  border-radius:999px;
+  background:rgba(37,54,63,.78);
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:.72rem;
+  white-space:nowrap;
+}
+
+.trainer-chip.c1{left:24px;top:58px}
+.trainer-chip.c2{right:24px;top:76px}
+.trainer-chip.c3{left:38px;bottom:62px}
+.trainer-chip.c4{right:34px;bottom:58px}
+
+.trainer-progress{
+  position:sticky;
+  top:70px;
+  z-index:30;
+  border-block:1px solid var(--line);
+  background:rgba(38,52,59,.82);
+  backdrop-filter:blur(18px);
+}
+
+.trainer-progress-inner{
+  margin:0 auto;
+  padding:14px 24px;
+}
+
+.progress-labels{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:.78rem;
+  margin-bottom:10px;
+}
+
+.progress-labels b{
+  color:var(--brand);
+}
+
+.progress-track{
+  height:8px;
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--line);
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--brand),var(--brand2));
+  border-radius:999px;
+  transition:width .28s ease;
+}
+
+.steps-dots{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+}
+
+.step-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  border:1px solid var(--line2);
+  background:var(--card);
+  transition:.2s;
+}
+
+.step-dot.active,
+.step-dot.done{
+  background:var(--brand);
+  border-color:var(--brand);
+  box-shadow:0 0 0 5px var(--soft);
+}
+
+.trainer-page .step{
+  display:none;
+}
+
+.trainer-page .step.active{
+  display:block;
+  animation:trainerIn .35s ease both;
+}
+
+@keyframes trainerIn{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:none}
+}
+
+.step-badge{
+  margin-bottom:16px;
+}
+
+.trainer-page .num,
+.trainer-page .tag{
+  font-family:var(--mono);
+  color:var(--brand);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.72rem;
+}
+
+.trainer-page h2{
+  font-size:clamp(1.95rem,4.2vw,3.3rem);
+  margin-bottom:14px;
+}
+
+.trainer-page h3{
+  font-size:1.1rem;
+}
+
+.trainer-page .lead{
+  color:var(--muted);
+  line-height:1.65;
+  max-width:780px;
+  margin-bottom:28px;
+}
+
+.trainer-page .card,
+.quiz-q,
+.pump-task,
+.finish-card,
+.finish-big{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.060),rgba(255,255,255,.024)),
+    var(--card);
+  border:1px solid rgba(190,216,222,.16);
+  border-radius:24px;
+  box-shadow:0 20px 64px -52px rgba(0,0,0,.58);
+}
+
+.trainer-page .card{
+  padding:28px;
+}
+
+.before-after{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.ba-panel{
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(255,255,255,.020);
+}
+
+.ba-head{
+  padding:14px 18px;
+  font-family:var(--mono);
+  font-size:.78rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+
+.ba-head.bad{
+  background:rgba(242,138,91,.12);
+  color:var(--warm);
+}
+
+.ba-head.good{
+  background:rgba(47,193,138,.10);
+  color:var(--green);
+}
+
+.ba-body{
+  min-height:126px;
+  padding:22px;
+  color:var(--text);
+  font-size:1.02rem;
+  line-height:1.7;
+  background:rgba(255,255,255,.030);
+}
+
+.ba-why{
+  padding:16px 20px;
+  color:var(--muted);
+  background:rgba(15,31,38,.52);
+  border-top:1px solid var(--line);
+  line-height:1.55;
+}
+
+.answer-block{
+  display:none;
+  margin-top:16px;
+  padding:22px;
+  border:1px solid var(--line);
+  border-left:4px solid var(--brand);
+  border-radius:20px;
+  background:rgba(31,50,59,.72);
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.answer-block.show{
+  display:block;
+}
+
+.answer-block .lbl{
+  color:var(--brand);
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.quiz-q{
+  padding:24px;
+  margin-top:18px;
+}
+
+.prompt-text{
+  padding:18px 20px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(31,50,59,.72);
+  color:#D7E8EC;
+  font-family:var(--mono);
+  line-height:1.65;
+  margin-bottom:16px;
+}
+
+.options{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+
+.opt{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  text-align:left;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.024);
+  color:var(--text);
+  border-radius:16px;
+  padding:14px 16px;
+  cursor:pointer;
+  transition:.18s;
+  font:inherit;
+}
+
+.opt:hover:not(:disabled){
+  border-color:rgba(42,178,203,.52);
+  transform:translateY(-1px);
+}
+
+.opt .oi{
+  width:22px;
+  height:22px;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  border-radius:50%;
+  border:1px solid var(--line2);
+  color:var(--brand);
+  font-family:var(--mono);
+}
+
+.opt.correct{
+  border-color:rgba(47,193,138,.42);
+  background:rgba(47,193,138,.10);
+}
+
+.opt.wrong{
+  border-color:rgba(242,138,91,.42);
+  background:rgba(242,138,91,.10);
+}
+
+.opt.reveal{
+  opacity:.58;
+}
+
+.quiz-fb{
+  display:none;
+  margin-top:14px;
+  padding:16px 18px;
+  border-radius:16px;
+  line-height:1.6;
+}
+
+.quiz-fb.show{
+  display:block;
+}
+
+.quiz-fb.ok{
+  border:1px solid rgba(47,193,138,.35);
+  background:rgba(47,193,138,.09);
+  color:var(--text);
+}
+
+.quiz-fb.no{
+  border:1px solid rgba(242,138,91,.35);
+  background:rgba(242,138,91,.10);
+  color:var(--text);
+}
+
+.quiz-score{
+  display:none;
+  margin-top:22px;
+  padding:22px;
+  border:1px solid rgba(42,178,203,.30);
+  border-radius:22px;
+  background:var(--soft);
+}
+
+.quiz-score.show{
+  display:block;
+}
+
+.pump-tasks{
+  display:grid;
+  gap:18px;
+}
+
+.pump-task{
+  padding:24px;
+}
+
+.pump-task .ctx{
+  color:var(--muted);
+  margin:8px 0 14px;
+  line-height:1.6;
+}
+
+textarea.prompt-ta{
+  width:100%;
+  min-height:140px;
+  resize:vertical;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px 18px;
+  background:rgba(31,50,59,.72);
+  color:var(--text);
+  font-family:var(--mono);
+  line-height:1.65;
+}
+
+textarea.prompt-ta:focus{
+  outline:none;
+  border-color:var(--brand);
+  box-shadow:0 0 0 5px var(--soft);
+}
+
+.blocks-check{
+  display:none;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.bc{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--line2);
+  font-family:var(--mono);
+  font-size:.72rem;
+}
+
+.bc.found{
+  color:var(--green);
+  background:rgba(47,193,138,.08);
+  border-color:rgba(47,193,138,.32);
+}
+
+.bc.missing{
+  color:var(--warm);
+  background:rgba(242,138,91,.08);
+  border-color:rgba(242,138,91,.32);
+}
+
+.bc .hint{
+  opacity:.8;
+}
+
+.pump-score{
+  margin-top:14px;
+  color:var(--brand);
+  font-family:var(--mono);
+}
+
+.pump-comment{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.hint{
+  display:none;
+  margin-top:12px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px dashed var(--line2);
+  color:var(--muted);
+}
+
+.hint.show{
+  display:block;
+}
+
+.finish-big{
+  text-align:center;
+  padding:36px;
+  margin-bottom:22px;
+}
+
+.whale-big{
+  font-size:3.4rem;
+  display:block;
+  margin-bottom:10px;
+}
+
+.finish-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.finish-card{
+  padding:22px;
+}
+
+.finish-card .ico{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:var(--soft);
+  margin-bottom:14px;
+  font-size:1.2rem;
+}
+
+.finish-card p{
+  color:var(--muted);
+  line-height:1.55;
+}
+
+.trainer-page .btn,
+.trainer-hero .btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:999px;
+  border:1px solid var(--line2);
+  padding:12px 18px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+  background:rgba(255,255,255,.030);
+  color:var(--text);
+  text-decoration:none;
+  font-family:var(--body);
+}
+
+.trainer-page .btn:hover,
+.trainer-hero .btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--brand);
+  color:var(--brand);
+}
+
+.btn-primary,
+.trainer-page .btn-primary,
+.trainer-hero .btn-primary{
+  background:linear-gradient(135deg,var(--warm),#F6A06F) !important;
+  border-color:rgba(242,138,91,.86) !important;
+  color:#271007 !important;
+  box-shadow:0 16px 38px -24px rgba(242,138,91,.95) !important;
+}
+
+.btn-brand,
+.trainer-page .btn-brand{
+  background:linear-gradient(135deg,var(--brand),var(--brand2)) !important;
+  border-color:transparent !important;
+  color:#08242A !important;
+}
+
+.btn-sm,
+.trainer-page .btn-sm{
+  padding:9px 14px;
+  font-size:.86rem;
+}
+
+.trainer-page .btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none !important;
+  box-shadow:none !important;
+}
+
+.nav-btns{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+
+.mt8{margin-top:8px}
+.mt16{margin-top:16px}
+.mt24{margin-top:24px}
+
+html[data-theme="light"] .trainer-progress{
+  background:rgba(227,236,239,.88);
+  border-block-color:var(--line);
+}
+
+html[data-theme="light"] .trainer-hero-card,
+html[data-theme="light"] .trainer-page .card,
+html[data-theme="light"] .quiz-q,
+html[data-theme="light"] .pump-task,
+html[data-theme="light"] .finish-card,
+html[data-theme="light"] .finish-big{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.42)),
+    var(--card);
+  box-shadow:0 18px 50px rgba(28,64,78,.065);
+}
+
+html[data-theme="light"] .trainer-chip{
+  background:rgba(240,245,247,.86);
+}
+
+html[data-theme="light"] .trainer-core{
+  color:#fff;
+}
+
+html[data-theme="light"] .ba-why,
+html[data-theme="light"] .answer-block,
+html[data-theme="light"] .prompt-text,
+html[data-theme="light"] textarea.prompt-ta{
+  background:rgba(232,240,243,.80);
+  color:#294753;
+}
+
+@media(max-width:980px){
+  .trainer-hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .trainer-hero-card{
+    max-width:460px;
+  }
+
+  .before-after,
+  .finish-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:620px){
+  .trainer-hero{
+    padding:54px 0 14px;
+  }
+
+  .trainer-hero h1{
+    font-size:clamp(2.2rem,13vw,3.5rem);
+  }
+
+  .trainer-progress{
+    top:64px;
+  }
+
+  .trainer-page{
+    padding-top:34px;
+  }
+
+  .trainer-page .card,
+  .quiz-q,
+  .pump-task,
+  .finish-big,
+  .finish-card{
+    padding:20px;
+  }
+
+  .nav-btns .btn,
+  .trainer-page .btn{
+    width:100%;
+  }
+
+  .trainer-hero-card{
+    min-height:260px;
+  }
+
+  .trainer-core{
+    width:82px;
+    height:82px;
+    border-radius:26px;
+  }
+
+  .trainer-chip{
+    font-size:.62rem;
+    padding:8px 10px;
+  }
+
+  .trainer-chip.c1{left:14px;top:50px}
+  .trainer-chip.c2{right:14px;top:66px}
+  .trainer-chip.c3{left:16px;bottom:54px}
+  .trainer-chip.c4{right:14px;bottom:50px}
+}
+</style>
+
 </head>
 <body>
-
-<!-- фоновые блобы -->
-<div class="blobs"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
-
-<!-- НАВ -->
+<div class="bg"></div>
 <nav class="nav">
-  <div class="brand">
-    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 17c0-5 4-9 9-9 6 0 8 4 13 4 2 0 3-1 4-2-1 6-5 10-11 10H9c-3 0-6-1-6-3z"/>
-      <path d="M19 8c1-3 4-4 6-3-2 1-2 3-1 5"/>
-      <circle cx="10" cy="15" r="1" fill="currentColor" stroke="none"/>
-    </svg>
-    Evolution · Тренажёр
+  <div class="navin">
+    <a class="brand" href="../index.html"><span class="logo">◈</span><span>Evolution<br/><small>Digital Mindset</small></span></a>
+    <button class="burger" data-burger="" aria-label="Открыть меню">☰</button>
+    <div class="links" data-links=""><a href="../index.html">Главная</a><a class="active" href="index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a href="../personal-system/index.html">Личная система</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a></div>
   </div>
-  
-  <div class="trainer-nav-links">
-    <a href="../index.html">Главная</a>
-    <a href="index.html">ИИ</a>
-    <a href="../ba/index.html">БА</a>
-    <a href="../practices/index.html">Цифровые заплатки</a>
-    <a href="../personal-system/index.html">Личная система</a>
-    <a href="../library/index.html">Библиотека</a>
-  </div>
-  <a href="index.html" class="back-link">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Назад к старту с ИИ
-  </a>
 </nav>
 
-<!-- ПРОГРЕСС -->
-<div class="progress-wrap">
-  <div class="progress-inner">
+
+<div class="trainer-progress">
+  <div class="trainer-progress-inner">
     <div class="progress-labels">
       <span id="stepLabel">Шаг 1 из 4</span>
       <b id="scoreLabel">0 очков</b>
@@ -211,7 +748,30 @@ html[data-theme="light"] .theme-toggle .theme-dot{background:linear-gradient(135
   </div>
 </div>
 
-<main>
+
+
+<section class="trainer-hero">
+  <div class="wrap trainer-hero-grid">
+    <div class="io">
+      <div class="eyebrow">интерактивная практика</div>
+      <h1>Тренажёр <span>сильного промта</span></h1>
+      <p class="lead">Потренируйтесь отличать слабые запросы от сильных: разберите примеры, найдите ошибки и соберите свой рабочий промт по формуле.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#step-1">Начать тренировку</a>
+        <a class="btn" href="prompts.html">К разделу промтов</a>
+      </div>
+    </div>
+    <div class="trainer-hero-card io" aria-hidden="true">
+      <div class="trainer-chip c1">роль</div>
+      <div class="trainer-chip c2">контекст</div>
+      <div class="trainer-chip c3">формат</div>
+      <div class="trainer-chip c4">тон</div>
+      <div class="trainer-core">промт</div>
+    </div>
+  </div>
+</section>
+
+<main class="trainer-page">
 <div class="wrap">
 
 <!-- ═══════════════════════════════════════════
@@ -429,7 +989,7 @@ html[data-theme="light"] .theme-toggle .theme-dot{background:linear-gradient(135
   </div>
 
   <div style="text-align:center;margin-top:16px">
-    <a href="index.html" class="btn btn-primary" style="font-size:1.05rem;padding:15px 28px">
+    <a href="tools.html" class="btn btn-primary" style="font-size:1.05rem;padding:15px 28px">
       К инструментам в витрине →
     </a>
   </div>
