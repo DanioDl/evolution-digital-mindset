@@ -1319,3 +1319,458 @@ html[data-theme="light"] .compass-item{
   }
 }
 
+
+/* ============================================================
+   RELEASE 0.2 · professional grey-ocean logistics design system
+   ============================================================ */
+
+:root{
+  --bg:#26343B;
+  --bg2:#2E4048;
+  --card:#31454E;
+  --card2:#3B535D;
+  --line:rgba(190,216,222,.16);
+  --line2:rgba(190,216,222,.28);
+  --text:#F2F7F8;
+  --muted:#B9C9CF;
+  --faint:#8FA4AD;
+  --brand:#2AB2CB;
+  --brand2:#36C6B8;
+  --warm:#F28A5B;
+  --green:#2FC18A;
+  --soft:rgba(42,178,203,.13);
+  --warmsoft:rgba(242,138,91,.13);
+  --radius:24px;
+  --max:1180px;
+}
+
+html{
+  scroll-padding-top:84px;
+}
+
+body{
+  background:
+    radial-gradient(circle at 16% -10%,rgba(42,178,203,.13),transparent 35%),
+    radial-gradient(circle at 100% 8%,rgba(54,198,184,.10),transparent 32%),
+    linear-gradient(180deg,#26343B 0%,#2B3C44 46%,#25323A 100%) !important;
+  color:var(--text);
+}
+
+.bg{
+  background:
+    radial-gradient(circle at -8% -12%,rgba(42,178,203,.16),transparent 34%),
+    radial-gradient(circle at 108% 14%,rgba(54,198,184,.13),transparent 34%),
+    radial-gradient(circle at 48% 118%,rgba(242,138,91,.07),transparent 36%),
+    linear-gradient(180deg,#26343B 0%,#2B3C44 52%,#25323A 100%) !important;
+}
+
+.bg:after{
+  opacity:.86;
+  background-image:
+    linear-gradient(rgba(218,235,238,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(218,235,238,.045) 1px,transparent 1px),
+    linear-gradient(135deg,transparent 0 46%,rgba(42,178,203,.030) 47% 53%,transparent 54% 100%) !important;
+  background-size:76px 76px,76px 76px,210px 210px !important;
+}
+
+/* Navigation */
+.nav{
+  background:rgba(38,52,59,.86) !important;
+  border-bottom:1px solid rgba(190,216,222,.17) !important;
+  box-shadow:0 14px 40px rgba(9,18,23,.20);
+}
+
+.navin{
+  min-height:70px;
+  gap:18px;
+}
+
+.brand{
+  letter-spacing:-.03em;
+}
+
+.logo{
+  background:linear-gradient(135deg,var(--brand),var(--brand2)) !important;
+  color:#08242A !important;
+  box-shadow:0 12px 34px -18px rgba(42,178,203,.9);
+}
+
+.links{
+  gap:18px;
+}
+
+.links a{
+  color:var(--muted);
+  font-weight:800;
+  font-size:.86rem;
+}
+
+.links a:hover,
+.links a.active{
+  color:var(--brand) !important;
+}
+
+.theme-toggle{
+  min-height:38px;
+  padding:8px 12px;
+  border-color:var(--line2) !important;
+  background:rgba(255,255,255,.045) !important;
+  box-shadow:0 12px 26px rgba(9,18,23,.10);
+}
+
+/* Layout rhythm */
+.section{
+  padding:78px 0;
+}
+
+.section.alt{
+  background:rgba(255,255,255,.025) !important;
+  border-block:1px solid rgba(190,216,222,.10) !important;
+}
+
+.head{
+  margin-bottom:32px;
+}
+
+.head h2{
+  max-width:860px;
+}
+
+.head p,
+.lead{
+  color:var(--muted);
+  line-height:1.64;
+}
+
+/* Cards */
+.card,
+.step,
+.kpi,
+.acc,
+.tool-row,
+.template-row,
+.map-card,
+.flow-step,
+.bpmn-task,
+.compass-item,
+.radar-node,
+.quote,
+.hero-panel,
+.showcase-card,
+.route,
+.popular,
+.problem-card,
+.system-part,
+.habit-card,
+.tool-card,
+.flow-item,
+.pipe-step,
+.ai-task-card,
+.frame-card,
+.ba-block,
+.definition-main,
+.brain-card,
+.final-panel,
+.dev-status{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.060),rgba(255,255,255,.024)),
+    var(--card) !important;
+  border-color:rgba(190,216,222,.16) !important;
+  box-shadow:0 20px 64px -52px rgba(0,0,0,.58) !important;
+}
+
+.card:hover,
+.showcase-card:hover,
+.route:hover,
+.popular:hover,
+.ai-task-card:hover,
+.tool-card:hover,
+.problem-card:hover,
+.system-part:hover,
+.habit-card:hover{
+  border-color:rgba(42,178,203,.52) !important;
+  box-shadow:0 26px 78px -54px rgba(42,178,203,.82) !important;
+}
+
+/* Big visual blocks */
+.hero-panel,
+.guide-visual,
+.system-visual,
+.ai-landing-visual,
+.ba-radar,
+.ba-compass{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.068),rgba(255,255,255,.020)),
+    linear-gradient(135deg,rgba(42,178,203,.070),transparent 44%),
+    var(--card) !important;
+  border-color:rgba(190,216,222,.22) !important;
+  box-shadow:0 34px 92px -64px rgba(42,178,203,.70) !important;
+}
+
+/* AI landing hero: tighter and more balanced */
+.ai-landing-hero.clean-ai-hero{
+  padding:88px 0 64px !important;
+}
+
+.ai-landing-grid{
+  grid-template-columns:minmax(0,1fr) 300px !important;
+  gap:46px !important;
+}
+
+.ai-landing-copy h1{
+  max-width:12ch !important;
+  font-size:clamp(2.7rem,6vw,5rem) !important;
+}
+
+.ai-landing-visual{
+  width:280px !important;
+  height:360px !important;
+  border-radius:34px !important;
+}
+
+.ai-orbit b{
+  width:98px !important;
+  height:98px !important;
+  border-radius:30px !important;
+  font-size:1.9rem !important;
+}
+
+.ai-orbit span{
+  padding:9px 14px !important;
+  font-size:.72rem !important;
+}
+
+.ai-orbit .o1{top:42px !important;right:10px !important}
+.ai-orbit .o2{left:0 !important;top:132px !important}
+.ai-orbit .o3{right:-8px !important;bottom:58px !important}
+
+/* Status block: version 0.2, visually lighter */
+.dev-status{
+  max-width:720px !important;
+  padding:14px 16px !important;
+  border-radius:22px !important;
+  background:
+    linear-gradient(135deg,rgba(42,178,203,.12),rgba(54,198,184,.07)),
+    rgba(255,255,255,.018) !important;
+}
+
+.dev-status b{
+  font-size:.95rem !important;
+}
+
+.dev-status p{
+  font-size:.88rem !important;
+}
+
+/* Showcase cards less empty */
+.showcase-card{
+  min-height:250px !important;
+  padding:34px !important;
+  grid-template-columns:minmax(0,1.1fr) minmax(220px,.9fr) !important;
+  align-items:center !important;
+}
+
+.showcase-card h3{
+  font-size:clamp(1.65rem,3vw,2.25rem) !important;
+}
+
+.showcase-tags,
+.result-chips,
+.feed-mini{
+  align-self:center !important;
+}
+
+/* Community / library large rows */
+.library-hero,
+.community-hero{
+  padding-top:82px;
+}
+
+/* Buttons */
+.btn{
+  border-color:var(--line2) !important;
+  background:rgba(255,255,255,.030);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--warm),#F6A06F) !important;
+  border-color:rgba(242,138,91,.86) !important;
+  color:#271007 !important;
+  box-shadow:0 16px 38px -24px rgba(242,138,91,.95) !important;
+}
+
+.cta{
+  background:rgba(242,138,91,.13) !important;
+  color:#FFB086 !important;
+  border-color:rgba(242,138,91,.34) !important;
+}
+
+/* Prompt comparison dark strips are softer */
+.ba-body,
+.promptbox,
+.prompt,
+.ex-body{
+  background:rgba(31,50,59,.68) !important;
+  color:#D7E8EC !important;
+  border-color:rgba(190,216,222,.16) !important;
+}
+
+/* Light theme: muted ocean-grey, not bright white */
+html[data-theme="light"]{
+  --bg:#E3ECEF;
+  --bg2:#D8E5E9;
+  --card:#F0F5F7;
+  --card2:#E6EEF1;
+  --line:rgba(28,64,78,.13);
+  --line2:rgba(28,64,78,.24);
+  --text:#18323D;
+  --muted:#58717D;
+  --faint:#7C929B;
+  --brand:#168CA2;
+  --brand2:#24A89F;
+  --warm:#E97945;
+  --green:#219B70;
+  --soft:rgba(22,140,162,.10);
+  --warmsoft:rgba(233,121,69,.10);
+}
+
+html[data-theme="light"] body{
+  background:
+    radial-gradient(circle at 16% -10%,rgba(22,140,162,.105),transparent 35%),
+    radial-gradient(circle at 100% 8%,rgba(36,168,159,.09),transparent 32%),
+    linear-gradient(180deg,#E3ECEF 0%,#DCE7EA 48%,#E7EEF1 100%) !important;
+}
+
+html[data-theme="light"] .bg{
+  background:
+    radial-gradient(circle at -8% -12%,rgba(22,140,162,.12),transparent 34%),
+    radial-gradient(circle at 108% 14%,rgba(36,168,159,.10),transparent 34%),
+    radial-gradient(circle at 48% 118%,rgba(233,121,69,.065),transparent 36%),
+    linear-gradient(180deg,#E3ECEF 0%,#DCE7EA 52%,#E7EEF1 100%) !important;
+}
+
+html[data-theme="light"] .bg:after{
+  opacity:.78;
+  background-image:
+    linear-gradient(rgba(28,64,78,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(28,64,78,.045) 1px,transparent 1px),
+    linear-gradient(135deg,transparent 0 46%,rgba(22,140,162,.035) 47% 53%,transparent 54% 100%) !important;
+  background-size:76px 76px,76px 76px,210px 210px !important;
+}
+
+html[data-theme="light"] .nav{
+  background:rgba(227,236,239,.90) !important;
+  border-bottom-color:rgba(28,64,78,.13) !important;
+  box-shadow:0 12px 34px rgba(28,64,78,.07) !important;
+}
+
+html[data-theme="light"] .card,
+html[data-theme="light"] .step,
+html[data-theme="light"] .kpi,
+html[data-theme="light"] .acc,
+html[data-theme="light"] .tool-row,
+html[data-theme="light"] .template-row,
+html[data-theme="light"] .map-card,
+html[data-theme="light"] .flow-step,
+html[data-theme="light"] .bpmn-task,
+html[data-theme="light"] .compass-item,
+html[data-theme="light"] .radar-node,
+html[data-theme="light"] .quote,
+html[data-theme="light"] .hero-panel,
+html[data-theme="light"] .showcase-card,
+html[data-theme="light"] .route,
+html[data-theme="light"] .popular,
+html[data-theme="light"] .problem-card,
+html[data-theme="light"] .system-part,
+html[data-theme="light"] .habit-card,
+html[data-theme="light"] .tool-card,
+html[data-theme="light"] .flow-item,
+html[data-theme="light"] .pipe-step,
+html[data-theme="light"] .ai-task-card,
+html[data-theme="light"] .frame-card,
+html[data-theme="light"] .ba-block,
+html[data-theme="light"] .definition-main,
+html[data-theme="light"] .brain-card,
+html[data-theme="light"] .final-panel,
+html[data-theme="light"] .dev-status{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.42)),
+    var(--card) !important;
+  border-color:rgba(28,64,78,.13) !important;
+  box-shadow:0 18px 50px rgba(28,64,78,.065) !important;
+}
+
+html[data-theme="light"] .hero-panel,
+html[data-theme="light"] .guide-visual,
+html[data-theme="light"] .system-visual,
+html[data-theme="light"] .ai-landing-visual,
+html[data-theme="light"] .ba-radar,
+html[data-theme="light"] .ba-compass{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,.42)),
+    linear-gradient(135deg,rgba(22,140,162,.055),transparent 44%),
+    var(--card) !important;
+}
+
+html[data-theme="light"] .orbit-card,
+html[data-theme="light"] .guide-node,
+html[data-theme="light"] .system-node,
+html[data-theme="light"] .radar-node,
+html[data-theme="light"] .compass-item,
+html[data-theme="light"] .ai-orbit span{
+  background:rgba(240,245,247,.86) !important;
+  border-color:rgba(28,64,78,.16) !important;
+}
+
+html[data-theme="light"] .theme-toggle{
+  background:rgba(255,255,255,.58) !important;
+}
+
+html[data-theme="light"] .ba-body,
+html[data-theme="light"] .promptbox,
+html[data-theme="light"] .prompt,
+html[data-theme="light"] .ex-body{
+  background:rgba(232,240,243,.80) !important;
+  color:#294753 !important;
+}
+
+/* Responsive polish */
+@media(max-width:980px){
+  .ai-landing-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .ai-landing-visual{
+    justify-self:start !important;
+    max-width:100% !important;
+  }
+
+  .showcase-card{
+    grid-template-columns:1fr !important;
+  }
+}
+
+@media(max-width:620px){
+  .section{
+    padding:56px 0;
+  }
+
+  .navin{
+    min-height:64px;
+  }
+
+  .links.open{
+    background:var(--card) !important;
+    border-color:var(--line2) !important;
+  }
+
+  .ai-landing-visual{
+    height:300px !important;
+  }
+
+  .showcase-card{
+    padding:24px !important;
+    min-height:0 !important;
+  }
+}
+

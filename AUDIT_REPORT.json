@@ -1,5 +1,35 @@
 {
-  "design_refresh": "grey ocean logistics theme",
+  "release": "0.2",
+  "design": "professional grey-ocean logistics UI polish",
   "broken_links": [],
-  "html_files": 21
+  "sensitive_hits": {},
+  "notes": [
+    "AI tools page rebuilt in unified portal style",
+    "Light and Ocean palettes softened",
+    "Version badge updated to 0.2",
+    "Cards, panels, nav, spacing and visual rhythm polished through CSS overrides"
+  ],
+  "html_files": [
+    "ai/assistants.html",
+    "ai/guide.html",
+    "ai/index.html",
+    "ai/prompts.html",
+    "ai/safety.html",
+    "ai/tools.html",
+    "ai/trainer.html",
+    "ai/usecases.html",
+    "ba/bpmn.html",
+    "ba/frameworks.html",
+    "ba/index.html",
+    "ba/process.html",
+    "ba/requirements.html",
+    "ba/templates.html",
+    "community/index.html",
+    "index.html",
+    "library/index.html",
+    "personal-system/index.html",
+    "personal-system/personal-system.html",
+    "practices/index.html",
+    "results/index.html"
+  ]
 }
