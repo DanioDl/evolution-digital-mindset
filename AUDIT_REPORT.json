@@ -1,14 +1,15 @@
 {
-  "release": "v0.3 automation lab",
+  "release": "v0.3 AI world rework",
   "new_page": "ai/automation.html",
-  "changed": [
-    "index.html",
-    "ai/index.html"
+  "changes": [
+    "Simplified all cases to everyday examples",
+    "Added six clear AI families",
+    "Added everyday AI examples",
+    "Added large-company examples",
+    "Added simple AI-agent walkthrough",
+    "Added everyday mini-game",
+    "Added permanent section to homepage",
+    "Updated AI landing page entry"
   ],
-  "broken_links": [
-    [
-      "ai/tools.html",
-      "${t.url}"
-    ]
-  ]
+  "broken_links": []
 }
