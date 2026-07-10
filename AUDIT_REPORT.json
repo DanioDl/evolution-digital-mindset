@@ -1,14 +1,14 @@
 {
-  "release": "0.2 trainer fix",
+  "release": "v0.3 automation lab",
+  "new_page": "ai/automation.html",
   "changed": [
-    "ai/trainer.html"
+    "index.html",
+    "ai/index.html"
   ],
-  "broken_links": [],
-  "sensitive_hits": {},
-  "notes": [
-    "Trainer rebuilt in unified v0.2 grey-ocean style",
-    "Standard navigation and theme toggle added",
-    "Interactive trainer logic preserved",
-    "Final CTA now links to AI tools catalog"
+  "broken_links": [
+    [
+      "ai/tools.html",
+      "${t.url}"
+    ]
   ]
 }

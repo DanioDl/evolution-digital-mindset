@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Конструктор автоматизации · Evolution Digital Mindset</title>
+<meta name="description" content="Интерактивный ликбез: правила, workflow, NLP, LLM, ML и AI-агенты — какой инструмент подходит под какую задачу."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script>(function(){var t=localStorage.getItem('edm-theme')||'dark';document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark')})();</script>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<style>
+.auto-hero{padding:92px 0 54px}.auto-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:46px;align-items:center}
+.auto-hero h1{max-width:15ch;font-size:clamp(2.5rem,5.7vw,5rem);line-height:1.04;letter-spacing:-.048em}.auto-hero h1 span{color:var(--brand)}
+.auto-hero .lead{max-width:760px;margin-top:22px}.map{position:relative;min-height:350px;border:1px solid var(--line2);border-radius:34px;background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.018)),linear-gradient(135deg,rgba(42,178,203,.08),transparent 45%),var(--card);overflow:hidden}
+.map:before{content:"";position:absolute;inset:42px;border:1px dashed rgba(42,178,203,.25);border-radius:50%}.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:118px;height:118px;border-radius:34px;display:grid;place-items:center;text-align:center;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#08242a;font-family:var(--display);font-weight:900;box-shadow:0 0 0 16px var(--soft);z-index:2}
+.node{position:absolute;z-index:3;padding:9px 13px;border:1px solid var(--line2);border-radius:999px;background:rgba(37,54,63,.82);color:var(--muted);font:700 .7rem var(--mono)}.n1{left:25px;top:60px}.n2{right:24px;top:76px}.n3{left:28px;bottom:72px}.n4{right:30px;bottom:66px}.n5{left:50%;transform:translateX(-50%);bottom:20px}
+.route{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}.mini,.panel,.tool-main,.matrix,.case,.quiz,.agent{border:1px solid rgba(190,216,222,.16);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02)),var(--card)}
+.mini{padding:18px}.mini b{display:block;margin-bottom:8px}.mini p,.tool-main p,.panel p,.panel li,.matrix p,.case p,.agent p,.quiz p{color:var(--muted);line-height:1.6}
+.tabs,.case-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}.tabs button,.case-tabs button,.answer{border:1px solid var(--line2);background:rgba(255,255,255,.03);color:var(--muted);border-radius:999px;padding:10px 14px;font:800 .75rem var(--mono);cursor:pointer;transition:.2s}.tabs button.active,.tabs button:hover,.case-tabs button.active,.case-tabs button:hover{color:var(--brand);border-color:rgba(42,178,203,.55);background:var(--soft)}
+.tool-grid,.case-grid,.quiz-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:20px}.tool-main,.panel,.case,.quiz{padding:26px}.tool-main h3{font-size:clamp(1.5rem,3vw,2.25rem);margin:10px 0 14px}.pillbox{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pill{padding:7px 10px;border:1px solid var(--line2);border-radius:999px;color:var(--muted);font:600 .68rem var(--mono)}
+.panel{display:grid;gap:12px}.block{padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.022)}.block small{display:block;color:var(--brand);font:600 .67rem var(--mono);letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px}.block ul{margin:0;padding-left:18px}
+.matrix-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.matrix{padding:21px}.matrix h3{font-size:1rem}.matrix .why{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:15px;line-height:1.5}
+.agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.agent{padding:22px}.level{display:inline-flex;margin-bottom:13px;padding:6px 9px;border:1px solid var(--line2);border-radius:999px;color:var(--brand);font:600 .67rem var(--mono)}
+.flow{display:grid;gap:10px}.flow-row{display:grid;grid-template-columns:105px 1fr;gap:12px;padding:14px;border:1px solid var(--line);border-radius:16px}.flow-row b{color:var(--brand);font:600 .7rem var(--mono);text-transform:uppercase;letter-spacing:.1em}.flow-row span{color:var(--muted);line-height:1.5}
+.answers{display:grid;gap:10px;margin-top:16px}.answer{width:100%;text-align:left;border-radius:17px;color:var(--text);font-family:var(--body);padding:14px 16px}.answer.correct{border-color:rgba(47,193,138,.45);background:rgba(47,193,138,.1)}.answer.wrong{border-color:rgba(242,138,91,.45);background:rgba(242,138,91,.1)}.feedback{display:none;margin-top:15px;padding:16px;border:1px solid var(--line);border-radius:16px;color:var(--muted);line-height:1.6}.feedback.show{display:block}
+.note{padding:26px;border:1px solid rgba(242,138,91,.3);border-radius:26px;background:linear-gradient(135deg,var(--warmsoft),rgba(255,255,255,.02))}
+html[data-theme="light"] .node{background:rgba(240,245,247,.9)}html[data-theme="light"] .core{color:#fff}
+@media(max-width:1000px){.auto-grid,.tool-grid,.case-grid,.quiz-grid{grid-template-columns:1fr}.route{grid-template-columns:repeat(2,1fr)}.matrix-grid,.agent-grid{grid-template-columns:repeat(2,1fr)}.map{max-width:520px}}
+@media(max-width:640px){.auto-hero{padding:64px 0 42px}.route,.matrix-grid,.agent-grid{grid-template-columns:1fr}.flow-row{grid-template-columns:1fr}.map{min-height:280px}.node{font-size:.6rem}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav class="nav"><div class="navin">
+<a class="brand" href="../index.html"><span class="logo">◈</span><span>Evolution<br/><small>Digital Mindset</small></span></a>
+<button class="burger" data-burger aria-label="Открыть меню">☰</button>
+<div class="links" data-links><a href="../index.html">Главная</a><a class="active" href="index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a href="../personal-system/index.html">Личная система</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a></div>
+</div></nav>
+<main>
+<section class="auto-hero"><div class="wrap auto-grid">
+<div class="io"><div class="eyebrow">интерактивный ликбез</div><h1>Конструктор <span>автоматизации</span></h1><p class="lead">Не каждая задача требует нейросети. Разберитесь, чем отличаются правила, workflow, NLP, LLM, ML и AI-агенты — и научитесь выбирать инструмент под реальный кейс.</p><div class="actions" style="margin-top:28px"><a class="btn primary" href="#tools">Начать</a><a class="btn" href="#quiz">Проверить себя</a></div></div>
+<div class="map io" aria-hidden="true"><div class="node n1">LLM</div><div class="node n2">AI-агент</div><div class="node n3">ML</div><div class="node n4">NLP</div><div class="node n5">правила / workflow</div><div class="core">задача → инструмент</div></div>
+</div></section>
+
+<section class="section alt"><div class="wrap"><div class="head io"><h2>Сначала — простая карта</h2><p>Выбирайте не самую модную технологию, а самый простой инструмент, который решит задачу.</p></div>
+<div class="route io"><div class="mini"><b>Есть текст?</b><p>Письма, обращения, документы — LLM или NLP.</p></div><div class="mini"><b>Есть повторяемый маршрут?</b><p>Форма → задача → уведомление — workflow или RPA.</p></div><div class="mini"><b>Нужен прогноз?</b><p>Риск, спрос, отток — ML при наличии истории данных.</p></div><div class="mini"><b>Есть правило “если → то”?</b><p>Начните с тегов и простого алгоритма.</p></div></div></div></section>
+
+<section class="section" id="tools"><div class="wrap"><div class="head io"><h2>Инструменты простым языком</h2><p>Нажмите на вкладку: что это, где полезно, пример и когда инструмент не нужен.</p></div>
+<div class="tabs io" id="tabs"></div><div class="tool-grid io"><article class="tool-main"><div class="eyebrow" id="type"></div><h3 id="title"></h3><p id="desc"></p><div class="pillbox" id="meta"></div></article><div class="panel"><div class="block"><small>когда подходит</small><ul id="best"></ul></div><div class="block"><small>пример</small><p id="example"></p></div><div class="block"><small>когда не надо</small><p id="not"></p></div></div></div>
+</div></section>
+
+<section class="section alt"><div class="wrap"><div class="head io"><h2>Какой инструмент под какой кейс</h2><p>Шпаргалка для реальных рабочих задач.</p></div><div class="matrix-grid io">
+<article class="matrix"><h3>Разобрать обращения</h3><p>Определить тему, срочность и причину.</p><div class="why"><b>NLP + LLM:</b> классификация плюс понимание смысла.</div></article>
+<article class="matrix"><h3>Подготовить черновик ответа</h3><p>Письмо, резюме, инструкция.</p><div class="why"><b>LLM:</b> хорошо работает с текстом и контекстом.</div></article>
+<article class="matrix"><h3>Проверять заявки по условиям</h3><p>Если сумма выше лимита или нет поля — поставить тег.</p><div class="why"><b>Правила:</b> быстро, прозрачно и объяснимо.</div></article>
+<article class="matrix"><h3>Предсказать риск</h3><p>Отток, просрочка, рост нагрузки.</p><div class="why"><b>ML:</b> ищет закономерности в исторических данных.</div></article>
+<article class="matrix"><h3>Связать несколько шагов</h3><p>Собрать данные, создать задачу, уведомить.</p><div class="why"><b>Workflow/RPA:</b> стабильный маршрут действий.</div></article>
+<article class="matrix"><h3>Самостоятельно выполнить задачу</h3><p>Понять цель, выбрать шаги, вызвать инструменты.</p><div class="why"><b>AI-агент:</b> планирует и действует, а не только отвечает.</div></article>
+</div></div></section>
+
+<section class="section"><div class="wrap"><div class="head io"><h2>Что реально могут AI-агенты</h2><p>Агент — не просто чат. Он может получить цель, разложить её на шаги и выполнить часть действий через доступные инструменты.</p></div><div class="agent-grid io">
+<article class="agent"><span class="level">уровень 1</span><h3>Помогает думать</h3><p>Строит план, задаёт вопросы, предлагает варианты и риски.</p></article>
+<article class="agent"><span class="level">уровень 2</span><h3>Работает с материалами</h3><p>Читает файлы, таблицы и документы, извлекает смысл и собирает результат.</p></article>
+<article class="agent"><span class="level">уровень 3</span><h3>Выполняет цепочку</h3><p>Например: найти данные → сверить условия → подготовить результат → создать задачу.</p></article>
+</div></div></section>
+
+<section class="section alt"><div class="wrap"><div class="head io"><h2>Один кейс — разные уровни зрелости</h2><p>Автоматизацию можно развивать постепенно, а не сразу строить сложную систему.</p></div><div class="case-tabs io" id="caseTabs"></div><div class="case-grid io"><article class="case"><div class="eyebrow" id="caseLabel"></div><h3 id="caseTitle"></h3><p id="caseProblem"></p></article><article class="case"><div class="flow" id="caseFlow"></div></article></div></div></section>
+
+<section class="section" id="quiz"><div class="wrap"><div class="head io"><h2>Мини-тренажёр: выберите инструмент</h2><p>Цель — не всегда выбирать ИИ, а находить самое простое рабочее решение.</p></div><div class="quiz-grid io"><article class="quiz"><div class="eyebrow">ситуация</div><h3 id="qTitle"></h3><p id="qText"></p><div class="answers" id="answers"></div><div class="feedback" id="feedback"></div></article><article class="quiz"><div class="eyebrow">правило выбора</div><h3>Сначала задача, потом технология</h3><p>Понятное правило — теги. Текст и смысл — LLM/NLP. Прогноз — ML. Стабильная цепочка — workflow. Самостоятельный выбор шагов и действий — агент.</p><div class="actions" style="margin-top:20px"><button class="btn primary" id="next">Следующий кейс</button></div></article></div>
+<div class="note io" style="margin-top:24px"><h2>Главная мысль</h2><p>После раздела сотрудник должен уметь сказать не «давайте прикрутим ИИ», а: какую проблему решаем, какие данные есть, какой результат нужен и какой инструмент даст его быстрее и проще.</p></div>
+</div></section>
+</main>
+<footer class="footer"><div class="wrap"><span>Evolution Digital Mindset · Конструктор автоматизации</span><span><a href="#">Наверх ↑</a></span></div></footer>
+<script>
+const tools=[
+{id:'rules',type:'правила / теги',title:'Алгоритмы по правилам и тегам',desc:'Самый простой способ автоматизации: заранее заданные условия. Если произошло A — сделать B.',meta:['быстро','прозрачно','дёшево'],best:['Логика описывается через «если — то»','Нужно быстро проверить гипотезу','Важна понятность для бизнеса'],example:'Клиент не делал заказ 90 дней → поставить тег «реактивация» → создать задачу менеджеру.',not:'Когда решение зависит от сложного контекста, смысла текста или множества скрытых факторов.'},
+{id:'workflow',type:'workflow / RPA',title:'Workflow и RPA',desc:'Автоматизация повторяющегося маршрута: перенести данные, заполнить форму, создать задачу, отправить уведомление.',meta:['процесс','маршрут','повторяемость'],best:['Шаги процесса стабильны','Нужно убрать ручное перекладывание данных','Нужно связать несколько действий'],example:'После заполнения формы автоматически создаётся задача, обновляется реестр и уходит уведомление.',not:'Когда на каждом шаге нужен сложный смысловой выбор.'},
+{id:'nlp',type:'NLP',title:'NLP / обработка языка',desc:'Методы для работы с текстом: определить тему, срочность, тональность, найти сущности и поставить категорию.',meta:['текст','классификация','сущности'],best:['Много типовых обращений','Нужно выделять темы и причины','Нужно маршрутизировать текст'],example:'Система читает обращение и ставит теги: «срок доставки», «претензия», «срочно».',not:'Если простой словарь и правила уже дают нужную точность.'},
+{id:'llm',type:'LLM',title:'LLM / большая языковая модель',desc:'Понимает и генерирует текст: объясняет, резюмирует, сравнивает, пишет черновики и помогает структурировать мысли.',meta:['смысл','текст','идеи'],best:['Нужно разобраться в теме','Подготовить письмо или резюме','Структурировать большой объём текста'],example:'Из обезличенного описания ситуации подготовить три варианта ответа и список уточняющих вопросов.',not:'Как единственный источник истины для расчётов и решений без проверки.'},
+{id:'ml',type:'ML',title:'ML / машинное обучение',desc:'Обучается на исторических данных и ищет закономерности, чтобы делать прогнозы и классифицировать новые случаи.',meta:['прогноз','скоринг','данные'],best:['Есть история данных','Нужна вероятность события','Нужно ранжировать риски или клиентов'],example:'По истории заказов оценить вероятность, что клиент перестанет пользоваться сервисом.',not:'Если нет данных, целевого события или способа измерить качество.'},
+{id:'agent',type:'AI-агент',title:'AI-агент',desc:'Не только отвечает, но и планирует шаги, обращается к инструментам, работает с файлами и выполняет цепочки действий.',meta:['цель','план','действия'],best:['Задача состоит из нескольких шагов','Нужно собрать данные из разных источников','Нужен готовый результат, а не совет'],example:'Собрать данные по заявкам, найти отклонения, составить список проблем и подготовить черновик действий.',not:'Без ограничений, прав доступа, журнала действий и проверки результата человеком.'}
+];
+const tabs=document.getElementById('tabs');
+function showTool(id){const x=tools.find(t=>t.id===id)||tools[0];tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));type.textContent=x.type;title.textContent=x.title;desc.textContent=x.desc;meta.innerHTML=x.meta.map(v=>`<span class="pill">${v}</span>`).join('');best.innerHTML=x.best.map(v=>`<li>${v}</li>`).join('');example.textContent=x.example;not.textContent=x.not}
+tools.forEach((x,i)=>{let b=document.createElement('button');b.textContent=x.type;b.dataset.id=x.id;if(!i)b.classList.add('active');b.onclick=()=>showTool(x.id);tabs.appendChild(b)});showTool('rules');
+
+const cases=[
+{id:'react',label:'продажи',title:'Реактивация клиентов',problem:'Нужно находить клиентов, которые перестали пользоваться услугой, и понимать, кому звонить первым.',flow:[['Шаг 1','Правило: 90 дней без заказа → тег'],['Шаг 2','Workflow: создать задачу менеджеру'],['Шаг 3','LLM: подготовить краткую справку'],['Шаг 4','ML: оценить вероятность возврата'],['Шаг 5','Агент: собрать всё в единый процесс']]},
+{id:'appeals',label:'сопровождение',title:'Разбор обращений',problem:'Поток писем нужно читать, определять тему, срочность и дальнейшее действие.',flow:[['Шаг 1','Правила: ключевые слова и простые теги'],['Шаг 2','NLP: классификация темы и срочности'],['Шаг 3','LLM: резюме и черновик ответа'],['Шаг 4','Workflow: маршрутизация'],['Шаг 5','Агент: обработка кейса по шагам']]},
+{id:'docs',label:'проектная работа',title:'Разбор документов',problem:'Нужно быстро понять несколько материалов, собрать выводы, проблемы и вопросы.',flow:[['Шаг 1','LLM: резюме одного документа'],['Шаг 2','LLM: сравнение нескольких материалов'],['Шаг 3','Агент: обработка файлов по плану'],['Шаг 4','Агент: сбор итогового отчёта']]}
+];
+const ct=document.getElementById('caseTabs');
+function showCase(id){const x=cases.find(c=>c.id===id)||cases[0];ct.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));caseLabel.textContent=x.label;caseTitle.textContent=x.title;caseProblem.textContent=x.problem;caseFlow.innerHTML=x.flow.map(r=>`<div class="flow-row"><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}
+cases.forEach((x,i)=>{let b=document.createElement('button');b.textContent=x.title;b.dataset.id=x.id;if(!i)b.classList.add('active');b.onclick=()=>showCase(x.id);ct.appendChild(b)});showCase('react');
+
+const qs=[
+{t:'Поставить тег обращению',x:'Нужно определить, что письмо — претензия по сроку доставки, и направить его в нужную очередь.',a:'NLP + правила',o:['ML','NLP + правила','BI-дашборд'],e:'Здесь есть текст и классификация: NLP понимает тему, правила маршрутизируют обращение.'},
+{t:'Предсказать отток',x:'Есть история заказов и обращений. Нужно заранее понять, кто может перестать пользоваться сервисом.',a:'ML',o:['ML','Теги','RPA'],e:'Это прогноз по историческим данным — задача для ML или скоринговой модели.'},
+{t:'Создать задачу после формы',x:'После заполнения формы нужно создать задачу, обновить реестр и уведомить ответственного.',a:'Workflow/RPA',o:['Workflow/RPA','LLM','NLP'],e:'Маршрут стабилен и заранее известен — нейросеть здесь не нужна.'},
+{t:'Подготовить резюме встречи',x:'Из расшифровки нужно выделить решения, риски, задачи и ответственных.',a:'LLM',o:['Теги','LLM','ML'],e:'Это задача на понимание и структурирование текста.'}
+];let qi=0;
+function showQ(){let q=qs[qi];qTitle.textContent=q.t;qText.textContent=q.x;feedback.className='feedback';feedback.textContent='';answers.innerHTML=q.o.map(v=>`<button class="answer" data-v="${v}">${v}</button>`).join('')}
+answers.onclick=e=>{let b=e.target.closest('.answer');if(!b)return;let q=qs[qi];answers.querySelectorAll('.answer').forEach(x=>{x.disabled=true;if(x.dataset.v===q.a)x.classList.add('correct')});if(b.dataset.v!==q.a)b.classList.add('wrong');feedback.classList.add('show');feedback.innerHTML=`<b>${b.dataset.v===q.a?'Верно.':'Не совсем.'}</b> ${q.e}`};
+next.onclick=()=>{qi=(qi+1)%qs.length;showQ()};showQ();
+</script>
+<script src="../assets/js/app.js"></script>
+</body></html>
