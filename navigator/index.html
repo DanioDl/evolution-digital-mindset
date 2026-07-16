@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Навигатор Digital Mindset · Evolution</title>
+<meta name="description" content="Интерактивный навигатор: от проблемы в процессе до подходящего способа реализации и измеримого результата."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script>
+(function(){
+  var saved=localStorage.getItem('edm-theme')||'dark';
+  document.documentElement.setAttribute('data-theme',saved==='light'?'light':'dark');
+})();
+</script>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<style>
+.navigator-hero{padding:88px 0 58px}
+.navigator-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:46px;align-items:center}
+.navigator-hero h1{font-size:clamp(2.55rem,5.8vw,5rem);line-height:1.03;letter-spacing:-.05em;max-width:15ch}
+.navigator-hero h1 span{color:var(--brand)}
+.navigator-hero .lead{max-width:760px}
+.nav-map{position:relative;min-height:360px;border:1px solid var(--line2);border-radius:34px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.018)),linear-gradient(135deg,rgba(30,201,194,.08),transparent 48%),var(--card)}
+.nav-map:before,.nav-map:after{content:"";position:absolute;border:1px dashed rgba(30,201,194,.24);border-radius:50%}.nav-map:before{inset:42px}.nav-map:after{inset:88px}
+.nav-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:118px;height:118px;border-radius:34px;display:grid;place-items:center;text-align:center;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#05232d;font-family:var(--display);font-size:.9rem;font-weight:900;box-shadow:0 0 0 16px var(--soft);z-index:2}
+.nav-tag{position:absolute;z-index:3;padding:9px 13px;border:1px solid var(--line2);border-radius:999px;background:rgba(16,54,66,.88);color:var(--muted);font:700 .68rem var(--mono)}.tg1{left:24px;top:56px}.tg2{right:24px;top:72px}.tg3{left:26px;bottom:68px}.tg4{right:28px;bottom:64px}.tg5{left:50%;transform:translateX(-50%);bottom:18px}
+.principle-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.principle{padding:19px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.052),rgba(255,255,255,.018)),var(--card)}.principle b{display:block;margin-bottom:8px}.principle p{color:var(--muted);line-height:1.52;font-size:.9rem}
+.journey{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative}.journey:before{content:"";position:absolute;left:8%;right:8%;top:32px;height:2px;background:linear-gradient(90deg,var(--brand),var(--brand2),var(--warm));opacity:.46}.journey-step{position:relative;z-index:1;padding:18px;border:1px solid var(--line);border-radius:22px;background:var(--card)}.journey-step .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--brand);font:800 .72rem var(--mono);margin-bottom:14px}.journey-step h3{font-size:.98rem;margin-bottom:8px}.journey-step p{color:var(--muted);font-size:.88rem;line-height:1.5}
+.navigator-box{display:grid;grid-template-columns:.92fr 1.08fr;gap:20px}.question-card,.result-card,.route-card,.method-card,.effect-card{border:1px solid rgba(181,226,232,.16);border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.056),rgba(255,255,255,.018)),var(--card)}
+.question-card,.result-card{padding:27px}.question-card h3,.result-card h3{font-size:1.35rem;margin-bottom:12px}.question-card p,.result-card p,.route-card p,.method-card p,.effect-card p{color:var(--muted);line-height:1.6}
+.choice-list{display:grid;gap:10px;margin-top:18px}.choice{width:100%;text-align:left;border:1px solid var(--line2);background:rgba(255,255,255,.026);color:var(--text);border-radius:17px;padding:14px 16px;font:700 .92rem var(--body);cursor:pointer;transition:.2s}.choice:hover,.choice.active{transform:translateY(-1px);border-color:var(--brand);background:var(--soft);color:var(--brand)}
+.result-empty{min-height:270px;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px;border:1px dashed var(--line2);border-radius:20px}.result-content{display:none}.result-content.show{display:block}.result-kicker{color:var(--brand);font:700 .7rem var(--mono);text-transform:uppercase;letter-spacing:.13em;margin-bottom:10px}.result-links{display:grid;gap:10px;margin-top:18px}.result-link{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 15px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.022)}.result-link span{color:var(--muted);font-size:.86rem}.result-link b{color:var(--brand);font-size:.86rem}
+.route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.route-card{padding:22px}.route-card .ico{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:var(--soft);font-size:1.2rem;margin-bottom:14px}.route-card h3{font-size:1.05rem;margin-bottom:8px}.route-card a{display:inline-flex;margin-top:14px;color:var(--brand);font:700 .76rem var(--mono)}
+.method-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.method-card{padding:20px}.method-card small{display:block;color:var(--brand);font:700 .66rem var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}.method-card h3{font-size:.98rem;margin-bottom:8px}.method-card p{font-size:.86rem}.method-card .when{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--text);font-size:.84rem}
+.effect-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.effect-card{padding:20px}.effect-card strong{display:block;font-size:1.45rem;color:var(--brand);margin-bottom:7px}.effect-card h3{font-size:.94rem;margin-bottom:7px}.effect-card p{font-size:.84rem}
+.rule-note{padding:27px;border:1px solid rgba(255,122,69,.30);border-radius:28px;background:linear-gradient(135deg,var(--warmsoft),rgba(255,255,255,.018))}
+html[data-theme="light"] .nav-tag{background:rgba(255,255,255,.85)}html[data-theme="light"] .nav-core{color:#fff}
+@media(max-width:1050px){.navigator-grid,.navigator-box{grid-template-columns:1fr}.principle-strip,.method-grid,.effect-grid{grid-template-columns:repeat(2,1fr)}.journey{grid-template-columns:repeat(2,1fr)}.journey:before{display:none}.route-grid{grid-template-columns:repeat(2,1fr)}.nav-map{max-width:520px}}
+@media(max-width:640px){.navigator-hero{padding:62px 0 42px}.principle-strip,.journey,.route-grid,.method-grid,.effect-grid{grid-template-columns:1fr}.nav-map{min-height:280px}.nav-tag{font-size:.58rem;padding:7px 9px}.question-card,.result-card{padding:21px}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav class="nav">
+<div class="navin">
+<a class="brand" href="../index.html"><span class="logo">◈</span><span>Evolution<br/><small>Digital Mindset</small></span></a>
+<button aria-label="Открыть меню" class="burger">☰</button>
+<div class="links" data-links=""><a href="../index.html">Главная</a><a class="active" href="index.html">Навигатор</a><a href="../ai/index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a href="../personal-system/index.html">Личная система</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a></div>
+</div>
+</nav>
+
+<main>
+<section class="navigator-hero">
+<div class="wrap navigator-grid">
+<div class="io">
+<div class="eyebrow">карта движения Digital Mindset</div>
+<h1>От проблемы к <span>измеримому улучшению</span></h1>
+<p class="lead">Не начинайте с технологии. Сначала поймите процесс, найдите возможность, сформулируйте гипотезу — и только потом выбирайте способ реализации.</p>
+<div class="actions"><a class="btn primary" href="#start">Найти свой маршрут</a><a class="btn" href="#journey">Посмотреть общий путь</a></div>
+</div>
+<div class="nav-map io" aria-hidden="true">
+<div class="nav-tag tg1">процесс</div><div class="nav-tag tg2">возможность</div><div class="nav-tag tg3">гипотеза</div><div class="nav-tag tg4">реализация</div><div class="nav-tag tg5">эффект</div><div class="nav-core">DIGITAL<br/>MINDSET</div>
+</div>
+</div>
+</section>
+
+<section class="section alt">
+<div class="wrap">
+<div class="head io"><h2>Одна логика — много способов реализации</h2><p>Цифровая заплатка, автоматизация, ИИ или большой проект — это не заранее выбранные пути, а варианты решения после анализа.</p></div>
+<div class="principle-strip io">
+<div class="principle"><b>1. Понять</b><p>Как работа устроена сейчас и где возникает потеря времени, качества или денег.</p></div>
+<div class="principle"><b>2. Найти</b><p>Какую возможность улучшения действительно стоит проверить.</p></div>
+<div class="principle"><b>3. Выбрать</b><p>Самый простой и эффективный способ реализации гипотезы.</p></div>
+<div class="principle"><b>4. Измерить</b><p>Что изменилось после внедрения и стоил ли результат затраченных усилий.</p></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="journey">
+<div class="wrap">
+<div class="head io"><h2>Общий путь улучшения</h2><p>Не две отдельные дороги, а единый цикл работы — от понимания процесса до эффекта.</p></div>
+<div class="journey io">
+<div class="journey-step"><div class="n">01</div><h3>Понять процесс</h3><p>Кто, что и зачем делает сейчас.</p></div>
+<div class="journey-step"><div class="n">02</div><h3>Найти возможность</h3><p>Где есть потеря, задержка или лишняя ручная работа.</p></div>
+<div class="journey-step"><div class="n">03</div><h3>Сформировать гипотезу</h3><p>Что именно можно изменить и какой эффект ожидаем.</p></div>
+<div class="journey-step"><div class="n">04</div><h3>Выбрать способ</h3><p>Оргизменение, правило, автоматизация, ИИ или разработка.</p></div>
+<div class="journey-step"><div class="n">05</div><h3>Проверить эффект</h3><p>Скорость, качество, деньги, опыт сотрудника или клиента.</p></div>
+</div>
+</div>
+</section>
+
+<section class="section alt" id="start">
+<div class="wrap">
+<div class="head io"><h2>Где вы сейчас?</h2><p>Выберите ситуацию. Навигатор подскажет, с чего начать и какие разделы портала пригодятся.</p></div>
+<div class="navigator-box io">
+<article class="question-card">
+<div class="eyebrow">выберите вход</div>
+<h3>Что у вас уже есть?</h3>
+<p>Не нужно заранее знать название технологии или тип проекта.</p>
+<div class="choice-list" id="choices">
+<button class="choice" data-route="problem">Есть проблема в процессе</button>
+<button class="choice" data-route="idea">Есть идея улучшения</button>
+<button class="choice" data-route="routine">Есть повторяющаяся ручная работа</button>
+<button class="choice" data-route="ai">Хочу понять, где применить ИИ</button>
+<button class="choice" data-route="result">Есть решение, но непонятен эффект</button>
+</div>
+</article>
+<article class="result-card">
+<div class="result-empty" id="emptyResult">Выберите ситуацию слева — здесь появится персональный маршрут.</div>
+<div class="result-content" id="resultContent">
+<div class="result-kicker" id="resultKicker"></div>
+<h3 id="resultTitle"></h3>
+<p id="resultText"></p>
+<div class="result-links" id="resultLinks"></div>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="head io"><h2>Куда ведут маршруты</h2><p>Каждый раздел портала отвечает на конкретный вопрос в процессе улучшения.</p></div>
+<div class="route-grid io">
+<article class="route-card"><div class="ico">🔎</div><h3>Бизнес-анализ</h3><p>Понять процесс, найти корневую причину и сформулировать проблему.</p><a href="../ba/index.html">Перейти в БА →</a></article>
+<article class="route-card"><div class="ico">💡</div><h3>Цифровые заплатки</h3><p>Быстро проверить локальную гипотезу и получить первый измеримый результат.</p><a href="../practices/index.html">Открыть практики →</a></article>
+<article class="route-card"><div class="ico">🤖</div><h3>Мир ИИ</h3><p>Разобраться, какие технологии существуют и где они действительно полезны.</p><a href="../ai/automation.html">Открыть гид →</a></article>
+<article class="route-card"><div class="ico">🧰</div><h3>ИИ-инструменты</h3><p>Посмотреть сервисы, ограничения и варианты применения в рабочих задачах.</p><a href="../ai/tools.html">Открыть витрину →</a></article>
+<article class="route-card"><div class="ico">🧠</div><h3>Личная система</h3><p>Организовать собственную работу, знания, задачи и цифровые привычки.</p><a href="../personal-system/index.html">Собрать систему →</a></article>
+<article class="route-card"><div class="ico">📚</div><h3>Библиотека</h3><p>Найти точечный материал, когда нужно углубиться в конкретную тему.</p><a href="../library/index.html">Открыть библиотеку →</a></article>
+</div>
+</div>
+</section>
+
+<section class="section alt">
+<div class="wrap">
+<div class="head io"><h2>Способы реализации — не только ИИ</h2><p>После анализа гипотеза может привести к очень разным решениям.</p></div>
+<div class="method-grid io">
+<article class="method-card"><small>без разработки</small><h3>Изменение процесса</h3><p>Убрать лишний шаг, изменить роль или правило работы.</p><div class="when">Когда проблема организационная.</div></article>
+<article class="method-card"><small>простая логика</small><h3>Правила и теги</h3><p>Если произошло A — поставить статус, создать задачу или уведомить.</p><div class="when">Когда логика прозрачна и стабильна.</div></article>
+<article class="method-card"><small>автоматизация</small><h3>Workflow / RPA</h3><p>Связать повторяющиеся шаги в единый автоматический маршрут.</p><div class="when">Когда действия известны заранее.</div></article>
+<article class="method-card"><small>данные</small><h3>Аналитика</h3><p>Сделать проблему видимой через метрики, контроль и сигналы.</p><div class="when">Когда сначала не хватает прозрачности.</div></article>
+<article class="method-card"><small>быстрый продукт</small><h3>Low-code / no-code</h3><p>Собрать форму, реестр или небольшой рабочий сервис.</p><div class="when">Когда нужен быстрый MVP.</div></article>
+<article class="method-card"><small>понимание языка</small><h3>LLM / NLP</h3><p>Работать с текстом, смыслом, классификацией и генерацией.</p><div class="when">Когда основа задачи — язык.</div></article>
+<article class="method-card"><small>прогноз</small><h3>ML</h3><p>Находить закономерности и оценивать вероятность события.</p><div class="when">Когда есть качественная история данных.</div></article>
+<article class="method-card"><small>цепочка действий</small><h3>AI-агент</h3><p>Получить цель, построить шаги и использовать инструменты.</p><div class="when">Когда задача многосоставная и требует контроля.</div></article>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap">
+<div class="head io"><h2>Эффект — это финальная точка маршрута</h2><p>Решение считается полезным не потому, что оно цифровое, а потому что изменило результат.</p></div>
+<div class="effect-grid io">
+<article class="effect-card"><strong>↓ время</strong><h3>Процесс стал быстрее</h3><p>Меньше ожидания, ручных операций и повторной работы.</p></article>
+<article class="effect-card"><strong>↑ качество</strong><h3>Стало меньше ошибок</h3><p>Результат стабильнее, понятнее и легче контролируется.</p></article>
+<article class="effect-card"><strong>₽ эффект</strong><h3>Появилась экономика</h3><p>Снижение затрат, рост выручки или высвобождение ресурса.</p></article>
+<article class="effect-card"><strong>☺ опыт</strong><h3>Стало удобнее</h3><p>Сотруднику или клиенту проще пройти процесс и получить результат.</p></article>
+</div>
+<div class="rule-note io" style="margin-top:24px"><h2>Главный принцип</h2><p>Не ищите место, куда можно поставить технологию. Ищите возможность улучшить процесс — а затем выбирайте самый подходящий способ реализации.</p></div>
+</div>
+</section>
+</main>
+
+<footer class="footer"><div class="wrap"><span>Evolution Digital Mindset · Навигатор</span><span><a href="#">Наверх ↑</a></span></div></footer>
+
+<script>
+const routes={
+problem:{k:'маршрут · проблема',t:'Сначала разберите процесс',x:'Не выбирайте технологию, пока не ясно, где именно возникает потеря и почему.',l:[['Бизнес-анализ','../ba/index.html','Описать процесс и найти причину'],['Фрейм диагностики','../ba/process.html','Разобрать AS IS и точки боли'],['Цифровые заплатки','../practices/index.html','Проверить локальную гипотезу']]},
+idea:{k:'маршрут · идея',t:'Превратите идею в проверяемую гипотезу',x:'Сформулируйте, что изменится, для кого и по какой метрике поймём, что идея сработала.',l:[['Цифровые заплатки','../practices/index.html','Собрать быстрый пилот'],['Бизнес-анализ','../ba/frameworks.html','Структурировать гипотезу'],['Библиотека','../library/index.html','Подобрать метод и материал']]},
+routine:{k:'маршрут · ручная работа',t:'Сначала отделите правило от сложного решения',x:'Если шаги стабильны — достаточно workflow или RPA. Если требуется смысловой выбор — рассмотрите ИИ.',l:[['Мир ИИ','../ai/automation.html','Сравнить способы автоматизации'],['ИИ-инструменты','../ai/tools.html','Посмотреть доступные сервисы'],['Бизнес-анализ','../ba/process.html','Зафиксировать текущий маршрут']]},
+ai:{k:'маршрут · ИИ',t:'Начните с понимания возможностей, а не с продукта',x:'Разберитесь, какие виды ИИ существуют, а затем сопоставьте их с задачей и ограничениями.',l:[['Мир ИИ','../ai/automation.html','Понять виды технологий'],['Старт с ИИ','../ai/index.html','Пройти базовый маршрут'],['Безопасность','../ai/safety.html','Проверить ограничения']]},
+result:{k:'маршрут · эффект',t:'Вернитесь к метрике и владельцу результата',x:'Уточните исходное состояние, ожидаемый эффект, способ измерения и период проверки.',l:[['Цифровые заплатки','../practices/index.html','Посмотреть логику пилота'],['Требования','../ba/requirements.html','Зафиксировать критерии результата'],['Библиотека','../library/index.html','Подобрать материалы по оценке эффекта']]}
+};
+const choices=document.getElementById('choices'),empty=document.getElementById('emptyResult'),content=document.getElementById('resultContent');
+choices.addEventListener('click',e=>{const b=e.target.closest('.choice');if(!b)return;choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));b.classList.add('active');const r=routes[b.dataset.route];resultKicker.textContent=r.k;resultTitle.textContent=r.t;resultText.textContent=r.x;resultLinks.innerHTML=r.l.map(x=>`<a class="result-link" href="${x[1]}"><div><b>${x[0]}</b><span>${x[2]}</span></div><b>→</b></a>`).join('');empty.style.display='none';content.classList.add('show')});
+</script>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

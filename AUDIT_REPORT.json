@@ -1,15 +1,8 @@
 {
-  "release": "v0.3 AI world rework",
-  "new_page": "ai/automation.html",
-  "changes": [
-    "Simplified all cases to everyday examples",
-    "Added six clear AI families",
-    "Added everyday AI examples",
-    "Added large-company examples",
-    "Added simple AI-agent walkthrough",
-    "Added everyday mini-game",
-    "Added permanent section to homepage",
-    "Updated AI landing page entry"
-  ],
-  "broken_links": []
+  "release": "v0.3 Digital Navigator",
+  "new_page": "navigator/index.html",
+  "updated_navigation": true,
+  "homepage_integration": true,
+  "broken_local_links": [],
+  "html_pages": 23
 }

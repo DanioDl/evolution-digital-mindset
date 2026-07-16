@@ -1774,3 +1774,28 @@ html[data-theme="light"] .ex-body{
   }
 }
 
+
+
+/* ============================================================
+   DIGITAL NAVIGATOR v0.3 · navigation and homepage integration
+   ============================================================ */
+.links{gap:13px}
+.links a{font-size:.82rem}
+.showcase-card.navigator{
+  border-color:rgba(30,201,194,.34);
+  background:
+    linear-gradient(135deg,rgba(30,201,194,.10),rgba(46,143,196,.055)),
+    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),
+    var(--card);
+}
+.showcase-card.navigator .showcase-kicker{color:var(--brand)}
+html[data-theme="light"] .showcase-card.navigator{
+  background:
+    linear-gradient(135deg,rgba(8,145,178,.08),rgba(20,184,166,.05)),
+    linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.56)),
+    var(--card);
+}
+@media(max-width:1120px){
+  .links{gap:10px}
+  .links a{font-size:.77rem}
+}
