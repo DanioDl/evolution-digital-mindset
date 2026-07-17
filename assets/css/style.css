@@ -1799,3 +1799,13 @@ html[data-theme="light"] .showcase-card.navigator{
   .links{gap:10px}
   .links a{font-size:.77rem}
 }
+
+
+/* BA SECTION STATUS */
+.ba-dev-warning{position:relative;z-index:20;padding:24px 0 4px}
+.ba-dev-warning__inner{display:flex;align-items:center;gap:18px;padding:24px 28px;border:1px solid rgba(242,138,91,.48);border-radius:24px;background:linear-gradient(135deg,rgba(242,138,91,.16),rgba(255,255,255,.018)),var(--card);box-shadow:0 22px 60px -46px rgba(242,138,91,.72)}
+.ba-dev-warning__dot{width:18px;height:18px;flex:0 0 18px;border-radius:50%;background:var(--warm);box-shadow:0 0 0 10px rgba(242,138,91,.13)}
+.ba-dev-warning__inner strong{display:block;color:var(--warm);font-family:var(--display);font-size:clamp(1.75rem,4.6vw,3.4rem);line-height:1;letter-spacing:-.035em}
+.ba-dev-warning__inner p{margin:10px 0 0;color:var(--text);font-size:clamp(1rem,2vw,1.3rem);font-weight:800}
+html[data-theme="light"] .ba-dev-warning__inner{background:linear-gradient(135deg,rgba(233,121,69,.13),rgba(255,255,255,.60)),var(--card);border-color:rgba(233,121,69,.38)}
+@media(max-width:620px){.ba-dev-warning{padding-top:16px}.ba-dev-warning__inner{align-items:flex-start;padding:20px;border-radius:20px}.ba-dev-warning__dot{margin-top:5px}}

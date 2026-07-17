@@ -20,6 +20,19 @@
   </div>
 </nav>
 
+<section class="ba-dev-warning" aria-label="Статус раздела">
+  <div class="wrap">
+    <div class="ba-dev-warning__inner">
+      <span class="ba-dev-warning__dot"></span>
+      <div>
+        <strong>В РАЗРАБОТКЕ</strong>
+        <p>Информация требует вычитки</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <header class="hero ba-hero"><div class="wrap"><div class="eyebrow io">БА · BPMN</div><h1 class="io">BPMN — это язык схем, а не экзамен</h1><p class="lead io">BPMN нужен, чтобы несколько людей одинаково увидели один и тот же процесс. Не «примерно понятно», а конкретно: где старт, кто действует, где решение и чем всё заканчивается.</p><div class="actions io"><a class="btn primary" href="requirements.html">Дальше: требования</a><a class="btn" href="index.html">Назад к БА</a></div></div></header>
 <section class="section alt"><div class="wrap"><div class="head io"><h2>Мини-схема BPMN</h2><p>Три дорожки, несколько действий и одна развилка. Этого уже достаточно, чтобы обсуждать процесс предметно.</p></div><div class="bpmn-board io"><div class="lane"><span>Инициатор</span><div class="bpmn-start">старт</div><em></em><div class="bpmn-task">создаёт запрос</div></div><div class="lane"><span>Ответственный</span><div class="bpmn-task">проверяет данные</div><em></em><div class="bpmn-gate">?</div><em></em><div class="bpmn-task">берёт в работу</div></div><div class="lane"><span>Команда</span><div class="bpmn-task">выполняет шаг</div><em></em><div class="bpmn-end">конец</div></div></div><div class="bpmn-legend io"><div><i class="circle"></i><b>Событие</b><span>старт или конец</span></div><div><i class="rect"></i><b>Задача</b><span>конкретное действие</span></div><div><i class="diamond"></i><b>Шлюз</b><span>решение или развилка</span></div><div><i class="line"></i><b>Поток</b><span>следующий шаг</span></div></div></div></section>
 <section class="section"><div class="wrap"><div class="head io"><h2>Как не перегрузить BPMN</h2><p>Схема должна помогать разговору, а не превращаться в карту метро.</p></div><div class="before-after-grid"><div class="ba-block io"><small>плохо</small><b>Всё на одной схеме</b><p>Каждый нюанс, все исключения, все системы, все письма и комментарии. Схема большая, но пользы мало: её никто не читает.</p></div><div class="ba-block good io"><small>лучше</small><b>Один уровень — одна цель</b><p>Сначала общий маршрут. Детали, исключения и системные шаги выносятся на отдельные схемы или в описание.</p></div><div class="ba-block io"><small>плохо</small><b>Нет ролей</b><p>Действия есть, но непонятно, кто их выполняет. В итоге схема не отвечает на главный вопрос: кто отвечает?</p></div><div class="ba-block good io"><small>лучше</small><b>Дорожки по ролям</b><p>Каждая роль или команда получает свою дорожку. Сразу видно, где передача ответственности.</p></div></div></div></section>

@@ -1,8 +1,12 @@
 {
-  "release": "v0.3 Digital Navigator",
-  "new_page": "navigator/index.html",
-  "updated_navigation": true,
-  "homepage_integration": true,
-  "broken_local_links": [],
-  "html_pages": 23
+  "release": "v0.3 BA warning",
+  "changed_pages": [
+    "ba/bpmn.html",
+    "ba/frameworks.html",
+    "ba/index.html",
+    "ba/process.html",
+    "ba/requirements.html",
+    "ba/templates.html"
+  ],
+  "broken_local_links": []
 }
