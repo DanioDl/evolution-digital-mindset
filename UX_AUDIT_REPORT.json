@@ -1,0 +1,11 @@
+{
+  "version": "v0.3 UX architecture audit",
+  "pages": 23,
+  "checked": "html local links",
+  "broken_links": [],
+  "notes": [
+    "Prepared baseline for navigation redesign",
+    "Main user journey: problem -> analysis -> hypothesis -> tool -> improvement",
+    "Recommended next iteration: unify contextual navigation blocks"
+  ]
+}

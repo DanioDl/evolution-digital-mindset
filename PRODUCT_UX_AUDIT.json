@@ -1,0 +1,10 @@
+{
+  "release": "v0.4 product UX",
+  "changes": [
+    "Added contextual next-step navigation",
+    "Added user journey block on homepage",
+    "Connected sections by meaning",
+    "Unified transition logic"
+  ],
+  "broken_links": []
+}
