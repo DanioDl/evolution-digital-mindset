@@ -1,19 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Навигатор цифровых решений</title>
 <link rel="stylesheet" href="../assets/css/style.css">
 <style>
-.navigator-hero{padding:70px 0}
-.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.choice{padding:28px;border-radius:26px;border:1px solid rgba(20,150,180,.18);background:rgba(255,255,255,.55);transition:.25s}
-.choice:hover{transform:translateY(-5px);border-color:#1ba7bd}
-.choice h3{margin-top:0}
-.case{margin-top:40px;padding:35px;border-radius:30px;background:linear-gradient(120deg,#edf8f8,#fff)}
-@media(max-width:900px){.choice-grid{grid-template-columns:1fr}}
+.navigator-page{max-width:1200px;margin:0 auto;padding:80px 30px}
+.navigator-hero{padding:40px 0 60px}
+.navigator-hero h1{font-size:64px;line-height:1.05}
+.navigator-hero span{color:#159db5}
+.navigator-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.navigator-card{background:rgba(255,255,255,.8);border:1px solid #d8e7eb;border-radius:28px;padding:28px;min-height:180px}
+.navigator-card:hover{transform:translateY(-4px)}
+.navigator-card{transition:.25s}
+.navigator-next{margin-top:50px;padding:35px;border-radius:30px;background:#eaf5f7}
+@media(max-width:900px){.navigator-grid{grid-template-columns:1fr}.navigator-hero h1{font-size:40px}}
 </style>
 </head>
 <body>
@@ -23,73 +25,30 @@
 <a href="../index.html">Главная</a>
 <a href="../ai/index.html">ИИ</a>
 <a href="../ba/index.html">БА</a>
-<a class="active" href="index.html">Навигатор</a>
+<a class="active" href="./index.html">Навигатор</a>
 <a href="../practices/index.html">Цифровые заплатки</a>
 </div>
 </div></nav>
 
-<main class="wrap">
-<section class="navigator-hero io">
+<main class="navigator-page">
+<section class="navigator-hero">
 <div class="eyebrow">ТОЧКА ВХОДА В DIGITAL MINDSET</div>
 <h1>Как выбрать<br><span>правильное решение?</span></h1>
-<p>
-Не каждая задача требует искусственного интеллекта.
-Иногда лучший результат даёт изменение процесса,
-простая автоматизация или новый способ работы.
-</p>
+<p>Не каждая задача требует искусственного интеллекта. Сначала понимаем проблему, затем выбираем лучший инструмент.</p>
 </section>
 
-<section class="case io">
-<h2>С чего начать?</h2>
-<p>Ответьте на вопрос: что именно вы хотите улучшить?</p>
+<section class="navigator-grid">
+<div class="navigator-card"><h2>🧩 Процесс</h2><p>Изменить порядок работы, убрать лишние шаги и потери.</p></div>
+<div class="navigator-card"><h2>⚙️ Автоматизация</h2><p>Убрать повторяющиеся ручные действия.</p></div>
+<div class="navigator-card"><h2>🔗 Интеграции</h2><p>Связать системы и данные между собой.</p></div>
+<div class="navigator-card"><h2>🧠 LLM / NLP / RAG</h2><p>Работать с текстами, знаниями и документами.</p></div>
+<div class="navigator-card"><h2>📊 ML</h2><p>Находить закономерности и строить прогнозы.</p></div>
+<div class="navigator-card"><h2>🤖 AI-агенты</h2><p>Передавать системе цепочки действий.</p></div>
 </section>
 
-<section class="choice-grid io">
-<div class="choice">
-<h3>🧩 Сделать процесс проще</h3>
-<p>Проблема в правилах, ролях или количестве шагов.</p>
-<p><b>Подход:</b> бизнес-анализ и изменение процесса.</p>
-</div>
-<div class="choice">
-<h3>⚙️ Убрать ручную работу</h3>
-<p>Повторяющиеся действия забирают время.</p>
-<p><b>Подход:</b> автоматизация, RPA, low-code.</p>
-</div>
-<div class="choice">
-<h3>🔗 Соединить системы</h3>
-<p>Данные есть, но находятся в разных местах.</p>
-<p><b>Подход:</b> API и интеграции.</p>
-</div>
-<div class="choice">
-<h3>🧠 Работать со знаниями</h3>
-<p>Нужно искать, анализировать и создавать информацию.</p>
-<p><b>Подход:</b> LLM, NLP, RAG.</p>
-</div>
-<div class="choice">
-<h3>📊 Найти закономерности</h3>
-<p>Нужно прогнозировать и анализировать данные.</p>
-<p><b>Подход:</b> ML и аналитика.</p>
-</div>
-<div class="choice">
-<h3>🤖 Делегировать действия</h3>
-<p>Нужно, чтобы система сама выполняла цепочку задач.</p>
-<p><b>Подход:</b> AI-агенты.</p>
-</div>
-</section>
-
-<section class="case io">
-<h2>Мини-тренажёр</h2>
-<p><b>Ситуация:</b> менеджер каждый день переносит данные из одной системы в другую.</p>
-<p>Лучшее первое решение: автоматизация. Не всегда нужен сложный ИИ.</p>
-</section>
-
-<section class="next-step-panel io">
-<h3>Ваш следующий шаг</h3>
-<div class="next-step-grid">
-<a class="next-step-card" href="../ba/index.html"><span>01 · БА</span><p>Понять процесс и найти проблему</p></a>
-<a class="next-step-card" href="../ai/index.html"><span>02 · ИИ</span><p>Изучить возможности технологий</p></a>
-<a class="next-step-card" href="../practices/index.html"><span>03 · ЗАПЛАТКИ</span><p>Реализовать улучшение</p></a>
-</div>
+<section class="navigator-next">
+<h2>Следующий шаг</h2>
+<p>БА помогает понять проблему → ИИ помогает выбрать инструмент → Цифровые заплатки помогают внедрить решение.</p>
 </section>
 </main>
 </body>
