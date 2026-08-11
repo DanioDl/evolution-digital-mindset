@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Промты · Evolution Digital Mindset</title>
-<meta name="description" content="Промт-инжиниринг: как ставить ИИ рабочие задачи, использовать его в мозговом штурме и улучшать ответы."/>
+<title>Работа с чатом + промты · Evolution Digital Mindset</title>
+<meta name="description" content="Работа с ИИ-чатом: голос, документы, собственные данные, углублённое мышление, запланированные задачи и хорошие промты."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -539,6 +539,119 @@ html[data-theme="light"] .workbench .wb-block{
 .brainstorm-card:first-child .clean-list{gap:14px;}
 @media(max-width:620px){.prompt-hero{padding:64px 0 54px;}}
 
+
+.chat-capabilities{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.chat-cap{
+  position:relative;
+  min-height:230px;
+  padding:26px;
+  border-radius:24px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--card);
+  overflow:hidden;
+}
+.chat-cap:before{
+  content:attr(data-num);
+  display:block;
+  margin-bottom:22px;
+  font-family:var(--mono);
+  font-size:.76rem;
+  letter-spacing:.12em;
+  color:var(--brand);
+}
+.chat-cap h3{font-size:1.12rem;margin-bottom:10px}
+.chat-cap p{color:var(--muted);line-height:1.58}
+.chat-cap .micro{
+  display:block;
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  color:var(--text);
+  font-size:.88rem;
+  line-height:1.5;
+}
+.chat-flow{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.flow-step{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--card);
+}
+.flow-step small{font-family:var(--mono);color:var(--warm)}
+.flow-step b{display:block;margin:12px 0 8px;font-family:var(--display)}
+.flow-step p{color:var(--muted);line-height:1.5;font-size:.92rem}
+.data-callout{
+  display:grid;
+  grid-template-columns:.92fr 1.08fr;
+  gap:20px;
+  align-items:stretch;
+}
+.data-main,.data-example{
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:28px;
+  background:var(--card);
+}
+.data-main{background:linear-gradient(135deg,var(--soft),rgba(255,255,255,.015))}
+.data-main h3,.data-example h3{margin-bottom:14px}
+.data-main p,.data-example p{color:var(--muted);line-height:1.62}
+.data-main ul{list-style:none;display:grid;gap:10px;margin-top:18px}
+.data-main li{color:var(--muted);padding-left:22px;position:relative}
+.data-main li:before{content:"→";position:absolute;left:0;color:var(--brand)}
+.mode-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.mode-card{
+  padding:26px;
+  border-radius:24px;
+  border:1px solid var(--line);
+  background:var(--card);
+}
+.mode-card h3{margin-bottom:10px}
+.mode-card p{color:var(--muted);line-height:1.58}
+.mode-card .when{
+  display:block;
+  margin-top:14px;
+  font-family:var(--mono);
+  color:var(--brand);
+  font-size:.78rem;
+}
+.safety-inline{
+  margin-top:18px;
+  padding:18px 20px;
+  border:1px solid rgba(255,122,69,.25);
+  border-radius:18px;
+  background:rgba(255,122,69,.06);
+  color:var(--muted);
+  line-height:1.55;
+}
+html[data-theme="light"] .chat-cap,
+html[data-theme="light"] .flow-step,
+html[data-theme="light"] .data-main,
+html[data-theme="light"] .data-example,
+html[data-theme="light"] .mode-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.8)),var(--card);
+  box-shadow:0 18px 50px rgba(16,42,67,.05);
+}
+@media(max-width:980px){
+  .chat-capabilities{grid-template-columns:repeat(2,1fr)}
+  .chat-flow{grid-template-columns:repeat(2,1fr)}
+  .data-callout{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .chat-capabilities,.chat-flow,.mode-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -555,12 +668,12 @@ html[data-theme="light"] .workbench .wb-block{
 <section class="prompt-hero">
   <div class="wrap prompt-hero-grid">
     <div class="io">
-      <div class="eyebrow">промт-инжиниринг</div>
-      <h1>Хороший запрос — это не <span>заклинание</span></h1>
-      <p class="lead">Это нормально поставленная задача. Если ждать результат в один клик, ИИ угадывает. Если дать контекст, задачу и ожидаемый результат — он помогает значительно точнее.</p>
+      <div class="eyebrow">работа с ИИ-чатом</div>
+      <h1>Чат — это больше, чем <span>строка для промта</span></h1>
+      <p class="lead">С современным ИИ можно не только переписываться: говорить голосом, прикреплять документы, работать со своей базой знаний, просить глубже разобрать сложную задачу и планировать повторяющиеся действия. А хороший промт помогает всем этим возможностям работать точнее.</p>
       <div class="subnav" aria-label="Навигация по разделу ИИ">
         <a href="guide.html">Старт с ИИ</a>
-        <a class="active" href="prompts.html">Промты</a>
+        <a class="active" href="prompts.html">Чат + промты</a>
         <a href="assistants.html">Ассистенты</a>
         <a href="usecases.html">Кейсы</a>
         <a href="safety.html">Безопасность</a>
@@ -570,6 +683,242 @@ html[data-theme="light"] .workbench .wb-block{
   </div>
 </section>
 
+
+
+<section class="section" id="chat-capabilities">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Что вообще умеет современный ИИ-чат</h2>
+      <p>Промт — только один способ взаимодействия. В зависимости от сервиса чат может слушать, читать файлы, работать с вашей базой знаний, глубже рассуждать над задачей и выполнять действия по расписанию.</p>
+    </div>
+    <div class="chat-capabilities io">
+      <article class="chat-cap" data-num="01 · ГОЛОС">
+        <h3>Можно просто разговаривать</h3>
+        <p>Не обязательно печатать длинный запрос. Голос удобен, когда нужно быстро надиктовать мысли, обсудить идею, потренировать выступление или разобрать задачу в формате диалога.</p>
+        <span class="micro">Пример: по дороге проговорить структуру презентации и попросить чат собрать из разговора план.</span>
+      </article>
+      <article class="chat-cap" data-num="02 · ФАЙЛЫ">
+        <h3>Можно прикреплять документы</h3>
+        <p>Таблицы, презентации, тексты и другие поддерживаемые файлы можно дать чату как контекст: попросить найти главное, сравнить версии, проверить логику или подготовить выводы.</p>
+        <span class="micro">Пример: приложить регламент и попросить объяснить его простым языком.</span>
+      </article>
+      <article class="chat-cap" data-num="03 · СВОИ ЗНАНИЯ">
+        <h3>Можно работать со своей базой знаний</h3>
+        <p>В корпоративных решениях ИИ можно связать с управляемым набором разрешённых документов и знаний. Система подбирает релевантный контекст для вопроса, а модель формирует ответ с опорой на него. Это отдельный сценарий — не то же самое, что разово прикрепить файл.</p>
+        <span class="micro">Пример: помощник отвечает сотруднику по внутренним инструкциям и показывает, на каком материале основан ответ.</span>
+      </article>
+      <article class="chat-cap" data-num="04 · ГЛУБЖЕ">
+        <h3>Можно дать больше времени на сложную задачу</h3>
+        <p>Для анализа, сравнения вариантов, расчёта сценариев и поиска противоречий полезны режимы углублённого рассуждения. Они нужны не для каждого вопроса, а когда важнее качество разбора, чем скорость ответа.</p>
+        <span class="micro">Пример: сравнить несколько вариантов процесса по рискам, стоимости и ожидаемому эффекту.</span>
+      </article>
+      <article class="chat-cap" data-num="05 · ПО РАСПИСАНИЮ">
+        <h3>Можно планировать повторяющиеся задачи</h3>
+        <p>Некоторые ИИ-сервисы умеют выполнять заранее заданные задачи позже или регулярно: напомнить, проверить обновления, подготовить периодическую сводку.</p>
+        <span class="micro">Пример: каждое утро получать краткую сводку по выбранной теме — если такая функция разрешена и доступна в используемом сервисе.</span>
+      </article>
+      <article class="chat-cap" data-num="06 · ДИАЛОГ">
+        <h3>Можно дорабатывать результат вместе</h3>
+        <p>Не нужно пытаться написать идеальный запрос с первого раза. Дайте задачу, посмотрите черновик, уточните ограничения, попросите другой формат — хороший результат часто рождается за несколько итераций.</p>
+        <span class="micro">Пример: «слишком формально → сократи → добавь пример → проверь риски».</span>
+      </article>
+    </div>
+    <div class="safety-inline io"><b>Важно:</b> доступность функций зависит от конкретного ИИ-сервиса и корпоративных настроек. Рабочие документы и внутренние данные передавайте только в разрешённые компанией инструменты и в соответствии с правилами информационной безопасности.</div>
+  </div>
+</section>
+
+<section class="section alt" id="files-and-data">
+  <div class="wrap">
+    <div class="head io">
+      <h2>От «вот документ» до своей базы знаний</h2>
+      <p>Есть несколько уровней контекста. Чем устойчивее и точнее должен быть ответ, тем важнее правильно организовать источник знаний.</p>
+    </div>
+    <div class="chat-flow io">
+      <div class="flow-step"><small>01</small><b>Написать в сообщении</b><p>Подходит для коротких вводных: факты, ограничения, описание ситуации.</p></div>
+      <div class="flow-step"><small>02</small><b>Прикрепить файл</b><p>Когда нужно разобрать конкретный документ, таблицу или презентацию.</p></div>
+      <div class="flow-step"><small>03</small><b>Дать набор материалов</b><p>Когда для задачи нужны несколько связанных документов и источников.</p></div>
+      <div class="flow-step"><small>04</small><b>Подключить базу знаний</b><p>Когда помощник должен регулярно отвечать на основе контролируемого массива корпоративных знаний.</p></div>
+    </div>
+
+    <div class="data-callout io" style="margin-top:20px">
+      <div class="data-main">
+        <h3>Зачем давать ИИ свои материалы</h3>
+        <p>Модель получает контекст, которого у неё иначе нет: ваши правила, терминологию, шаблоны, процессы и актуальные документы.</p>
+        <ul>
+          <li>меньше общих ответов;</li>
+          <li>больше связи с реальной задачей;</li>
+          <li>единая терминология;</li>
+          <li>проще проверять источник ответа.</li>
+        </ul>
+      </div>
+      <div class="data-example">
+        <h3>Пример</h3>
+        <div class="example-prompt">Я прикрепил документ с правилами процесса. Отвечай только на основе этого документа. Если ответа в нём нет — прямо скажи об этом. Для каждого вывода укажи, на какой раздел документа ты опираешься.</div>
+        <p style="margin-top:14px">Такой запрос не превращает модель в безошибочную систему, но задаёт понятные границы и облегчает проверку результата.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="modes">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Обычный ответ, углублённый разбор или задача на потом?</h2>
+      <p>Выбирайте режим под характер работы. Не каждой задаче нужен самый сложный сценарий.</p>
+    </div>
+    <div class="mode-grid io">
+      <div class="mode-card"><h3>⚡ Быстрый диалог</h3><p>Черновик письма, идея, объяснение термина, структура встречи, короткая правка текста.</p><span class="when">КОГДА: скорость важнее глубокого анализа</span></div>
+      <div class="mode-card"><h3>🧠 Углублённое мышление</h3><p>Сложный анализ, сравнение вариантов, поиск рисков и противоречий, задачи с несколькими ограничениями.</p><span class="when">КОГДА: нужно внимательно разобрать задачу</span></div>
+      <div class="mode-card"><h3>📎 Работа с материалами</h3><p>Разбор документа, таблицы или набора источников с опорой на предоставленный контекст.</p><span class="when">КОГДА: ответ должен учитывать конкретные данные</span></div>
+      <div class="mode-card"><h3>⏱ Запланированная работа</h3><p>Напоминания, регулярные сводки и повторяющиеся проверки — если используемый сервис поддерживает такую возможность.</p><span class="when">КОГДА: задача повторяется или нужна позже</span></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section alt" id="choose-mode">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Не знаете, что включать? Начните с задачи</h2>
+      <p>Простое правило: не используйте самый сложный режим «на всякий случай». Выберите минимальный инструмент, который помогает решить задачу качественно.</p>
+    </div>
+    <div class="mode-grid io">
+      <div class="mode-card">
+        <h3>Мне нужно быстро что-то подготовить</h3>
+        <p>Письмо, структура встречи, идеи, объяснение, редактура текста.</p>
+        <span class="when">→ ОБЫЧНЫЙ ЧАТ</span>
+      </div>
+      <div class="mode-card">
+        <h3>Мне неудобно печатать</h3>
+        <p>Проговорите мысли голосом, попросите задавать уточняющие вопросы, а в конце — собрать результат в структуру.</p>
+        <span class="when">→ ГОЛОСОВОЙ ДИАЛОГ</span>
+      </div>
+      <div class="mode-card">
+        <h3>Ответ должен учитывать конкретный документ</h3>
+        <p>Прикрепите файл и явно попросите опираться на него. Для важных выводов попросите показать основание в исходном материале.</p>
+        <span class="when">→ ФАЙЛ + ЧЁТКАЯ ЗАДАЧА</span>
+      </div>
+      <div class="mode-card">
+        <h3>Я долго работаю над одной темой</h3>
+        <p>Держите связанные чаты, инструкции и разрешённые материалы в одном рабочем контексте, если используемый сервис это поддерживает.</p>
+        <span class="when">→ ПРОЕКТ / РАБОЧЕЕ ПРОСТРАНСТВО</span>
+      </div>
+      <div class="mode-card">
+        <h3>Нужно разобраться, а не получить быстрый ответ</h3>
+        <p>Сравнение вариантов, поиск рисков, сложные ограничения, причинно-следственный анализ.</p>
+        <span class="when">→ УГЛУБЛЁННОЕ РАССУЖДЕНИЕ</span>
+      </div>
+      <div class="mode-card">
+        <h3>Нужно собрать факты из многих источников</h3>
+        <p>Сформулируйте исследовательский вопрос, задайте критерии и попросите результат с проверяемыми источниками.</p>
+        <span class="when">→ УГЛУБЛЁННОЕ ИССЛЕДОВАНИЕ</span>
+      </div>
+      <div class="mode-card">
+        <h3>Эта задача повторяется</h3>
+        <p>Напоминания, периодические сводки и регулярные проверки можно планировать в сервисах, где такая функция доступна.</p>
+        <span class="when">→ ЗАПЛАНИРОВАННАЯ ЗАДАЧА</span>
+      </div>
+      <div class="mode-card">
+        <h3>Ответы должны идти по внутренним знаниям</h3>
+        <p>Это уже не просто «загрузить Excel». Нужен управляемый источник знаний и решение, которое получает из него релевантный контекст.</p>
+        <span class="when">→ БАЗА ЗНАНИЙ / RAG</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dialog-method">
+  <div class="wrap">
+    <div class="head io">
+      <h2>Главный навык — не идеальный промт, а хороший диалог</h2>
+      <p>Сильный результат часто получается не за один запрос. Дайте ИИ черновую задачу, оцените ответ и управляйте следующей итерацией.</p>
+    </div>
+    <div class="chat-flow io">
+      <div class="flow-step"><small>01</small><b>Поставьте задачу</b><p>Что нужно получить и зачем.</p></div>
+      <div class="flow-step"><small>02</small><b>Дайте контекст</b><p>Факты, файл, ограничения, аудитория.</p></div>
+      <div class="flow-step"><small>03</small><b>Проверьте черновик</b><p>Что неверно, слишком общее или требует проверки.</p></div>
+      <div class="flow-step"><small>04</small><b>Доработайте</b><p>«Сократи», «сравни», «покажи риски», «не додумывай».</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="ready-recipes">
+  <div class="wrap">
+    <div class="head io">
+      <h2>5 рабочих сценариев, которые можно попробовать сегодня</h2>
+      <p>Без сложной терминологии — только задачи, которые встречаются в обычной офисной работе.</p>
+    </div>
+    <div class="examples-grid io">
+      <article class="example-card">
+        <div class="task-label">СОЗВОН → РЕЗУЛЬТАТ</div>
+        <h3>Разобрать мысли голосом</h3>
+        <div class="example-prompt">Я сейчас проговорю идею. Пока не предлагай решение — сначала задай мне 3–5 уточняющих вопросов. После ответов собери: проблему, гипотезу, следующие шаги и открытые вопросы.</div>
+      </article>
+      <article class="example-card">
+        <div class="task-label">ДОКУМЕНТ → ВЫВОДЫ</div>
+        <h3>Разобрать прикреплённый файл</h3>
+        <div class="example-prompt">Изучи прикреплённый документ. Выдели 5 ключевых положений, спорные или неясные места и вопросы, которые стоит задать автору. Не добавляй фактов, которых нет в документе.</div>
+      </article>
+      <article class="example-card">
+        <div class="task-label">ТАБЛИЦА → ИНСАЙТЫ</div>
+        <h3>Найти главное в данных</h3>
+        <div class="example-prompt">Проанализируй таблицу. Сначала опиши качество данных и ограничения анализа. Затем найди заметные отклонения и закономерности. Отдельно раздели факты из данных и возможные объяснения.</div>
+      </article>
+      <article class="example-card">
+        <div class="task-label">СЛОЖНЫЙ ВЫБОР</div>
+        <h3>Сравнить варианты</h3>
+        <div class="example-prompt">Сравни варианты A, B и C по критериям: эффект, стоимость, срок, риски и сложность внедрения. Не выбирай победителя сразу. Сначала покажи таблицу сравнения, затем аргументированную рекомендацию и условия, при которых выбор изменится.</div>
+      </article>
+      <article class="example-card">
+        <div class="task-label">ИССЛЕДОВАНИЕ</div>
+        <h3>Собрать проверяемую картину</h3>
+        <div class="example-prompt">Исследуй тему по актуальным источникам. Отделяй подтверждённые факты от выводов. Для ключевых утверждений дай источники. Если источники противоречат друг другу — покажи это, а не скрывай.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="verify">
+  <div class="wrap">
+    <div class="head io">
+      <h2>ИИ помогает думать. Проверка остаётся за человеком.</h2>
+      <p>Чем важнее решение, тем меньше стоит полагаться на уверенный тон ответа. Проверяйте исходные данные, ссылки, цифры и выводы.</p>
+    </div>
+    <div class="data-callout io">
+      <div class="data-main">
+        <h3>Полезные команды для проверки</h3>
+        <ul>
+          <li>«Какие части ответа являются предположениями?»</li>
+          <li>«На каких исходных данных основан этот вывод?»</li>
+          <li>«Что может сделать этот вывод неверным?»</li>
+          <li>«Покажи альтернативное объяснение.»</li>
+          <li>«Не знаешь — так и напиши, не додумывай.»</li>
+        </ul>
+      </div>
+      <div class="data-example">
+        <h3>Особенно проверяйте</h3>
+        <p>Факты о людях и компаниях, даты, цены, нормативные требования, расчёты, ссылки, цитаты и любую информацию, на основании которой принимается важное решение.</p>
+        <div class="safety-inline"><b>ИБ:</b> наличие функции загрузки файлов не означает, что туда можно загружать любые рабочие данные. Используйте только разрешённые компанией сервисы, данные и сценарии.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="prompt-basics">
+  <div class="wrap">
+    <div class="head io">
+      <h2>А где здесь промты?</h2>
+      <p>Промт остаётся способом поставить задачу. Даже при работе голосом, с документом или базой знаний полезно явно сказать, кто помогает, что нужно сделать, какой контекст учитывать и каким должен быть результат.</p>
+    </div>
+    <div class="prompt-formula io">
+      <div class="formula-card"><small>01</small><b>Роль</b><p>Кем ИИ должен выступить в этой задаче.</p></div>
+      <div class="formula-card"><small>02</small><b>Контекст</b><p>Что происходит и какие вводные важно учитывать.</p></div>
+      <div class="formula-card"><small>03</small><b>Задача</b><p>Что именно нужно получить от ИИ.</p></div>
+      <div class="formula-card"><small>04</small><b>Формат</b><p>Как должен выглядеть результат.</p></div>
+      <div class="formula-card"><small>05</small><b>Ограничения</b><p>Что нельзя придумывать и что обязательно проверить.</p></div>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="examples">
   <div class="wrap">
@@ -705,7 +1054,7 @@ html[data-theme="light"] .workbench .wb-block{
 
 <footer class="footer">
   <div class="wrap">
-    <span>Evolution Digital Mindset · Prompts</span>
+    <span>Evolution Digital Mindset · Работа с чатом + промты</span>
     <span>Портал развития цифрового мышления</span>
   </div>
 </footer>
