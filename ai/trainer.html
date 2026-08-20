@@ -842,12 +842,12 @@ html[data-theme="light"] textarea.prompt-ta{
   <!-- ВОПРОС 1 -->
   <div class="quiz-q" id="qq1">
     <p class="tag mt8" style="color:var(--faint);margin-bottom:12px">Промт #1</p>
-    <div class="prompt-text">Помоги написать отчёт по итогам месяца.</div>
+    <div class="prompt-text">Подготовь отчёт по итогам месяца.</div>
     <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">Чего здесь не хватает больше всего?</p>
     <div class="options" id="opts1">
       <button class="opt" onclick="checkQuiz(1,0,2)"><span class="oi"></span>Нет роли</button>
       <button class="opt" onclick="checkQuiz(1,1,2)"><span class="oi"></span>Нет тона</button>
-      <button class="opt" onclick="checkQuiz(1,2,2)"><span class="oi"></span>Нет контекста и задачи — непонятно по чему отчёт, для кого и в каком формате</button>
+      <button class="opt" onclick="checkQuiz(1,2,2)"><span class="oi"></span>Нет контекста, аудитории и формата — непонятно, по каким данным готовить отчёт, кто его прочитает и каким должен быть результат</button>
       <button class="opt" onclick="checkQuiz(1,3,2)"><span class="oi"></span>Промт слишком короткий</button>
     </div>
     <div class="quiz-fb" id="fb1"></div>
@@ -856,11 +856,11 @@ html[data-theme="light"] textarea.prompt-ta{
   <!-- ВОПРОС 2 -->
   <div class="quiz-q" id="qq2">
     <p class="tag mt8" style="color:var(--faint);margin-bottom:12px">Промт #2</p>
-    <div class="prompt-text">Ты — опытный копирайтер. Напиши продающий текст о нашей компании. Сделай его интересным, красивым, убедительным, кратким и подробным одновременно.</div>
+    <div class="prompt-text">Ты — опытный копирайтер. Напиши продающий текст о нашей компании. Текст должен быть не длиннее 60 слов и одновременно содержать подробное описание компании объёмом не менее 300 слов.</div>
     <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">В чём главная проблема?</p>
     <div class="options" id="opts2">
       <button class="opt" onclick="checkQuiz(2,0,1)"><span class="oi"></span>Нет роли</button>
-      <button class="opt" onclick="checkQuiz(2,1,1)"><span class="oi"></span>Противоречивые требования: «краткий и подробный» — нейросеть не может выполнить оба</button>
+      <button class="opt" onclick="checkQuiz(2,1,1)"><span class="oi"></span>Противоречивые требования к объёму: одновременно «не длиннее 60 слов» и «не менее 300 слов»</button>
       <button class="opt" onclick="checkQuiz(2,2,1)"><span class="oi"></span>Слишком много прилагательных</button>
       <button class="opt" onclick="checkQuiz(2,3,1)"><span class="oi"></span>Не указан формат</button>
     </div>
@@ -870,13 +870,13 @@ html[data-theme="light"] textarea.prompt-ta{
   <!-- ВОПРОС 3 -->
   <div class="quiz-q" id="qq3">
     <p class="tag mt8" style="color:var(--faint);margin-bottom:12px">Промт #3</p>
-    <div class="prompt-text">Ты — менеджер по логистике. Напиши сообщение водителю о переносе рейса.</div>
+    <div class="prompt-text">Ты — менеджер по логистике. Напиши водителю короткое сообщение о переносе рейса.</div>
     <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">Что здесь упущено и сделает ответ значительно лучше?</p>
     <div class="options" id="opts3">
-      <button class="opt" onclick="checkQuiz(3,0,0)"><span class="oi"></span>Нет роли — нейросеть не знает, кто пишет</button>
-      <button class="opt" onclick="checkQuiz(3,1,0)"><span class="oi"></span>Нет конкретики: на сколько переносится рейс, причина, новое время. Без этого ответ будет пустым шаблоном</button>
-      <button class="opt" onclick="checkQuiz(3,2,0)"><span class="oi"></span>Не указан тон общения с водителем</button>
-      <button class="opt" onclick="checkQuiz(3,3,0)"><span class="oi"></span>Промт слишком технический</button>
+      <button class="opt" onclick="checkQuiz(3,0,1)"><span class="oi"></span>Нет роли — нейросеть не знает, кто пишет</button>
+      <button class="opt" onclick="checkQuiz(3,1,1)"><span class="oi"></span>Нет ключевых вводных: какой рейс переносится, с какого времени на какое и что водителю нужно сделать</button>
+      <button class="opt" onclick="checkQuiz(3,2,1)"><span class="oi"></span>Не указан тон общения с водителем</button>
+      <button class="opt" onclick="checkQuiz(3,3,1)"><span class="oi"></span>Промт слишком технический</button>
     </div>
     <div class="quiz-fb" id="fb3"></div>
   </div>
@@ -1041,9 +1041,9 @@ function toggleAnswer(id){
 
 /* ========== КВИЗ ========== */
 const quizData = {
-  1: { correct: 2, fb_ok: '✓ Верно! Без контекста нейросеть не знает, по чему писать отчёт, для кого и в каком виде. Это сразу три пропущенных блока.', fb_no: 'Почти, но главная беда — отсутствие контекста и задачи: нейросеть не знает по чему отчёт, для кого и в каком виде.' },
-  2: { correct: 1, fb_ok: '✓ Точно! «Краткий и подробный» — взаимоисключающие требования. Нейросеть попытается угодить обоим и в итоге не угодит ни одному. Всегда выбирай одно.', fb_no: 'Главная ловушка здесь — взаимоисключающие требования: «краткий и подробный» одновременно. Модель не сможет их выполнить.' },
-  3: { correct: 1, fb_ok: '✓ Правильно! Роль есть, а вот деталей нет вообще: когда перенос, на сколько, причина. Без этого получится шаблон «рейс перенесён» и больше ничего.', fb_no: 'Роль есть — это плюс. Но ключевое упущение — нет деталей: когда, на сколько, почему. Без этого ответ будет пустым шаблоном.' }
+  1: { correct: 2, fb_ok: '✓ Верно! Сама задача понятна — нужен отчёт. Но не хватает исходного контекста: по каким данным его готовить, для кого и в каком формате. Без этого модель будет вынуждена додумывать.', fb_no: 'Задача уже есть: подготовить отчёт. Главная проблема — нет исходного контекста, аудитории и формата результата.' },
+  2: { correct: 1, fb_ok: '✓ Точно! Ограничения физически противоречат друг другу: текст не может одновременно быть короче 60 слов и содержать не менее 300 слов. Требования нужно согласовать.', fb_no: 'Главная проблема — прямое противоречие в ограничениях объёма: ≤60 слов и ≥300 слов одновременно.' },
+  3: { correct: 1, fb_ok: '✓ Правильно! Роль и задача уже заданы. Не хватает фактических вводных: какой рейс переносится, старое и новое время и что должен сделать водитель. Без них получится только общий шаблон.', fb_no: 'Роль уже есть: «менеджер по логистике». Главная проблема — отсутствие фактических вводных о переносе рейса.' }
 };
 
 function checkQuiz(qNum, chosen, correct){
