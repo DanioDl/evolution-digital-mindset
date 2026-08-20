@@ -370,6 +370,28 @@ html[data-theme="light"] .patch-definition-modern .definition-card{background:li
 @media(max-width:640px){.patches-hero{padding:64px 0 54px!important;}.frame-preview{height:220px;}.patch-definition-modern .definition-card{min-height:auto;padding:24px!important;}}
 
 </style>
+
+<style id="edm-showcase-cta-style">
+.edm-showcase-cta{
+  display:inline-flex!important;align-items:center;gap:8px;
+  padding:9px 15px!important;margin-left:8px;
+  border:1px solid rgba(46,198,207,.42)!important;border-radius:999px!important;
+  background:rgba(46,198,207,.10)!important;color:var(--brand,#2ec6cf)!important;
+  font-weight:750!important;text-decoration:none!important;white-space:nowrap;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.edm-showcase-cta:before{content:"◇";font-size:.9em}
+.edm-showcase-cta:hover{
+  transform:translateY(-1px);background:rgba(46,198,207,.17)!important;
+  border-color:rgba(46,198,207,.7)!important;box-shadow:0 8px 24px rgba(17,157,181,.12);
+}
+html[data-theme="light"] .edm-showcase-cta{
+  background:rgba(15,151,177,.07)!important;border-color:rgba(15,151,177,.28)!important;
+  color:#087f99!important;
+}
+@media(max-width:900px){.edm-showcase-cta{margin-left:0!important;padding:8px 12px!important}}
+</style>
+
 </head>
 <body>
 <div class="bg"></div>
@@ -377,7 +399,8 @@ html[data-theme="light"] .patch-definition-modern .definition-card{background:li
   <div class="navin">
     <a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a>
     <button class="burger" data-burger="" aria-label="Открыть меню">☰</button>
-    <div class="links" data-links=""><a href="../index.html">Главная</a><a href="../navigator/index.html">Навигатор</a><a href="../ai/index.html">ИИ</a><a href="../ba/index.html">БА</a><a class="active" href="index.html">Цифровые заплатки</a><a href="../personal-system/index.html">Личная система</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a></div>
+    <div class="links" data-links=""><a href="../index.html">Главная</a><a href="../navigator/index.html">Навигатор</a><a href="../ai/index.html">ИИ</a><a href="../ba/index.html">БА</a><a class="active" href="index.html">Цифровые заплатки</a><a href="../personal-system/index.html">Личная система</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a>
+<a class="edm-showcase-cta" href="../ai/tools.html">Витрина</a></div>
   </div>
 </nav>
 

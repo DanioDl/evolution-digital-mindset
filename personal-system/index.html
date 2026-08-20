@@ -51,10 +51,33 @@ html[data-theme="light"] .system-node{background:rgba(255,255,255,.82)}html[data
 @media(max-width:720px){.flow-line{grid-template-columns:1fr}}
 @media(max-width:620px){.personal-hero{padding:64px 0 52px}.personal-hero h1{font-size:clamp(2.35rem,14vw,3.7rem)}.system-visual{min-height:390px;padding:20px}.system-core{width:90px;height:90px;border-radius:28px;font-size:.78rem}.system-node{width:138px;padding:10px 11px}.system-node b{font-size:.72rem}.system-node span{font-size:.64rem}.system-node.n1{left:12px;top:70px}.system-node.n2{right:12px;top:82px}.system-node.n3{left:14px;bottom:86px}.system-node.n4{right:12px;bottom:82px}.system-node.n5{bottom:22px;width:150px}.problem-grid,.parts-grid,.tools-grid,.habits-grid{grid-template-columns:1fr}.final-panel{padding:28px}}
 </style>
+
+<style id="edm-showcase-cta-style">
+.edm-showcase-cta{
+  display:inline-flex!important;align-items:center;gap:8px;
+  padding:9px 15px!important;margin-left:8px;
+  border:1px solid rgba(46,198,207,.42)!important;border-radius:999px!important;
+  background:rgba(46,198,207,.10)!important;color:var(--brand,#2ec6cf)!important;
+  font-weight:750!important;text-decoration:none!important;white-space:nowrap;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.edm-showcase-cta:before{content:"◇";font-size:.9em}
+.edm-showcase-cta:hover{
+  transform:translateY(-1px);background:rgba(46,198,207,.17)!important;
+  border-color:rgba(46,198,207,.7)!important;box-shadow:0 8px 24px rgba(17,157,181,.12);
+}
+html[data-theme="light"] .edm-showcase-cta{
+  background:rgba(15,151,177,.07)!important;border-color:rgba(15,151,177,.28)!important;
+  color:#087f99!important;
+}
+@media(max-width:900px){.edm-showcase-cta{margin-left:0!important;padding:8px 12px!important}}
+</style>
+
 </head>
 <body>
 <div class="bg"></div>
-<nav class="nav"><div class="navin"><a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a><button class="burger" data-burger="" aria-label="Открыть меню">☰</button><div class="links" data-links=""><a href="../index.html">Главная</a><a href="../navigator/index.html">Навигатор</a><a href="../ai/index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a class="active" href="index.html">Личная система</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a></div></div></nav>
+<nav class="nav"><div class="navin"><a class="brand" href="../index.html"><span class="logo">✦</span><span>Evolution<br/><small>Digital Mindset</small></span></a><button class="burger" data-burger="" aria-label="Открыть меню">☰</button><div class="links" data-links=""><a href="../index.html">Главная</a><a href="../navigator/index.html">Навигатор</a><a href="../ai/index.html">ИИ</a><a href="../ba/index.html">БА</a><a href="../practices/index.html">Цифровые заплатки</a><a class="active" href="index.html">Личная система</a><a href="../community/index.html">Сообщество</a><a class="cta" href="../library/index.html">Библиотека</a>
+<a class="edm-showcase-cta" href="../ai/tools.html">Витрина</a></div></div></nav>
 <main>
 <section class="personal-hero"><div class="wrap personal-grid"><div class="io"><div class="eyebrow">личная цифровая система</div><h1>Голова нужна не для <span>хранения</span></h1><p class="lead">Она нужна для принятия решений. Организуйте знания, проекты, идеи и задачи в единую систему, которая помогает работать спокойнее, быстрее и не терять важное.</p><div class="actions"><a class="btn primary" href="#start">С чего начать</a><a class="btn" href="#tools">Инструменты</a></div></div><div class="system-visual io" aria-hidden="true"><div class="system-core">Личная<br/>система</div><div class="system-node n1"><b>Знания</b><span>что вы уже поняли</span></div><div class="system-node n2"><b>Идеи</b><span>что пришло в голову</span></div><div class="system-node n3"><b>Проекты</b><span>над чем работаете</span></div><div class="system-node n4"><b>Задачи</b><span>что нужно сделать</span></div><div class="system-node n5"><b>ИИ</b><span>помогает развивать мысли</span></div></div></div></section>
 
