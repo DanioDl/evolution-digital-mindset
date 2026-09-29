@@ -1,0 +1,11 @@
+{
+  "html_files": 23,
+  "redesigned": 22,
+  "missing_local_links": [],
+  "inline_js_errors": [],
+  "changed_original_inline_scripts": [
+    "ai/trainer.html"
+  ],
+  "shared_app_unchanged": true,
+  "browser_visual_qa": "Chromium desktop/mobile; see UX_CHECKS.json"
+}

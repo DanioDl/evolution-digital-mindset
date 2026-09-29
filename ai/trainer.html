@@ -747,8 +747,10 @@ html[data-theme="light"] .edm-showcase-cta{
 @media(max-width:900px){.edm-showcase-cta{margin-left:0!important;padding:8px 12px!important}}
 </style>
 
+<link rel="stylesheet" href="../assets/css/immersive.css"/>
+<link rel="stylesheet" href="../assets/css/cinematic.css"/>
 </head>
-<body>
+<body data-scene="neural" data-area="ai">
 <div class="bg"></div>
 <nav class="nav">
   <div class="navin">
@@ -1049,7 +1051,7 @@ function goStep(n){
   document.getElementById('step-'+currentStep).classList.remove('active');
   currentStep = n;
   document.getElementById('step-'+currentStep).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('step-'+n).scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
   renderProgress();
   if(n===4) renderFinish();
 }
@@ -1230,5 +1232,7 @@ function restart(){
 renderProgress();
 </script>
 <script src="../assets/js/app.js"></script>
+<script src="../assets/js/cinematic.js"></script>
+<script src="../assets/js/immersive.js"></script>
 </body>
 </html>

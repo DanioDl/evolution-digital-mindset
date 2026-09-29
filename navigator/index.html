@@ -61,8 +61,10 @@ html[data-theme="light"] .edm-showcase-cta{
 @media(max-width:900px){.edm-showcase-cta{margin-left:0!important;padding:8px 12px!important}}
 </style>
 
+<link rel="stylesheet" href="../assets/css/immersive.css"/>
+<link rel="stylesheet" href="../assets/css/cinematic.css"/>
 </head>
-<body>
+<body data-scene="neural" data-area="navigator">
 <div class="bg"></div>
 <nav class="nav">
 <div class="navin">
@@ -200,5 +202,7 @@ const choices=document.getElementById('choices'),empty=document.getElementById('
 choices.addEventListener('click',e=>{const b=e.target.closest('.choice');if(!b)return;choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));b.classList.add('active');const r=routes[b.dataset.route];resultKicker.textContent=r.k;resultTitle.textContent=r.t;resultText.textContent=r.x;resultLinks.innerHTML=r.l.map(x=>`<a class="result-link" href="${x[1]}"><div><b>${x[0]}</b><span>${x[2]}</span></div><b>→</b></a>`).join('');empty.style.display='none';content.classList.add('show')});
 </script>
 <script src="../assets/js/app.js"></script>
+<script src="../assets/js/cinematic.js"></script>
+<script src="../assets/js/immersive.js"></script>
 </body>
 </html>

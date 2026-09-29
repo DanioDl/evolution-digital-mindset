@@ -1,0 +1,24 @@
+{
+  "home": {
+    "target": 0.8869610060307018,
+    "rendered": 0.6990574005458425,
+    "sticky": "sticky"
+  },
+  "skipTop": 100.34375,
+  "reading": {
+    "y": 650,
+    "paged": false,
+    "inert": 0,
+    "overflow": false
+  },
+  "trainer": {
+    "step": "block",
+    "top": 276.671875,
+    "progressBottom": 157.71875
+  },
+  "mobile": {
+    "allReadable": true,
+    "overflow": false
+  },
+  "errors": []
+}
